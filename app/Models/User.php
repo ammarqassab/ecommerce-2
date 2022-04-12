@@ -17,12 +17,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
+    protected $guarded=[];
+   /* protected $fillable =[
+        'firstname',
+        'lastname',
+        'username',
+        'phone',
+        'address',
         'email',
         'password',
     ];
-
+*/
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -41,4 +46,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    Protected $appends=[
+        'profile_image_url',
+    ];
+    public function getProfileImageUrlAttribute()
+    {
+        if ($this->profile_image)
+        {
+            return asset('/uploads/profile_images/'.$this->profile_image);
+        }
+        else 
+        {
+            return 'https://ui-avatars.com/api/?background=random&name='.urldecode($this->name);
+        }
+    }
 }
