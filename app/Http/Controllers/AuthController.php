@@ -51,7 +51,7 @@ class AuthController extends BaseController
         }
         
         $user = User::create($input);
-        if ($user->role_as==1)   
+      /*  if ($user->role_as==1)   
             {
                 $role='admin';
                 $success['token']=  $user->createToken('token-admin',['server:admin'])->plainTextToken;
@@ -60,9 +60,10 @@ class AuthController extends BaseController
             {
                 $role='user';
                 $success['token'] = $user->createToken('token-user',['server:user'])->plainTextToken;
-            }
-        $success['username'] = $user->username;
-        return $this->sendResponse($success, 'USER REGISTER SUCCESSFULLU!');
+            }  */
+     //   $success['username'] = $user->username;
+     return response()->json([
+        'message'=>'register successfully',],200);
     }
 
     public function login(Request $request)

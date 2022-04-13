@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Home');
 });
+
+Route::any('/{query}',function()
+{
+    return view('Home');
+})->where('query','.*');
