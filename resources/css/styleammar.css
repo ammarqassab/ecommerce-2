@@ -639,6 +639,7 @@ input:disabled {
   left: none;
 }
 .sidebar-sticky {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   left: 0;

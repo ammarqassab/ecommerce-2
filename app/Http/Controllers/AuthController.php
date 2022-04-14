@@ -33,7 +33,7 @@ class AuthController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('Validator Error', $validator->errors());
         }
-       
+
        // $image_name=$user->profile_image;
        // $request->profile_image->move(public_path('/upload/profile_images'),$image_name);
        // 'profile_image'=>$image_name
@@ -49,9 +49,9 @@ class AuthController extends BaseController
             $request->profile_image->move(public_path('/upload/profile_images'),$image_name);
             $input['profile_image']=$image_name;
         }
-        
+
         $user = User::create($input);
-      /*  if ($user->role_as==1)   
+      /*  if ($user->role_as==1)
             {
                 $role='admin';
                 $success['token']=  $user->createToken('token-admin',['server:admin'])->plainTextToken;
@@ -68,13 +68,13 @@ class AuthController extends BaseController
 
     public function login(Request $request)
     {
-        
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
 
             $user = Auth::user();
 
-            if ($user->role_as==1)   
+            if ($user->role_as==1)
             {
                 $role='admin';
                 $success['token']=  $user->createToken('token-admin',['server:admin'])->plainTextToken;
@@ -84,7 +84,7 @@ class AuthController extends BaseController
                 $role='user';
                 $success['token'] = $user->createToken('token-user',['server:user'])->plainTextToken;
             }
-           
+
             $success['username'] = $user->username;
             $success['firstname'] = $user->firstname;
             $success['lastname'] = $user->lastname;
@@ -104,7 +104,7 @@ class AuthController extends BaseController
 
     public function logout(Request $request){
 
-        $request->user()->currentAccessToken()->delete();
+        // $request->user()->currentAccessToken()->delete();
 
 
         return $this->sendResponse('Logout','USER logout Successfully!');

@@ -1,6 +1,2059 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/axios/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/adapters/xhr.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/adapters/xhr.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
+var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "./node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+    var responseType = config.responseType;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    var fullPath = buildFullPath(config.baseURL, config.url);
+    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    function onloadend() {
+      if (!request) {
+        return;
+      }
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+        request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    }
+
+    if ('onloadend' in request) {
+      // Use onloadend if available
+      request.onloadend = onloadend;
+    } else {
+      // Listen for ready state to emulate onloadend
+      request.onreadystatechange = function handleLoad() {
+        if (!request || request.readyState !== 4) {
+          return;
+        }
+
+        // The request errored out and we didn't get a response, this will be
+        // handled by onerror instead
+        // With one exception: request that using file: protocol, most browsers
+        // will return status as 0 even though it's a successful request
+        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+          return;
+        }
+        // readystate handler is calling before onerror or ontimeout handlers,
+        // so we should call onloadend on the next 'tick'
+        setTimeout(onloadend);
+      };
+    }
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+      reject(createError(
+        timeoutErrorMessage,
+        config,
+        config.transitional && config.transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (!utils.isUndefined(config.withCredentials)) {
+      request.withCredentials = !!config.withCredentials;
+    }
+
+    // Add responseType to request if needed
+    if (responseType && responseType !== 'json') {
+      request.responseType = config.responseType;
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (!requestData) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/axios.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/axios.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios/lib/helpers/spread.js");
+
+// Expose isAxiosError
+axios.isAxiosError = __webpack_require__(/*! ./helpers/isAxiosError */ "./node_modules/axios/lib/helpers/isAxiosError.js");
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports["default"] = axios;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/Cancel.js":
+/*!*************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
+  \*************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/CancelToken.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/isCancel.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
+  \***************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/Axios.js":
+/*!**********************************************!*\
+  !*** ./node_modules/axios/lib/core/Axios.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+var validator = __webpack_require__(/*! ../helpers/validator */ "./node_modules/axios/lib/helpers/validator.js");
+
+var validators = validator.validators;
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
+  }
+
+  config = mergeConfig(this.defaults, config);
+
+  // Set config.method
+  if (config.method) {
+    config.method = config.method.toLowerCase();
+  } else if (this.defaults.method) {
+    config.method = this.defaults.method.toLowerCase();
+  } else {
+    config.method = 'get';
+  }
+
+  var transitional = config.transitional;
+
+  if (transitional !== undefined) {
+    validator.assertOptions(transitional, {
+      silentJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
+      forcedJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
+      clarifyTimeoutError: validators.transitional(validators.boolean, '1.0.0')
+    }, false);
+  }
+
+  // filter out skipped interceptors
+  var requestInterceptorChain = [];
+  var synchronousRequestInterceptors = true;
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
+      return;
+    }
+
+    synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+
+    requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  var responseInterceptorChain = [];
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  var promise;
+
+  if (!synchronousRequestInterceptors) {
+    var chain = [dispatchRequest, undefined];
+
+    Array.prototype.unshift.apply(chain, requestInterceptorChain);
+    chain = chain.concat(responseInterceptorChain);
+
+    promise = Promise.resolve(config);
+    while (chain.length) {
+      promise = promise.then(chain.shift(), chain.shift());
+    }
+
+    return promise;
+  }
+
+
+  var newConfig = config;
+  while (requestInterceptorChain.length) {
+    var onFulfilled = requestInterceptorChain.shift();
+    var onRejected = requestInterceptorChain.shift();
+    try {
+      newConfig = onFulfilled(newConfig);
+    } catch (error) {
+      onRejected(error);
+      break;
+    }
+  }
+
+  try {
+    promise = dispatchRequest(newConfig);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+
+  while (responseInterceptorChain.length) {
+    promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: (config || {}).data
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/InterceptorManager.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected,
+    synchronous: options ? options.synchronous : false,
+    runWhen: options ? options.runWhen : null
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/buildFullPath.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ "./node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ "./node_modules/axios/lib/helpers/combineURLs.js");
+
+/**
+ * Creates a new URL by combining the baseURL with the requestedURL,
+ * only when the requestedURL is not already an absolute URL.
+ * If the requestURL is absolute, this function returns the requestedURL untouched.
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} requestedURL Absolute or relative URL to combine
+ * @returns {string} The combined full path
+ */
+module.exports = function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/createError.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/createError.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/dispatchRequest.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/axios/lib/core/transformData.js");
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData.call(
+    config,
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData.call(
+      config,
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData.call(
+          config,
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/enhanceError.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/core/enhanceError.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+  return error;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/mergeConfig.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  var valueFromConfig2Keys = ['url', 'method', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
+  var defaultToConfig2Keys = [
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
+    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
+    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
+  ];
+  var directMergeKeys = ['validateStatus'];
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    }
+  });
+
+  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
+
+  utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  utils.forEach(directMergeKeys, function merge(prop) {
+    if (prop in config2) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  var axiosKeys = valueFromConfig2Keys
+    .concat(mergeDeepPropertiesKeys)
+    .concat(defaultToConfig2Keys)
+    .concat(directMergeKeys);
+
+  var otherKeys = Object
+    .keys(config1)
+    .concat(Object.keys(config2))
+    .filter(function filterAxiosKeys(key) {
+      return axiosKeys.indexOf(key) === -1;
+    });
+
+  utils.forEach(otherKeys, mergeDeepProperties);
+
+  return config;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/settle.js":
+/*!***********************************************!*\
+  !*** ./node_modules/axios/lib/core/settle.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios/lib/core/createError.js");
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/transformData.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/transformData.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var defaults = __webpack_require__(/*! ./../defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  var context = this || defaults;
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn.call(context, data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/defaults.js":
+/*!********************************************!*\
+  !*** ./node_modules/axios/lib/defaults.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var enhanceError = __webpack_require__(/*! ./core/enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/axios/lib/adapters/xhr.js");
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(/*! ./adapters/http */ "./node_modules/axios/lib/adapters/xhr.js");
+  }
+  return adapter;
+}
+
+function stringifySafely(rawValue, parser, encoder) {
+  if (utils.isString(rawValue)) {
+    try {
+      (parser || JSON.parse)(rawValue);
+      return utils.trim(rawValue);
+    } catch (e) {
+      if (e.name !== 'SyntaxError') {
+        throw e;
+      }
+    }
+  }
+
+  return (encoder || JSON.stringify)(rawValue);
+}
+
+var defaults = {
+
+  transitional: {
+    silentJSONParsing: true,
+    forcedJSONParsing: true,
+    clarifyTimeoutError: false
+  },
+
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data) || (headers && headers['Content-Type'] === 'application/json')) {
+      setContentTypeIfUnset(headers, 'application/json');
+      return stringifySafely(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    var transitional = this.transitional;
+    var silentJSONParsing = transitional && transitional.silentJSONParsing;
+    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+    var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
+
+    if (strictJSONParsing || (forcedJSONParsing && utils.isString(data) && data.length)) {
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        if (strictJSONParsing) {
+          if (e.name === 'SyntaxError') {
+            throw enhanceError(e, this, 'E_JSON_PARSE');
+          }
+          throw e;
+        }
+      }
+    }
+
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+  maxBodyLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/bind.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/bind.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/buildURL.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/combineURLs.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/cookies.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/cookies.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
+
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
+        }
+      };
+    })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isAxiosError.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Determines whether the payload is an error thrown by Axios
+ *
+ * @param {*} payload The value to test
+ * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+ */
+module.exports = function isAxiosError(payload) {
+  return (typeof payload === 'object') && (payload.isAxiosError === true);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
+
+      /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+      function resolveURL(url) {
+        var href = url;
+
+        if (msie) {
+        // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
+        urlParsingNode.setAttribute('href', href);
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
+      }
+
+      originURL = resolveURL(window.location.href);
+
+      /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+      };
+    })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+
+  return parsed;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/spread.js":
+/*!**************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/spread.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/validator.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/validator.js ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var pkg = __webpack_require__(/*! ./../../package.json */ "./node_modules/axios/package.json");
+
+var validators = {};
+
+// eslint-disable-next-line func-names
+['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach(function(type, i) {
+  validators[type] = function validator(thing) {
+    return typeof thing === type || 'a' + (i < 1 ? 'n ' : ' ') + type;
+  };
+});
+
+var deprecatedWarnings = {};
+var currentVerArr = pkg.version.split('.');
+
+/**
+ * Compare package versions
+ * @param {string} version
+ * @param {string?} thanVersion
+ * @returns {boolean}
+ */
+function isOlderVersion(version, thanVersion) {
+  var pkgVersionArr = thanVersion ? thanVersion.split('.') : currentVerArr;
+  var destVer = version.split('.');
+  for (var i = 0; i < 3; i++) {
+    if (pkgVersionArr[i] > destVer[i]) {
+      return true;
+    } else if (pkgVersionArr[i] < destVer[i]) {
+      return false;
+    }
+  }
+  return false;
+}
+
+/**
+ * Transitional option validator
+ * @param {function|boolean?} validator
+ * @param {string?} version
+ * @param {string} message
+ * @returns {function}
+ */
+validators.transitional = function transitional(validator, version, message) {
+  var isDeprecated = version && isOlderVersion(version);
+
+  function formatMessage(opt, desc) {
+    return '[Axios v' + pkg.version + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
+  }
+
+  // eslint-disable-next-line func-names
+  return function(value, opt, opts) {
+    if (validator === false) {
+      throw new Error(formatMessage(opt, ' has been removed in ' + version));
+    }
+
+    if (isDeprecated && !deprecatedWarnings[opt]) {
+      deprecatedWarnings[opt] = true;
+      // eslint-disable-next-line no-console
+      console.warn(
+        formatMessage(
+          opt,
+          ' has been deprecated since v' + version + ' and will be removed in the near future'
+        )
+      );
+    }
+
+    return validator ? validator(value, opt, opts) : true;
+  };
+};
+
+/**
+ * Assert object's properties type
+ * @param {object} options
+ * @param {object} schema
+ * @param {boolean?} allowUnknown
+ */
+
+function assertOptions(options, schema, allowUnknown) {
+  if (typeof options !== 'object') {
+    throw new TypeError('options must be an object');
+  }
+  var keys = Object.keys(options);
+  var i = keys.length;
+  while (i-- > 0) {
+    var opt = keys[i];
+    var validator = schema[opt];
+    if (validator) {
+      var value = options[opt];
+      var result = value === undefined || validator(value, opt, options);
+      if (result !== true) {
+        throw new TypeError('option ' + opt + ' must be ' + result);
+      }
+      continue;
+    }
+    if (allowUnknown !== true) {
+      throw Error('Unknown option ' + opt);
+    }
+  }
+}
+
+module.exports = {
+  isOlderVersion: isOlderVersion,
+  assertOptions: assertOptions,
+  validators: validators
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/utils.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/utils.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is a Buffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Buffer, otherwise false
+ */
+function isBuffer(val) {
+  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
+    && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (toString.call(val) !== '[object Object]') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (isPlainObject(result[key]) && isPlainObject(val)) {
+      result[key] = merge(result[key], val);
+    } else if (isPlainObject(val)) {
+      result[key] = merge({}, val);
+    } else if (isArray(val)) {
+      result[key] = val.slice();
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */
+function stripBOM(content) {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isPlainObject: isPlainObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  extend: extend,
+  trim: trim,
+  stripBOM: stripBOM
+};
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -20,6 +2073,62 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 __webpack_require__(/*! ./components/index */ "./resources/js/components/index.js");
+
+/***/ }),
+
+/***/ "./resources/js/components/Api/FormApi.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/Api/FormApi.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "loginuser": () => (/* binding */ loginuser),
+/* harmony export */   "logoutuser": () => (/* binding */ logoutuser),
+/* harmony export */   "registeruser": () => (/* binding */ registeruser)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var apiurl = 'http://127.0.0.1:8000/api'; // axios.defaults.validateStatus = () => {
+//     return true;
+//     };
+
+var registeruser = function registeruser(values) {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: apiurl,
+    timeout: 20000,
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  var responsee = service.post('/register/', values);
+  return responsee;
+};
+var loginuser = function loginuser(values) {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: apiurl,
+    timeout: 20000,
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  var responsee = service.post('/login/', values);
+  return responsee;
+};
+var logoutuser = function logoutuser(token) {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: apiurl,
+    timeout: 20000,
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  });
+  var responsee = service.post('/logout');
+  return responsee;
+};
 
 /***/ }),
 
@@ -96,8 +2205,86 @@ function App() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
         path: "/register",
         element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_pages_Register_Register__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+        path: "/dashboard",
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+          children: "Dashboard"
+        })
       })]
     })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Context/AuthContext.js":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Context/AuthContext.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AuthContext": () => (/* binding */ AuthContext),
+/* harmony export */   "default": () => (/* binding */ AuthProvider)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var AuthContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext();
+function AuthProvider(props) {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState({}),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      auth = _React$useState2[0],
+      setauth = _React$useState2[1];
+
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+    var firstname = localStorage.getItem("firstname");
+    var lastname = localStorage.getItem("lastname");
+    var username = localStorage.getItem("username");
+    var email = localStorage.getItem("email");
+    var phone = localStorage.getItem("phone");
+    var address = localStorage.getItem("address"); // const city = localStorage.getItem("city");
+    // const id = localStorage.getItem("id");
+
+    var token = localStorage.getItem("token");
+    var role = localStorage.getItem("role");
+    var message = localStorage.getItem("message");
+
+    if (token) {
+      setauth({
+        firstname: firstname,
+        lastname: lastname,
+        username: username,
+        email: email,
+        phone: phone,
+        address: address,
+        token: token,
+        role: role,
+        message: message
+      });
+    }
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(AuthContext.Provider, {
+    value: {
+      auth: auth,
+      setauth: setauth
+    },
+    children: props.children
   });
 }
 
@@ -158,11 +2345,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function MyNavLink(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, _objectSpread(_objectSpread({
-    className: "bar-item button textc-1 margin-left round-xlarge",
+    className: "bar-item button textc-1  margin round-xlarge",
     style: function style(_ref) {
       var isActive = _ref.isActive;
       return {
-        backgroundColor: isActive ? "red" : ""
+        backgroundColor: isActive ? "#ff9900" : ""
       };
     }
   }, props), {}, {
@@ -174,7 +2361,7 @@ function Siderbar() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "sidebar-sticky bgc-1",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "bar textc-2 flex-nowrap transparent padding-16",
+      className: "bar textc-2 transparent",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(MyNavLink, {
         to: "/",
         children: "Home"
@@ -212,8 +2399,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ TopHeader)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _Api_FormApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Api/FormApi */ "./resources/js/components/Api/FormApi.js");
+/* harmony import */ var _Context_AuthContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Context/AuthContext */ "./resources/js/components/Context/AuthContext.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -225,13 +2414,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
 function MyNavLink(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, _objectSpread(_objectSpread({
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, _objectSpread(_objectSpread({
     className: "col m25 text-decoration-none hover-textc-4 center padding-large",
     style: function style(_ref) {
       var isActive = _ref.isActive;
       return {
-        color: isActive ? "red" : "#3edbf0"
+        color: isActive ? "#ff9900" : "#3edbf0"
       };
     }
   }, props), {}, {
@@ -240,39 +2432,65 @@ function MyNavLink(props) {
 }
 
 function TopHeader() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  var authContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(_Context_AuthContext__WEBPACK_IMPORTED_MODULE_2__.AuthContext);
+
+  function logout() {
+    (0,_Api_FormApi__WEBPACK_IMPORTED_MODULE_1__.logoutuser)(authContext.auth.token).then(function (responsee) {
+      authContext.setauth({});
+      localStorage.clear(); // window.location.assign("http://127.0.0.1:8000");
+    })["catch"](function () {
+      return alert("حدث خطأ في تسجيل الخروج");
+    });
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     id: "top-header",
     className: "panle padding-0 border-bottom bgc-1",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "row-padding",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
         to: "/",
         className: "col m33 text-decoration-none xxlarge sofia textc-4 hover-textc-3 margin-top",
         children: "online Ecommerce"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "col m66",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row margin",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(MyNavLink, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(MyNavLink, {
             to: "/search",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "fas fa-search textc-3"
             }), " Search"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(MyNavLink, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(MyNavLink, {
             to: "/yourCart",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "fas fa-cart-arrow-down textc-3"
             }), " Your Cart"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(MyNavLink, {
-            to: "/login",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "fas fa-sign-in-alt textc-3"
-            }), " Login"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(MyNavLink, {
-            to: "/register",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "fas fa-user-plus textc-3"
-            }), " Register"]
+          }), authContext.auth.token ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(MyNavLink, {
+              to: "/dashboard",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "fas fa-cogs textc-3"
+              }), " Dashboard"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              onClick: logout,
+              className: "col m25 text-decoration-none textc-3 hover-textc-4 center padding-large",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "fas fa-sign-out-alt textc-3"
+              }), " Log out"]
+            })]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(MyNavLink, {
+              to: "/login",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "fas fa-sign-in-alt textc-3"
+              }), " Login"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(MyNavLink, {
+              to: "/register",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "fas fa-user-plus textc-3"
+              }), " Register"]
+            })]
           })]
         })
       })]
@@ -295,8 +2513,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_styleammar_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../css/styleammar.css */ "./resources/css/styleammar.css");
 /* harmony import */ var _css_all_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../css/all.min.css */ "./resources/css/all.min.css");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App */ "./resources/js/components/App.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _Context_AuthContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Context/AuthContext */ "./resources/js/components/Context/AuthContext.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -306,8 +2526,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (document.getElementById('root')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.BrowserRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_App__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Context_AuthContext__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.BrowserRouter, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_App__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+    })
   }), document.getElementById('root'));
 }
 
@@ -367,49 +2589,120 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Login)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Api_FormApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Api/FormApi */ "./resources/js/components/Api/FormApi.js");
+/* harmony import */ var _Context_AuthContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Context/AuthContext */ "./resources/js/components/Context/AuthContext.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
 function Login() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("form", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      email = _React$useState2[0],
+      setemail = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      password = _React$useState4[0],
+      setpassword = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState({}),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      user = _React$useState6[0],
+      setuser = _React$useState6[1];
+
+  var authContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(_Context_AuthContext__WEBPACK_IMPORTED_MODULE_2__.AuthContext);
+
+  function login(e) {
+    e.preventDefault();
+    setuser({
+      email: email,
+      password: password
+    });
+    (0,_Api_FormApi__WEBPACK_IMPORTED_MODULE_1__.loginuser)(user).then(function (responsee) {
+      if (responsee.data.data.token) {
+        localStorage.setItem("firstname", responsee.data.data.firstname);
+        localStorage.setItem("lastname", responsee.data.data.lastname);
+        localStorage.setItem("username", responsee.data.data.username);
+        localStorage.setItem("email", responsee.data.data.email);
+        localStorage.setItem("phone", responsee.data.data.phone);
+        localStorage.setItem("address", responsee.data.data.address); // localStorage.setItem("city", responsee.data.data.city);
+        // localStorage.setItem("id", responsee.data.data.id);
+
+        localStorage.setItem("token", responsee.data.data.token);
+        localStorage.setItem("role", responsee.data.data.role);
+        localStorage.setItem("message", responsee.data.message);
+        authContext.setauth(responsee.data.data);
+        window.location.assign("http://127.0.0.1:8000");
+      }
+    })["catch"](function () {
+      return alert("حدث خطأ في تسجيل الدخول");
+    });
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "container width-75vw",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "margin padding card -2 hover-shadow transparent",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          "class": "center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            "class": "bar margin display-container",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-              "class": "bar-item xlarge textc-3 bottombar borderc-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "bar margin display-container",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "bar-item xlarge textc-3 bottombar borderc-3",
               children: "Login"
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row-padding",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "col s100 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
               type: "email",
               className: "input transparent round focus-border",
               placeholder: "Email",
-              name: "email"
+              name: "email",
+              value: email,
+              onChange: function onChange(e) {
+                return setemail(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "col s100 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
               type: "password",
               className: "input transparent round focus-border",
               placeholder: "Password",
-              name: "password"
+              name: "password",
+              value: password,
+              onChange: function onChange(e) {
+                return setpassword(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "col s100 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
               type: "submit",
               className: "button round-large display-block border",
               name: "signup_button",
+              onClick: login,
               children: "Login"
             })
           })]
@@ -433,106 +2726,238 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Register)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Api_FormApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Api/FormApi */ "./resources/js/components/Api/FormApi.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
 function Register() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("form", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      firstname = _React$useState2[0],
+      setfirstname = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      lastname = _React$useState4[0],
+      setlastname = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      username = _React$useState6[0],
+      setusername = _React$useState6[1];
+
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      email = _React$useState8[0],
+      setemail = _React$useState8[1];
+
+  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      password = _React$useState10[0],
+      setpassword = _React$useState10[1];
+
+  var _React$useState11 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState12 = _slicedToArray(_React$useState11, 2),
+      confirmPassword = _React$useState12[0],
+      setconfirmPassword = _React$useState12[1];
+
+  var _React$useState13 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState14 = _slicedToArray(_React$useState13, 2),
+      phone = _React$useState14[0],
+      setphone = _React$useState14[1];
+
+  var _React$useState15 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState16 = _slicedToArray(_React$useState15, 2),
+      address = _React$useState16[0],
+      setaddress = _React$useState16[1];
+
+  var _React$useState17 = react__WEBPACK_IMPORTED_MODULE_0__.useState(""),
+      _React$useState18 = _slicedToArray(_React$useState17, 2),
+      city = _React$useState18[0],
+      setcity = _React$useState18[1];
+
+  var _React$useState19 = react__WEBPACK_IMPORTED_MODULE_0__.useState({}),
+      _React$useState20 = _slicedToArray(_React$useState19, 2),
+      user = _React$useState20[0],
+      setuser = _React$useState20[1];
+
+  function register(e) {
+    e.preventDefault();
+
+    if (password === confirmPassword) {
+      setuser({
+        firstname: firstname,
+        lastname: lastname,
+        username: username,
+        email: email,
+        phone: phone,
+        address: address,
+        password: password,
+        c_password: confirmPassword
+      });
+      (0,_Api_FormApi__WEBPACK_IMPORTED_MODULE_1__.registeruser)(user).then(function (responsee) {
+        if (responsee.data.message === "register successfully") {
+          window.location.assign("http://127.0.0.1:8000/login");
+        }
+      })["catch"](function () {
+        return alert("حدث خطأ في الأضافة");
+      });
+    } else {
+      alert("wrong for password");
+    }
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("form", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "container width-75vw",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "margin padding card -2 hover-shadow transparent",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          "class": "center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            "class": "bar margin display-container",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-              "class": "bar-item xlarge textc-3 bottombar borderc-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "bar margin display-container",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+              className: "bar-item xlarge textc-3 bottombar borderc-3",
               children: "Register"
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "row-padding",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
               className: "input transparent round focus-border",
               placeholder: "First Name",
-              name: "f_name"
+              name: "f_name",
+              value: firstname,
+              onChange: function onChange(e) {
+                return setfirstname(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
               className: "input transparent round focus-border",
               placeholder: "Last Name",
-              name: "l_name"
+              name: "l_name",
+              value: lastname,
+              onChange: function onChange(e) {
+                return setlastname(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
               className: "input transparent round focus-border",
               placeholder: "User Name",
-              name: "l_name"
+              name: "u_name",
+              value: username,
+              onChange: function onChange(e) {
+                return setusername(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "email",
               className: "input transparent round focus-border",
               placeholder: "Email",
-              name: "email"
+              name: "email",
+              value: email,
+              onChange: function onChange(e) {
+                return setemail(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "password",
               className: "input transparent round focus-border",
               placeholder: "Password",
-              name: "password"
+              name: "password",
+              value: password,
+              onChange: function onChange(e) {
+                return setpassword(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "password",
               className: "input transparent round focus-border",
               placeholder: "Confirm Password",
-              name: "repassword"
+              name: "repassword",
+              value: confirmPassword,
+              onChange: function onChange(e) {
+                return setconfirmPassword(e.target.value);
+              },
+              required: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
               className: "input transparent round focus-border",
               placeholder: "Phone",
-              name: "mobile"
+              name: "phone",
+              value: phone,
+              onChange: function onChange(e) {
+                return setphone(e.target.value);
+              }
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
               className: "input transparent round focus-border",
               placeholder: "Address",
-              name: "address1"
+              name: "address",
+              value: address,
+              onChange: function onChange(e) {
+                return setaddress(e.target.value);
+              }
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col m50 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
               className: "input transparent round focus-border",
               placeholder: "City",
-              name: "city"
+              name: "city",
+              value: city,
+              onChange: function onChange(e) {
+                return setcity(e.target.value);
+              }
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "col s100 padding",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
               type: "submit",
               className: "button round-large display-block border",
-              value: "REGISTER",
               name: "signup_button",
+              onClick: register,
               children: "Register"
             })
           })]
@@ -645,7 +3070,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_Tangerine_Iurd6Y5j_oScZZow4VO5srNZi5FN_woff2__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_sofia_8QIHdirahM3j_su5uI0_woff2__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\r\n:root {\r\n--bgc-id: #3edbf0;\r\n--text-id: rgb(0, 0, 0);\r\n--bor-id: #3edbf0;\r\n--hover: #ff9900;\r\n--fontf: Verdana, sans-serif;\r\n--text-shadow: 0px 0px 15px #3edbf0;\r\n\r\n--textinput: #3edbf0;\r\n--inputrequired: rgba(255, 0, 0, 0.3);\r\n--inputborder: 2px solid var(--bor-id);\r\n--inputborderfo: 2px solid #ff9900;\r\n\r\n--buttonbgc: #3edbf0;\r\n--buttontextc: #000;\r\n--buttonbgcho: #ff9900;\r\n--buttontextcho: rgb(0, 0, 0);\r\n\r\n--sidebarco: rgb(20, 20, 20);\r\n--sidebarlistco: rgb(20, 20, 20);\r\n\r\n--conpanmar: auto auto auto auto;\r\n--conpanpad: 1% 3%;\r\n--conpanwid: 94%;\r\n--panmar: 3%;\r\n\r\n--border: 2px solid var(--bor-id);\r\n--borbar: 6px solid var(--bor-id);\r\n\r\n--bordertab: 1px solid var(--bor-id);\r\n--trc: rgb(220, 220, 220);\r\n--trfc: rgb(180, 180, 180);\r\n--hovertabl: var(--hover);\r\n--widtabl: 100%;\r\n--widthtd: 11%;\r\n\r\n--widul: 100%;\r\n--hoverul: var(--hover);\r\n--borderul: 2px solid var(--bor-id);\r\n--borbotul: 2px solid var(--bor-id);\r\n\r\n--bgc-1: #04009a;\r\n--bgc-2: #cdfefc;\r\n--bgc-3: #3edbf0;\r\n--bgc-4: #ff9900;\r\n--textc-1: rgb(0, 0, 0);\r\n--textc-2: rgb(255, 255, 255);\r\n--textc-3: #3edbf0;\r\n--textc-4: #ff9900;\r\n--borc-1: #04009a;\r\n--borc-2: #cdfefc;\r\n--borc-3: #3edbf0;\r\n--borc-4: #ff9900;\r\n--shadowc: #3edbf0;\r\n--tagandbadge: #ff9900;\r\n}\r\n/**/\r\nhtml {\r\n  box-sizing: border-box;\r\n}\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n/* normalize.css */\r\nhtml {\r\n  -ms-text-size-adjust: 100%;\r\n  -webkit-text-size-adjust: 100%;\r\n}\r\nbody {\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\narticle,\r\naside,\r\ndetails,\r\nfigcaption,\r\nfigure,\r\nfooter,\r\nheader,\r\nmain,\r\nmenu,\r\nnav,\r\nsection {\r\n  display: block;\r\n}\r\nsummary {\r\n  display: list-item;\r\n}\r\naudio,\r\ncanvas,\r\nprogress,\r\nvideo {\r\n  display: inline-block;\r\n}\r\nprogress {\r\n  vertical-align: baseline;\r\n}\r\naudio:not([controls]) {\r\n  display: none;\r\n  height: 0;\r\n}\r\n[hidden],\r\ntemplate {\r\n  display: none;\r\n}\r\na {\r\n  background-color: transparent;\r\n}\r\na:active,\r\na:hover {\r\n  outline-width: 0;\r\n}\r\nabbr[title] {\r\n  border-bottom: none;\r\n  text-decoration: underline;\r\n  -webkit-text-decoration: underline dotted;\r\n          text-decoration: underline dotted;\r\n}\r\nb,\r\nstrong {\r\n  font-weight: bolder;\r\n}\r\ndfn {\r\n  font-style: italic;\r\n}\r\nmark {\r\n  background: #ff0;\r\n  color: #000;\r\n}\r\nsmall {\r\n  font-size: 80%;\r\n}\r\nsub,\r\nsup {\r\n  font-size: 75%;\r\n  line-height: 0;\r\n  position: relative;\r\n  vertical-align: baseline;\r\n}\r\nsub {\r\n  bottom: -0.25em;\r\n}\r\nsup {\r\n  top: -0.5em;\r\n}\r\nfigure {\r\n  margin: 1em 40px;\r\n}\r\nimg {\r\n  border-style: none;\r\n}\r\ncode,\r\nkbd,\r\npre,\r\nsamp {\r\n  font-family: monospace, monospace;\r\n  font-size: 1em;\r\n}\r\nhr {\r\n  box-sizing: content-box;\r\n  height: 0;\r\n  overflow: visible;\r\n}\r\nbutton,\r\ninput,\r\nselect,\r\ntextarea,\r\noptgroup {\r\n  font: inherit;\r\n  margin: 0;\r\n}\r\noptgroup {\r\n  font-weight: bold;\r\n}\r\nbutton,\r\ninput {\r\n  overflow: visible;\r\n}\r\nbutton,\r\nselect {\r\n  text-transform: none;\r\n}\r\nbutton,\r\n[type=\"button\"],\r\n[type=\"reset\"],\r\n[type=\"submit\"] {\r\n  -webkit-appearance: button;\r\n}\r\nbutton::-moz-focus-inner,\r\n[type=\"button\"]::-moz-focus-inner,\r\n[type=\"reset\"]::-moz-focus-inner,\r\n[type=\"submit\"]::-moz-focus-inner {\r\n  border-style: none;\r\n  padding: 0;\r\n}\r\nbutton:-moz-focusring,\r\n[type=\"button\"]:-moz-focusring,\r\n[type=\"reset\"]:-moz-focusring,\r\n[type=\"submit\"]:-moz-focusring {\r\n  outline: 1px dotted white;\r\n}\r\nfieldset {\r\n  border: 1px solid #c0c0c0;\r\n  margin: 0 2px;\r\n  padding: 0.35em 0.625em 0.75em;\r\n}\r\nlegend {\r\n  color: inherit;\r\n  display: table;\r\n  max-width: 100%;\r\n  padding: 0;\r\n  white-space: normal;\r\n}\r\ntextarea {\r\n  overflow: auto;\r\n}\r\n[type=\"checkbox\"],\r\n[type=\"radio\"] {\r\n  padding: 0;\r\n}\r\n[type=\"number\"]::-webkit-inner-spin-button,\r\n[type=\"number\"]::-webkit-outer-spin-button {\r\n  height: auto;\r\n}\r\n[type=\"search\"] {\r\n  -webkit-appearance: textfield;\r\n  outline-offset: -2px;\r\n}\r\n[type=\"search\"]::-webkit-search-decoration {\r\n  -webkit-appearance: none;\r\n}\r\n::-webkit-file-upload-button {\r\n  -webkit-appearance: button;\r\n  font: inherit;\r\n}\r\n/* End normalize.css */\r\nhtml,\r\nbody {\r\n  font-family: var(--fontf);\r\n  font-size: 15px;\r\n  line-height: 1.5;\r\n}\r\nhtml {\r\n  overflow-x: hidden;\r\n}\r\n\r\nh1 {\r\n  font-size: 36px;\r\n}\r\nh2 {\r\n  font-size: 30px;\r\n}\r\nh3 {\r\n  font-size: 24px;\r\n}\r\nh4 {\r\n  font-size: 20px;\r\n}\r\nh5 {\r\n  font-size: 18px;\r\n}\r\nh6 {\r\n  font-size: 16px;\r\n}\r\n\r\n@font-face {\r\n  font-family: \"Tangerine\";\r\n  font-style: normal;\r\n  font-weight: 700;\r\n  font-display: swap;\r\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"woff2\");\r\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\r\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\r\n    U+FEFF, U+FFFD;\r\n}\r\n/* latin */\r\n@font-face {\r\n  font-family: \"Sofia\";\r\n  font-style: normal;\r\n  font-weight: 400;\r\n  font-display: swap;\r\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"woff2\");\r\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\r\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\r\n    U+FEFF, U+FFFD;\r\n}\r\n.serif {\r\n  font-family: serif;\r\n}\r\n.sans-serif {\r\n  font-family: sans-serif;\r\n}\r\n.times {\r\n  font-family: \"Times New Roman\", Times, serif;\r\n}\r\n.monospace {\r\n  font-family: monospace;\r\n}\r\n.tangerine {\r\n  font-family: \"Tangerine\", cursive;\r\n}\r\n.sofia {\r\n  font-family: \"Sofia\", cursive;\r\n}\r\n\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nh5,\r\nh6 {\r\n  font-family: var(--fontf);\r\n  font-weight: 400;\r\n  margin: 10px 0;\r\n}\r\n\r\nhr {\r\n  border: 0;\r\n  border-top: 1px solid var(--bor-id);\r\n  margin: 20px 0;\r\n}\r\n\r\n.image {\r\n  max-width: 100%;\r\n  height: auto;\r\n}\r\nimg {\r\n  vertical-align: middle;\r\n}\r\na {\r\n  color: inherit;\r\n}\r\n\r\n.table,\r\n.table-all {\r\n  border-collapse: collapse;\r\n  border-spacing: 0;\r\n  width: var(--widtabl);\r\n  margin: auto;\r\n  display: table;\r\n}\r\n.table-all {\r\n  border: var(--bordertab);\r\n}\r\n.bordered tr,\r\n.table-all tr {\r\n  border-bottom: var(--bordertab);\r\n}\r\n.bordered tr:last-child,\r\n.table-all tr:last-child {\r\n  border-bottom: none;\r\n}\r\n.border-table {\r\n  border: var(--bordertab) !important;\r\n}\r\n.striped tbody tr:nth-child(even) {\r\n  background-color: var(--trc);\r\n}\r\n.table thead tr:first-child {\r\n  background-color: var(--trfc) !important;\r\n}\r\n.table-all thead tr:first-child {\r\n  background-color: var(--trfc) !important;\r\n}\r\n.table-all tbody tr:nth-child(even) {\r\n  background-color: var(--trc);\r\n}\r\n.hovertabl tbody tr:hover {\r\n  background-color: var(--hovertabl);\r\n}\r\n.table-all tbody tr:hover {\r\n  background-color: var(--hovertabl);\r\n}\r\n.centered tr th,\r\n.centered tr td,\r\n.table-all tr th,\r\n.table-all tr td {\r\n  text-align: center;\r\n}\r\n.righted tr th,\r\n.righted tr td {\r\n  text-align: right;\r\n}\r\n.table td,\r\n.table th,\r\n.table-all td,\r\n.table-all th {\r\n  padding: 8px 8px;\r\n  display: table-cell;\r\n  text-align: left;\r\n  vertical-align: top;\r\n  margin: auto;\r\n  width: var(--widthtd);\r\n}\r\n.table th:first-child,\r\n.table td:first-child,\r\n.table-all th:first-child,\r\n.table-all td:first-child {\r\n  padding-left: 16px;\r\n}\r\n.responsive {\r\n  display: block;\r\n  overflow-x: auto;\r\n}\r\n\r\n.badge,\r\n.tag {\r\n  background-color: var(--tagandbadge) !important;\r\n  display: inline-block;\r\n  padding-left: 8px;\r\n  padding-right: 8px;\r\n  text-align: center;\r\n}\r\n.badge {\r\n  border-radius: 50%;\r\n}\r\n\r\n.ul {\r\n  list-style-type: none;\r\n  padding: 0;\r\n  margin: 0;\r\n  overflow: hidden;\r\n  width: var(--widul);\r\n}\r\n.ul li {\r\n  color: #ff9900;\r\n  padding: 8px 16px;\r\n  border-bottom: var(--borbotul);\r\n}\r\n.ul li:last-child {\r\n  border-bottom: none;\r\n}\r\n.ul.hoverul li:hover {\r\n  color: var(--textc-1)!important;\r\n  background-color: var(--hoverul);\r\n}\r\n.borderul {\r\n  border: var(--borderul) !important;\r\n}\r\n::marker {\r\n  color: red;\r\n}\r\n\r\n.tooltip {\r\n  position: relative;\r\n}\r\n.tooltip .text {\r\n  display: none;\r\n}\r\n.tooltip:hover .text {\r\n  display: inline-block;\r\n}\r\n.text.text-positiontop {\r\n  position: absolute;\r\n  left: 0;\r\n  bottom: 20px;\r\n}\r\n.text.text-positionbottom {\r\n  position: absolute;\r\n  left: 0;\r\n  bottom: -20px;\r\n}\r\n\r\n.input {\r\n  padding: 8px;\r\n  display: block;\r\n  border: var(--inputborder);\r\n  color: #000;\r\n  width: 100%;\r\n  outline: none;\r\n}\r\n.select {\r\n  padding: 9px 0;\r\n  width: 100%;\r\n  border: var(--inputborder);\r\n  color: var(--text-id);\r\n  width: 100%;\r\n  outline: none;\r\n}\r\n.checkbox,\r\n.radio {\r\n  width: 24px;\r\n  height: 24px;\r\n  position: relative;\r\n  top: 6px;\r\n}\r\n:-ms-input-placeholder {\r\n  color: var(--textinput);\r\n}\r\n::-moz-placeholder {\r\n  color: var(--textinput);\r\n}\r\n::placeholder {\r\n  color: var(--textinput);\r\n}\r\ninput:out-of-range {\r\n  border: 2px solid red;\r\n}\r\n.checked:checked + label {\r\n  color: var(--textc-4) !important;\r\n}\r\ninput:required {\r\n  background-color: var(--inputrequired);\r\n}\r\ninput[type=\"text\"]:-moz-read-only {\r\n  background-color: var(--inputrequired);\r\n}\r\ninput[type=\"text\"]:read-only {\r\n  background-color: var(--inputrequired);\r\n}\r\ninput:disabled {\r\n  background-color: var(--inputrequired);\r\n}\r\n.input-width100:focus {\r\n  width: 100% !important;\r\n}\r\n\r\n.btn,\r\n.button {\r\n  border: none;\r\n  display: inline-block;\r\n  padding: 8px 16px;\r\n  margin: 0px;\r\n  vertical-align: middle;\r\n  overflow: hidden;\r\n  text-decoration: none;\r\n  color: var(--buttontextc);\r\n  background-color: var(--buttonbgc);\r\n  text-align: center;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  outline: 0;\r\n}\r\n.btn,\r\n.button {\r\n  -webkit-touch-callout: none;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n}\r\n.disabled,\r\n.btn:disabled,\r\n.button:disabled {\r\n  cursor: not-allowed;\r\n  opacity: 0.4;\r\n}\r\n.disabled *,\r\n:disabled * {\r\n  pointer-events: none;\r\n}\r\n.btn.disabled:hover,\r\n.btn:disabled:hover {\r\n  box-shadow: none;\r\n}\r\n.button:hover {\r\n  color: var(--buttontextcho) !important;\r\n  background-color: var(--buttonbgcho) !important;\r\n}\r\n.btn:hover {\r\n  box-shadow: 0 6px 10px 0 var(--shadowc), 0 8px 20px 0 var(--shadowc);\r\n}\r\n.ripple:active {\r\n  opacity: 0.4;\r\n}\r\n\r\n.bar {\r\n  width: 100%;\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-wrap: wrap;\r\n  justify-content: flex-start;\r\n  align-content: center;\r\n}\r\n.center .bar {\r\n  display: inline-block;\r\n  width: auto;\r\n}\r\n.bar .bar-item {\r\n  padding: 8px 16px;\r\n  width: auto;\r\n  float: left;\r\n  border: none;\r\n  outline: none;\r\n}\r\n.bar .button {\r\n  white-space: normal;\r\n}\r\n.bar-block {\r\n  width: auto;\r\n}\r\n.bar-block .bar-item {\r\n  width: 100%;\r\n  display: block;\r\n  padding: 8px 16px;\r\n  text-align: left;\r\n  border: none;\r\n  white-space: normal;\r\n  float: none;\r\n  outline: none;\r\n}\r\n.bar-block.center .bar-item {\r\n  text-align: center;\r\n}\r\n.block {\r\n  display: block;\r\n  width: 100%;\r\n}\r\n\r\n.bar .dropdown-hover,\r\n.bar .dropdown-click {\r\n  position: static;\r\n} /*float:left*/\r\n.bar-block .dropdown-hover,\r\n.bar-block .dropdown-click {\r\n  width: 100%;\r\n}\r\n.bar-block .dropdown-hover .dropdown-content,\r\n.bar-block .dropdown-click .dropdown-content {\r\n  min-width: 100%;\r\n}\r\n.bar-block .dropdown-hover .button,\r\n.bar-block .dropdown-click .button {\r\n  width: 100%;\r\n  text-align: left;\r\n  padding: 8px 16px;\r\n}\r\n\r\n.sidebar {\r\n  height: 100%;\r\n  width: 180px;\r\n  background-color: var(--sidebarlistco);\r\n  position: fixed !important;\r\n  top: 0;\r\n  z-index: 10000000;\r\n  overflow: auto;\r\n}\r\n.sidebar-right {\r\n  right: 0 !important;\r\n  left: none;\r\n}\r\n.sidebar-sticky {\r\n  position: -webkit-sticky;\r\n  position: sticky;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  z-index: 99;\r\n  background-color: var(--sidebarco);\r\n}\r\n.dropdown-click,\r\n.dropdown-hover {\r\n  position: relative;\r\n  display: inline-block;\r\n  cursor: pointer;\r\n}\r\n.dropdown-hover:hover .dropdown-content {\r\n  display: block;\r\n}\r\n.dropdown-hover:first-child,\r\n.dropdown-click:hover {\r\n  background-color: var(--buttonbgcho);\r\n  color: var(--buttontextcho);\r\n}\r\n.dropdown-hover:hover > .button:first-child,\r\n.dropdown-click:hover > .button:first-child {\r\n  background-color: var(--buttonbgcho);\r\n  color: var(--buttontextcho);\r\n}\r\n.dropdown-content {\r\n  cursor: auto;\r\n  color: var(--buttontextcho);\r\n  background-color: var(--buttonbgc);\r\n  display: none;\r\n  position: absolute;\r\n  min-width: 130px;\r\n  margin: 0;\r\n  padding: 0;\r\n  z-index: 9999;\r\n}\r\n.dropdown-hover .button span:after {\r\n  width: 0;\r\n  height: 0;\r\n  border: 5px solid transparent;\r\n  border-bottom: none;\r\n  border-top-color: var(--idsitecolor);\r\n  content: \"\";\r\n  vertical-align: middle;\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n}\r\n.dropdown-click .button span:after {\r\n  width: 0;\r\n  height: 0;\r\n  border: 5px solid transparent;\r\n  border-bottom: none;\r\n  border-top-color: var(--idsitecolor);\r\n  content: \"\";\r\n  vertical-align: middle;\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n}\r\n\r\n.container:after,\r\n.container:before,\r\n.panel:after,\r\n.panel:before,\r\n.row:after,\r\n.row:before,\r\n.row-padding:after,\r\n.row-padding:before,\r\n.cell-row:before,\r\n.cell-row:after,\r\n.clear:after,\r\n.clear:before,\r\n.bar:before,\r\n.bar:after {\r\n  content: \"\";\r\n  display: table;\r\n  clear: both;\r\n}\r\n\r\n/* .col,.half,.third,.twothird,.threequarter,.quarter{float:left;width:100%} */\r\n\r\n.row,\r\n.row-padding {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-wrap: wrap;\r\n  justify-content: flex-start;\r\n  align-content: center;\r\n}\r\n.col,\r\n.rest,\r\n.half,\r\n.third,\r\n.twothird,\r\n.threequarter,\r\n.quarter {\r\n  width: 100%;\r\n}\r\n.row-padding > .half,\r\n.row-padding > .third,\r\n.row-padding > .twothird,\r\n.row-padding > .threequarter,\r\n.row-padding > .quarter,\r\n.row-padding > .col {\r\n  padding: 0 8px;\r\n}\r\n.flex-nowrap {\r\n  flex-wrap: nowrap;\r\n}\r\n.flex-justifycenter {\r\n  justify-content: center;\r\n}\r\n.flex-justifyend {\r\n  justify-content: flex-end;\r\n}\r\n\r\n.col.s8 {\r\n  width: 8.33333%;\r\n}\r\n.col.s16 {\r\n  width: 16.66666%;\r\n}\r\n.col.s25 {\r\n  width: 24.99999%;\r\n}\r\n.col.s33 {\r\n  width: 33.33333%;\r\n}\r\n.col.s41 {\r\n  width: 41.66666%;\r\n}\r\n.col.s50 {\r\n  width: 49.99999%;\r\n}\r\n.col.s58 {\r\n  width: 58.33333%;\r\n}\r\n.col.s66 {\r\n  width: 66.66666%;\r\n}\r\n.col.s75 {\r\n  width: 74.99999%;\r\n}\r\n.col.s83 {\r\n  width: 83.33333%;\r\n}\r\n.col.s91 {\r\n  width: 91.66666%;\r\n}\r\n.col.s100 {\r\n  width: 99.99999%;\r\n}\r\n@media (max-width: 600px) {\r\n  .colrest {\r\n    width: 100% !important;\r\n  }\r\n  .hide-small {\r\n    display: none !important;\r\n  }\r\n  .col {\r\n    text-align: center;\r\n  }\r\n  .right-align {\r\n    text-align: center !important;\r\n  }\r\n}\r\n@media (min-width: 601px) {\r\n  .col.m8 {\r\n    width: 8.33333%;\r\n  }\r\n  .col.m16 {\r\n    width: 16.66666%;\r\n  }\r\n  .col.m25,\r\n  .quarter {\r\n    width: 24.99999%;\r\n  }\r\n  .col.m33,\r\n  .third {\r\n    width: 33.33333%;\r\n  }\r\n  .col.m41 {\r\n    width: 41.66666%;\r\n  }\r\n  .col.m50,\r\n  .half {\r\n    width: 49.99999%;\r\n  }\r\n  .col.m58 {\r\n    width: 58.33333%;\r\n  }\r\n  .col.m66,\r\n  .twothird {\r\n    width: 66.66666%;\r\n  }\r\n  .col.m75,\r\n  .threequarter {\r\n    width: 74.99999%;\r\n  }\r\n  .col.m83 {\r\n    width: 83.33333%;\r\n  }\r\n  .col.m91 {\r\n    width: 91.66666%;\r\n  }\r\n  .col.m100 {\r\n    width: 99.99999%;\r\n  }\r\n  .rest {\r\n    overflow: hidden;\r\n    width: auto;\r\n    flex-grow: 1;\r\n  }\r\n}\r\n@media (max-width: 992px) and (min-width: 601px) {\r\n  .hide-medium {\r\n    display: none !important;\r\n  }\r\n  .paddingoff {\r\n    padding: none;\r\n  }\r\n}\r\n@media (min-width: 993px) {\r\n  .col.l8 {\r\n    width: 8.33333%;\r\n  }\r\n  .col.l16 {\r\n    width: 16.66666%;\r\n  }\r\n  .col.l25 {\r\n    width: 24.99999%;\r\n  }\r\n  .col.l33 {\r\n    width: 33.33333%;\r\n  }\r\n  .col.l41 {\r\n    width: 41.66666%;\r\n  }\r\n  .col.l50 {\r\n    width: 49.99999%;\r\n  }\r\n  .col.l58 {\r\n    width: 58.33333%;\r\n  }\r\n  .col.l66 {\r\n    width: 66.66666%;\r\n  }\r\n  .col.l75 {\r\n    width: 74.99999%;\r\n  }\r\n  .col.l83 {\r\n    width: 83.33333%;\r\n  }\r\n  .col.l91 {\r\n    width: 91.66666%;\r\n  }\r\n  .col.l100 {\r\n    width: 99.99999%;\r\n  }\r\n  .hide-large {\r\n    display: none !important;\r\n  }\r\n}\r\n\r\n.container,\r\n.panel {\r\n  padding: var(--conpanpad);\r\n  width: var(--conpanwid);\r\n  margin: var(--conpanmar);\r\n}\r\n.panel {\r\n  margin: var(--panmar);\r\n}\r\n\r\n.width-10 {\r\n  width: 10%;\r\n}\r\n.width-15 {\r\n  width: 15%;\r\n}\r\n.width-20 {\r\n  width: 20%;\r\n}\r\n.width-25 {\r\n  width: 25%;\r\n}\r\n.width-33 {\r\n  width: 33.33%;\r\n}\r\n.width-50 {\r\n  width: 50%;\r\n}\r\n.width-75 {\r\n  width: 75%;\r\n}\r\n.width-100 {\r\n  width: 100%;\r\n}\r\n.width-fit-content {\r\n  width: -webkit-fit-content;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n}\r\n.width-auto {\r\n  width: auto;\r\n}\r\n.height-100px {\r\n  height: 100px;\r\n}\r\n.height-200px {\r\n  height: 200px;\r\n}\r\n.height-300px {\r\n  height: 300px;\r\n}\r\n.height-400px {\r\n  height: 400px;\r\n}\r\n.height-500px {\r\n  height: 500px;\r\n}\r\n.height-600px {\r\n  height: 600px;\r\n}\r\n.height-100 {\r\n  height: 100%;\r\n}\r\n.height-auto {\r\n  height: auto;\r\n}\r\n@media (max-width: 600px) {\r\n  .width-5vw {\r\n    width: 5vw !important;\r\n  }\r\n  .width-10vw {\r\n    width: 10vw !important;\r\n  }\r\n  .width-20vw {\r\n    width: 20vw !important;\r\n  }\r\n  .width-30vw {\r\n    width: 30vw !important;\r\n  }\r\n  .width-50vw {\r\n    width: 50vw !important;\r\n  }\r\n  .width-75vw {\r\n    width: 75vw !important;\r\n  }\r\n  .width-90vw {\r\n    width: 90vw !important;\r\n  }\r\n  .width-100vw {\r\n    width: 100vw;\r\n  }\r\n  .height-100px {\r\n    height: 50px;\r\n  }\r\n  .height-200px {\r\n    height: 100px;\r\n  }\r\n  .height-300px {\r\n    height: 150px;\r\n  }\r\n  .height-400px {\r\n    height: 200px;\r\n  }\r\n  .height-500px {\r\n    height: 250px;\r\n  }\r\n  .height-600px {\r\n    height: 300px;\r\n  }\r\n  .height-100auto {\r\n    height: auto;\r\n  }\r\n}\r\n\r\n.cell-row {\r\n  display: table;\r\n  width: 100%;\r\n}\r\n.cell {\r\n  display: table-cell;\r\n}\r\n.cell-top {\r\n  vertical-align: top;\r\n}\r\n.cell-middle {\r\n  vertical-align: middle;\r\n}\r\n.cell-bottom {\r\n  vertical-align: bottom;\r\n}\r\n\r\n.content,\r\n.auto {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n.content {\r\n  max-width: 980px;\r\n}\r\n.auto {\r\n  max-width: 1140px;\r\n}\r\n\r\n.modal {\r\n  z-index: 999;\r\n  display: none;\r\n  padding-top: 100px;\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  overflow: auto;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n}\r\n.modal-content {\r\n  margin: auto;\r\n  background-color: rgba(0, 0, 0, 0.8);\r\n  position: relative;\r\n  padding: 0;\r\n  outline: 0;\r\n  width: 80%;\r\n}\r\n\r\n@media (max-width: 1205px) {\r\n  .auto {\r\n    max-width: 95%;\r\n  }\r\n}\r\n@media (max-width: 600px) {\r\n  .modal-content {\r\n    margin: 0 16px;\r\n    width: auto !important;\r\n  }\r\n  .modal {\r\n    padding-top: 30px;\r\n  }\r\n  .dropdown-hover.mobile .dropdown-content,\r\n  .dropdown-click.mobile .dropdown-content {\r\n    position: relative;\r\n  }\r\n  .mobile {\r\n    display: block;\r\n    width: 100% !important;\r\n  }\r\n  .bar-item.mobile,\r\n  .dropdown-hover.mobile,\r\n  .dropdown-click.mobile {\r\n    text-align: center;\r\n  }\r\n  .dropdown-hover.mobile,\r\n  .dropdown-hover.mobile .btn,\r\n  .dropdown-hover.mobile .button,\r\n  .dropdown-click.mobile,\r\n  .dropdown-click.mobile .btn,\r\n  .dropdown-click.mobile .button {\r\n    width: 100%;\r\n  }\r\n}\r\n@media (max-width: 768px) {\r\n  .modal-content {\r\n    width: 500px;\r\n  }\r\n  .modal {\r\n    padding-top: 50px;\r\n  }\r\n}\r\n@media (min-width: 993px) {\r\n  .modal-content {\r\n    width: 900px;\r\n  }\r\n  .sidebar.collapse {\r\n    display: block !important;\r\n  }\r\n}\r\n@media (max-width: 992px) {\r\n  .sidebar.collapse {\r\n    display: none;\r\n  }\r\n  .main {\r\n    margin-left: 0 !important;\r\n    margin-right: 0 !important;\r\n  }\r\n  .auto {\r\n    max-width: 100%;\r\n  }\r\n}\r\n\r\n.hide {\r\n  display: none !important;\r\n}\r\n.show-block,\r\n.show {\r\n  display: block !important;\r\n}\r\n.show-inline-block {\r\n  display: inline-block !important;\r\n}\r\n\r\n.display-block {\r\n  display: block;\r\n}\r\n.display-inline {\r\n  display: inline;\r\n}\r\n.display-inlineblock {\r\n  display: inline-block;\r\n}\r\n.display-fixed {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  z-index: 3;\r\n  overflow: auto;\r\n}\r\n.display-position {\r\n  position: absolute;\r\n}\r\n.display-container {\r\n  position: relative;\r\n}\r\n.display-container:hover .display-hover {\r\n  display: block;\r\n}\r\n.display-container:hover span.display-hover {\r\n  display: inline-block;\r\n}\r\n.display-hover {\r\n  display: none;\r\n}\r\n.display-topleft {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n}\r\n.display-topright {\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n}\r\n.display-bottomleft {\r\n  position: absolute;\r\n  left: 0;\r\n  bottom: 0;\r\n}\r\n.display-bottomright {\r\n  position: absolute;\r\n  right: 0;\r\n  bottom: 0;\r\n}\r\n.display-middle {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  -ms-transform: translate(-50%, -50%);\r\n}\r\n.display-left {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 0%;\r\n  transform: translate(0%, -50%);\r\n  -ms-transform: translate(-0%, -50%);\r\n}\r\n.display-right {\r\n  position: absolute;\r\n  top: 50%;\r\n  right: 0%;\r\n  transform: translate(0%, -50%);\r\n  -ms-transform: translate(0%, -50%);\r\n}\r\n.display-topmiddle {\r\n  position: absolute;\r\n  left: 50%;\r\n  top: 0;\r\n  transform: translate(-50%, 0%);\r\n  -ms-transform: translate(-50%, 0%);\r\n}\r\n.display-bottommiddle {\r\n  position: absolute;\r\n  left: 50%;\r\n  bottom: 0;\r\n  transform: translate(-50%, 0%);\r\n  -ms-transform: translate(-50%, 0%);\r\n}\r\n\r\n@media (max-width: 600px) {\r\n  .display-right-mobile {\r\n    position: relative;\r\n    top: auto;\r\n    transform: none;\r\n  }\r\n}\r\n\r\n.circle {\r\n  border-radius: 50%;\r\n}\r\n.round-small {\r\n  border-radius: 2px;\r\n}\r\n.round,\r\n.round-medium {\r\n  border-radius: 4px;\r\n}\r\n.round-large {\r\n  border-radius: 8px;\r\n}\r\n.round-xlarge {\r\n  border-radius: 16px;\r\n}\r\n.round-xxlarge {\r\n  border-radius: 32px;\r\n}\r\n\r\n.code,\r\n.codespan {\r\n  font-family: Consolas, \"courier new\";\r\n  font-size: 16px;\r\n}\r\n.code {\r\n  width: auto;\r\n  background-color: #fff;\r\n  padding: 8px 12px;\r\n  border-left: 4px solid #4caf50;\r\n  word-wrap: break-word;\r\n}\r\n.codespan {\r\n  color: crimson;\r\n  background-color: #f1f1f1;\r\n  padding-left: 4px;\r\n  padding-right: 4px;\r\n  font-size: 110%;\r\n}\r\n\r\n.card {\r\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc);\r\n}\r\n.card-2 {\r\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc),\r\n    0 2px 15px 0 var(--shadowc);\r\n}\r\n.card-4,\r\n.hover-shadow:hover {\r\n  box-shadow: 0 4px 10px 0 var(--shadowc), 0 4px 20px 0 var(--shadowc),\r\n    0 2px 30px 0 var(--shadowc);\r\n}\r\n.hover-none:hover {\r\n  background-color: transparent !important;\r\n  box-shadow: none !important;\r\n}\r\n.transparent {\r\n  background-color: transparent !important;\r\n}\r\n\r\n.animate-top {\r\n  position: relative;\r\n  -webkit-animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n          animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n}\r\n@-webkit-keyframes animatetop {\r\n  from {\r\n    top: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    top: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n@keyframes animatetop {\r\n  from {\r\n    top: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    top: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n.animate-left {\r\n  position: relative;\r\n  -webkit-animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n          animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n}\r\n@-webkit-keyframes animateleft {\r\n  from {\r\n    left: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    left: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n@keyframes animateleft {\r\n  from {\r\n    left: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    left: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n.animate-right {\r\n  position: relative;\r\n  -webkit-animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n          animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n}\r\n@-webkit-keyframes animateright {\r\n  from {\r\n    right: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    right: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n@keyframes animateright {\r\n  from {\r\n    right: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    right: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n.animate-bottom {\r\n  position: relative;\r\n  -webkit-animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n          animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\r\n}\r\n@-webkit-keyframes animatebottom {\r\n  from {\r\n    bottom: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    bottom: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n@keyframes animatebottom {\r\n  from {\r\n    bottom: -1000px;\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    bottom: 0;\r\n    opacity: 1;\r\n  }\r\n}\r\n.animate-zoom {\r\n  position: relative;\r\n  -webkit-animation: animatezoom 1s;\r\n          animation: animatezoom 1s;\r\n}\r\n@-webkit-keyframes animatezoom {\r\n  from {\r\n    transform: scale(0);\r\n  }\r\n  to {\r\n    transform: scale(1);\r\n  }\r\n}\r\n@keyframes animatezoom {\r\n  from {\r\n    transform: scale(0);\r\n  }\r\n  to {\r\n    transform: scale(1);\r\n  }\r\n}\r\n.animate-spin {\r\n  -webkit-animation: spin 4s infinite linear;\r\n          animation: spin 4s infinite linear;\r\n  transform-origin: center center;\r\n}\r\n@-webkit-keyframes spin {\r\n  0% {\r\n    transform: rotate(0deg);\r\n  }\r\n  100% {\r\n    transform: rotate(359deg);\r\n  }\r\n}\r\n@keyframes spin {\r\n  0% {\r\n    transform: rotate(0deg);\r\n  }\r\n  100% {\r\n    transform: rotate(359deg);\r\n  }\r\n}\r\n.animate-fading {\r\n  position: relative;\r\n  -webkit-animation: fading 5s infinite;\r\n          animation: fading 5s infinite;\r\n}\r\n@-webkit-keyframes fading {\r\n  0% {\r\n    opacity: 0;\r\n  }\r\n  50% {\r\n    opacity: 1;\r\n  }\r\n  100% {\r\n    opacity: 0;\r\n  }\r\n}\r\n@keyframes fading {\r\n  0% {\r\n    opacity: 0;\r\n  }\r\n  50% {\r\n    opacity: 1;\r\n  }\r\n  100% {\r\n    opacity: 0;\r\n  }\r\n}\r\n.animate-opacity {\r\n  position: relative;\r\n  -webkit-animation: opac 2s;\r\n          animation: opac 2s;\r\n}\r\n@-webkit-keyframes opac {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n@keyframes opac {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.opacity,\r\n.hover-opacity:hover {\r\n  opacity: 0.6;\r\n}\r\n.opacity-off,\r\n.hover-opacity-off:hover {\r\n  opacity: 1;\r\n}\r\n.opacity-max {\r\n  opacity: 0.25;\r\n}\r\n.opacity-min {\r\n  opacity: 0.75;\r\n}\r\n.grayscale-max,\r\n.hover-grayscale:hover {\r\n  filter: grayscale(100%);\r\n}\r\n.grayscale {\r\n  filter: grayscale(75%);\r\n}\r\n.grayscale-min {\r\n  filter: grayscale(50%);\r\n}\r\n.sepia-max,\r\n.hover-sepia:hover {\r\n  filter: sepia(100%);\r\n}\r\n.sepia {\r\n  filter: sepia(75%);\r\n}\r\n.sepia-min {\r\n  filter: sepia(50%);\r\n}\r\n.blur-max,\r\n.hover-blur:hover {\r\n  filter: blur(10px);\r\n}\r\n.blur {\r\n  filter: blur(6px);\r\n}\r\n.blur-min {\r\n  filter: blur(2px);\r\n}\r\n.saturate-max,\r\n.hover-saturate:hover {\r\n  filter: saturate(9);\r\n}\r\n.saturate {\r\n  filter: saturate(6);\r\n}\r\n.saturate-min {\r\n  filter: saturate(3);\r\n}\r\n.contrast-max,\r\n.hover-contrast:hover {\r\n  filter: contrast(200%);\r\n}\r\n.contrast {\r\n  filter: contrast(180%);\r\n}\r\n.contrast-min {\r\n  filter: contrast(150%);\r\n}\r\n.drop-shadow-max,\r\n.hover-drop-shadow:hover {\r\n  filter: drop-shadow(0 0 30px crimson);\r\n}\r\n.drop-shadow {\r\n  filter: drop-shadow(0 0 20px crimson);\r\n}\r\n.drop-shadow-min {\r\n  filter: drop-shadow(0 0 10px crimson);\r\n}\r\n\r\n.tiny {\r\n  font-size: 10px !important;\r\n}\r\n.small {\r\n  font-size: 12px !important;\r\n}\r\n.medium {\r\n  font-size: 15px !important;\r\n}\r\n.large {\r\n  font-size: 18px !important;\r\n}\r\n.xlarge {\r\n  font-size: 24px !important;\r\n}\r\n.xxlarge {\r\n  font-size: 36px !important;\r\n}\r\n.xxxlarge {\r\n  font-size: 48px !important;\r\n}\r\n.jumbo {\r\n  font-size: 64px !important;\r\n}\r\n\r\n.outline-0 {\r\n  outline: none !important;\r\n}\r\n.border-0 {\r\n  border: none !important;\r\n}\r\n.border {\r\n  border: var(--border) !important;\r\n}\r\n.hover-border:hover {\r\n  border: var(--border) !important;\r\n}\r\n.focus-border:focus {\r\n  border: var(--inputborderfo) !important;\r\n}\r\n.border-top {\r\n  border-top: var(--border) !important;\r\n}\r\n.border-bottom {\r\n  border-bottom: var(--border) !important;\r\n}\r\n.border-left {\r\n  border-left: var(--border) !important;\r\n}\r\n.border-right {\r\n  border-right: var(--border) !important;\r\n}\r\n.topbar {\r\n  border-top: var(--borbar) !important;\r\n}\r\n.bottombar {\r\n  border-bottom: var(--borbar) !important;\r\n}\r\n.leftbar {\r\n  border-left: var(--borbar) !important;\r\n}\r\n.rightbar {\r\n  border-right: var(--borbar) !important;\r\n}\r\n\r\n.stretch {\r\n  margin-left: -16px;\r\n  margin-right: -16px;\r\n}\r\n.section,\r\n.code {\r\n  margin-top: 16px !important;\r\n  margin-bottom: 16px !important;\r\n}\r\n.margin-0 {\r\n  margin: 0 !important;\r\n}\r\n.margin {\r\n  margin: 16px !important;\r\n}\r\n.margin-top {\r\n  margin-top: 16px !important;\r\n}\r\n.margin-bottom {\r\n  margin-bottom: 16px !important;\r\n}\r\n.margin-left {\r\n  margin-left: 16px !important;\r\n}\r\n.margin-right {\r\n  margin-right: 16px !important;\r\n}\r\n\r\n.padding-0 {\r\n  padding: 0 !important;\r\n}\r\n.padding-left-0 {\r\n  padding-left: 0 !important;\r\n}\r\n.padding-right-0 {\r\n  padding-right: 0 !important;\r\n}\r\n.padding-small {\r\n  padding: 4px 8px !important;\r\n}\r\n.padding {\r\n  padding: 8px 16px !important;\r\n}\r\n.padding-large {\r\n  padding: 12px 24px !important;\r\n}\r\n.padding-16 {\r\n  padding-top: 16px !important;\r\n  padding-bottom: 16px !important;\r\n}\r\n.padding-24 {\r\n  padding-top: 24px !important;\r\n  padding-bottom: 24px !important;\r\n}\r\n.padding-32 {\r\n  padding-top: 32px !important;\r\n  padding-bottom: 32px !important;\r\n}\r\n.padding-48 {\r\n  padding-top: 48px !important;\r\n  padding-bottom: 48px !important;\r\n}\r\n.padding-64 {\r\n  padding-top: 64px !important;\r\n  padding-bottom: 64px !important;\r\n}\r\n.padding-top-64 {\r\n  padding-top: 64px !important;\r\n}\r\n.padding-top-48 {\r\n  padding-top: 48px !important;\r\n}\r\n.padding-top-32 {\r\n  padding-top: 32px !important;\r\n}\r\n.padding-top-24 {\r\n  padding-top: 24px !important;\r\n}\r\n\r\n.overlay {\r\n  position: fixed;\r\n  display: none;\r\n  width: 100%;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  z-index: 2;\r\n}\r\n.top,\r\n.bottom {\r\n  position: fixed;\r\n  width: 100%;\r\n  z-index: 1;\r\n}\r\n.top {\r\n  top: 0;\r\n}\r\n.bottom {\r\n  bottom: 0;\r\n}\r\n.left {\r\n  float: left !important;\r\n}\r\n.right {\r\n  float: right !important;\r\n}\r\n.left-align {\r\n  text-align: left;\r\n}\r\n.right-align {\r\n  text-align: right;\r\n}\r\n.justify {\r\n  text-align: justify !important;\r\n}\r\n.center {\r\n  text-align: center !important;\r\n}\r\n.wide {\r\n  letter-spacing: 4px;\r\n}\r\n.wideword {\r\n  word-spacing: 8px;\r\n}\r\n.text-shadow {\r\n  text-shadow: var(--text-shadow);\r\n}\r\n.text-line-through {\r\n  text-decoration: line-through;\r\n  color: red !important;\r\n}\r\n.text-decoration-none {\r\n  text-decoration: none;\r\n}\r\n\r\n::-moz-selection {\r\n  color: red;\r\n  background: yellow;\r\n}\r\n\r\n::selection {\r\n  color: red;\r\n  background: yellow;\r\n}\r\n:-webkit-full-screen {\r\n  background-color: aqua;\r\n}\r\n:-ms-fullscreen {\r\n  background-color: aqua;\r\n}\r\n:fullscreen {\r\n  background-color: aqua;\r\n}\r\n/* Colors */\r\n.bgc-1,\r\n.hover-bgc-1:hover {\r\n  background-color: var(--bgc-1) !important;\r\n  transition: 0.5s;\r\n}\r\n.bgc-2,\r\n.hover-bgc-2:hover {\r\n  background-color: var(--bgc-2) !important;\r\n  transition: 0.5s;\r\n}\r\n.bgc-3,\r\n.hover-bgc-3:hover {\r\n  background-color: var(--bgc-3) !important;\r\n  transition: 0.5s;\r\n}\r\n.bgc-4,\r\n.hover-bgc-4:hover {\r\n  background-color: var(--bgc-4) !important;\r\n  transition: 0.5s;\r\n}\r\n.textc-1,\r\n.hover-textc-1:hover {\r\n  color: var(--textc-1) !important;\r\n  transition: 0.5s;\r\n}\r\n.textc-2,\r\n.hover-textc-2:hover {\r\n  color: var(--textc-2) !important;\r\n  transition: 0.5s;\r\n}\r\n.textc-3,\r\n.hover-textc-3:hover {\r\n  color: var(--textc-3) !important;\r\n  transition: 0.5s;\r\n}\r\n.textc-4,\r\n.hover-textc-4:hover {\r\n  color: var(--textc-4) !important;\r\n  transition: 0.5s;\r\n}\r\n.borderc-1,\r\n.hover-borderc-1:hover {\r\n  border-color: var(--borc-1) !important;\r\n  transition: 0.5s;\r\n}\r\n.borderc-2,\r\n.hover-borderc-2:hover {\r\n  border-color: var(--borc-2) !important;\r\n  transition: 0.5s;\r\n}\r\n.borderc-3,\r\n.hover-borderc-3:hover {\r\n  border-color: var(--borc-3) !important;\r\n  transition: 0.5s;\r\n}\r\n.borderc-4,\r\n.hover-borderc-4:hover {\r\n  border-color: var(--borc-4) !important;\r\n  transition: 0.5s;\r\n}\r\n\r\n/**/\r\n/**/\r\n\r\n\r\n.clip-path-polygon\r\n{-webkit-clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);}\r\n.bgc-header\r\n{\r\n  background-image: linear-gradient(to bottom,\r\n  #04009a, #002aad, #0044bc, #005cc9,\r\n  #0073d4, #0084dd, #0094e3, #00a4e8,\r\n  #00b2ed, #00c0ef, #19cef0, #3edbf0)!important;\r\n  background-position: center center;\r\n  margin-bottom: 50px;\r\n}\r\n\r\n.bgcimg-header\r\n{\r\n  width: 25vw;\r\n  height: 25vw;\r\n  min-width: 150px;\r\n  min-height: 150px;\r\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\r\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\r\n}\r\n\r\n.img-header\r\n{\r\n  width: 25vw;\r\n  height: 25vw;\r\n  min-width: 150px;\r\n  min-height: 150px;\r\n}\r\n\r\n.imguser\r\n{\r\n  width: 100%;\r\n  height: 100%;\r\n  min-width: 50px;\r\n  min-height: 50px;\r\n  margin: 20px auto 0px;\r\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\r\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n:root {\n--bgc-id: #3edbf0;\n--text-id: rgb(0, 0, 0);\n--bor-id: #3edbf0;\n--hover: #ff9900;\n--fontf: Verdana, sans-serif;\n--text-shadow: 0px 0px 15px #3edbf0;\n\n--textinput: #3edbf0;\n--inputrequired: rgba(255, 0, 0, 0.3);\n--inputborder: 2px solid var(--bor-id);\n--inputborderfo: 2px solid #ff9900;\n\n--buttonbgc: #3edbf0;\n--buttontextc: #000;\n--buttonbgcho: #ff9900;\n--buttontextcho: rgb(0, 0, 0);\n\n--sidebarco: rgb(20, 20, 20);\n--sidebarlistco: rgb(20, 20, 20);\n\n--conpanmar: auto auto auto auto;\n--conpanpad: 1% 3%;\n--conpanwid: 94%;\n--panmar: 3%;\n\n--border: 2px solid var(--bor-id);\n--borbar: 6px solid var(--bor-id);\n\n--bordertab: 1px solid var(--bor-id);\n--trc: rgb(220, 220, 220);\n--trfc: rgb(180, 180, 180);\n--hovertabl: var(--hover);\n--widtabl: 100%;\n--widthtd: 11%;\n\n--widul: 100%;\n--hoverul: var(--hover);\n--borderul: 2px solid var(--bor-id);\n--borbotul: 2px solid var(--bor-id);\n\n--bgc-1: #04009a;\n--bgc-2: #cdfefc;\n--bgc-3: #3edbf0;\n--bgc-4: #ff9900;\n--textc-1: rgb(0, 0, 0);\n--textc-2: rgb(255, 255, 255);\n--textc-3: #3edbf0;\n--textc-4: #ff9900;\n--borc-1: #04009a;\n--borc-2: #cdfefc;\n--borc-3: #3edbf0;\n--borc-4: #ff9900;\n--shadowc: #3edbf0;\n--tagandbadge: #ff9900;\n}\n/**/\nhtml {\n  box-sizing: border-box;\n}\n* {\n  box-sizing: border-box;\n}\n/* normalize.css */\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  padding: 0;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection {\n  display: block;\n}\nsummary {\n  display: list-item;\n}\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n}\nprogress {\n  vertical-align: baseline;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden],\ntemplate {\n  display: none;\n}\na {\n  background-color: transparent;\n}\na:active,\na:hover {\n  outline-width: 0;\n}\nabbr[title] {\n  border-bottom: none;\n  text-decoration: underline;\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted;\n}\nb,\nstrong {\n  font-weight: bolder;\n}\ndfn {\n  font-style: italic;\n}\nmark {\n  background: #ff0;\n  color: #000;\n}\nsmall {\n  font-size: 80%;\n}\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsub {\n  bottom: -0.25em;\n}\nsup {\n  top: -0.5em;\n}\nfigure {\n  margin: 1em 40px;\n}\nimg {\n  border-style: none;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\nhr {\n  box-sizing: content-box;\n  height: 0;\n  overflow: visible;\n}\nbutton,\ninput,\nselect,\ntextarea,\noptgroup {\n  font: inherit;\n  margin: 0;\n}\noptgroup {\n  font-weight: bold;\n}\nbutton,\ninput {\n  overflow: visible;\n}\nbutton,\nselect {\n  text-transform: none;\n}\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button;\n}\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted white;\n}\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\nlegend {\n  color: inherit;\n  display: table;\n  max-width: 100%;\n  padding: 0;\n  white-space: normal;\n}\ntextarea {\n  overflow: auto;\n}\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  padding: 0;\n}\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n[type=\"search\"] {\n  -webkit-appearance: textfield;\n  outline-offset: -2px;\n}\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  font: inherit;\n}\n/* End normalize.css */\nhtml,\nbody {\n  font-family: var(--fontf);\n  font-size: 15px;\n  line-height: 1.5;\n}\nhtml {\n  overflow-x: hidden;\n}\n\nh1 {\n  font-size: 36px;\n}\nh2 {\n  font-size: 30px;\n}\nh3 {\n  font-size: 24px;\n}\nh4 {\n  font-size: 20px;\n}\nh5 {\n  font-size: 18px;\n}\nh6 {\n  font-size: 16px;\n}\n\n@font-face {\n  font-family: \"Tangerine\";\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"woff2\");\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\n    U+FEFF, U+FFFD;\n}\n/* latin */\n@font-face {\n  font-family: \"Sofia\";\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"woff2\");\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\n    U+FEFF, U+FFFD;\n}\n.serif {\n  font-family: serif;\n}\n.sans-serif {\n  font-family: sans-serif;\n}\n.times {\n  font-family: \"Times New Roman\", Times, serif;\n}\n.monospace {\n  font-family: monospace;\n}\n.tangerine {\n  font-family: \"Tangerine\", cursive;\n}\n.sofia {\n  font-family: \"Sofia\", cursive;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: var(--fontf);\n  font-weight: 400;\n  margin: 10px 0;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid var(--bor-id);\n  margin: 20px 0;\n}\n\n.image {\n  max-width: 100%;\n  height: auto;\n}\nimg {\n  vertical-align: middle;\n}\na {\n  color: inherit;\n}\n\n.table,\n.table-all {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: var(--widtabl);\n  margin: auto;\n  display: table;\n}\n.table-all {\n  border: var(--bordertab);\n}\n.bordered tr,\n.table-all tr {\n  border-bottom: var(--bordertab);\n}\n.bordered tr:last-child,\n.table-all tr:last-child {\n  border-bottom: none;\n}\n.border-table {\n  border: var(--bordertab) !important;\n}\n.striped tbody tr:nth-child(even) {\n  background-color: var(--trc);\n}\n.table thead tr:first-child {\n  background-color: var(--trfc) !important;\n}\n.table-all thead tr:first-child {\n  background-color: var(--trfc) !important;\n}\n.table-all tbody tr:nth-child(even) {\n  background-color: var(--trc);\n}\n.hovertabl tbody tr:hover {\n  background-color: var(--hovertabl);\n}\n.table-all tbody tr:hover {\n  background-color: var(--hovertabl);\n}\n.centered tr th,\n.centered tr td,\n.table-all tr th,\n.table-all tr td {\n  text-align: center;\n}\n.righted tr th,\n.righted tr td {\n  text-align: right;\n}\n.table td,\n.table th,\n.table-all td,\n.table-all th {\n  padding: 8px 8px;\n  display: table-cell;\n  text-align: left;\n  vertical-align: top;\n  margin: auto;\n  width: var(--widthtd);\n}\n.table th:first-child,\n.table td:first-child,\n.table-all th:first-child,\n.table-all td:first-child {\n  padding-left: 16px;\n}\n.responsive {\n  display: block;\n  overflow-x: auto;\n}\n\n.badge,\n.tag {\n  background-color: var(--tagandbadge) !important;\n  display: inline-block;\n  padding-left: 8px;\n  padding-right: 8px;\n  text-align: center;\n}\n.badge {\n  border-radius: 50%;\n}\n\n.ul {\n  list-style-type: none;\n  padding: 0;\n  margin: 0;\n  overflow: hidden;\n  width: var(--widul);\n}\n.ul li {\n  color: #ff9900;\n  padding: 8px 16px;\n  border-bottom: var(--borbotul);\n}\n.ul li:last-child {\n  border-bottom: none;\n}\n.ul.hoverul li:hover {\n  color: var(--textc-1)!important;\n  background-color: var(--hoverul);\n}\n.borderul {\n  border: var(--borderul) !important;\n}\n::marker {\n  color: red;\n}\n\n.tooltip {\n  position: relative;\n}\n.tooltip .text {\n  display: none;\n}\n.tooltip:hover .text {\n  display: inline-block;\n}\n.text.text-positiontop {\n  position: absolute;\n  left: 0;\n  bottom: 20px;\n}\n.text.text-positionbottom {\n  position: absolute;\n  left: 0;\n  bottom: -20px;\n}\n\n.input {\n  padding: 8px;\n  display: block;\n  border: var(--inputborder);\n  color: #000;\n  width: 100%;\n  outline: none;\n}\n.select {\n  padding: 9px 0;\n  width: 100%;\n  border: var(--inputborder);\n  color: var(--text-id);\n  width: 100%;\n  outline: none;\n}\n.checkbox,\n.radio {\n  width: 24px;\n  height: 24px;\n  position: relative;\n  top: 6px;\n}\n:-ms-input-placeholder {\n  color: var(--textinput);\n}\n::-moz-placeholder {\n  color: var(--textinput);\n}\n::placeholder {\n  color: var(--textinput);\n}\ninput:out-of-range {\n  border: 2px solid red;\n}\n.checked:checked + label {\n  color: var(--textc-4) !important;\n}\ninput:required {\n  background-color: var(--inputrequired);\n}\ninput[type=\"text\"]:-moz-read-only {\n  background-color: var(--inputrequired);\n}\ninput[type=\"text\"]:read-only {\n  background-color: var(--inputrequired);\n}\ninput:disabled {\n  background-color: var(--inputrequired);\n}\n.input-width100:focus {\n  width: 100% !important;\n}\n\n.btn,\n.button {\n  border: none;\n  display: inline-block;\n  padding: 8px 16px;\n  margin: 0px;\n  vertical-align: middle;\n  overflow: hidden;\n  text-decoration: none;\n  color: var(--buttontextc);\n  background-color: var(--buttonbgc);\n  text-align: center;\n  cursor: pointer;\n  white-space: nowrap;\n  outline: 0;\n}\n.btn,\n.button {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.disabled,\n.btn:disabled,\n.button:disabled {\n  cursor: not-allowed;\n  opacity: 0.4;\n}\n.disabled *,\n:disabled * {\n  pointer-events: none;\n}\n.btn.disabled:hover,\n.btn:disabled:hover {\n  box-shadow: none;\n}\n.button:hover {\n  color: var(--buttontextcho) !important;\n  background-color: var(--buttonbgcho) !important;\n}\n.btn:hover {\n  box-shadow: 0 6px 10px 0 var(--shadowc), 0 8px 20px 0 var(--shadowc);\n}\n.ripple:active {\n  opacity: 0.4;\n}\n\n.bar {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-content: center;\n}\n.center .bar {\n  display: inline-block;\n  width: auto;\n}\n.bar .bar-item {\n  padding: 8px 16px;\n  width: auto;\n  float: left;\n  border: none;\n  outline: none;\n}\n.bar .button {\n  white-space: normal;\n}\n.bar-block {\n  width: auto;\n}\n.bar-block .bar-item {\n  width: 100%;\n  display: block;\n  padding: 8px 16px;\n  text-align: left;\n  border: none;\n  white-space: normal;\n  float: none;\n  outline: none;\n}\n.bar-block.center .bar-item {\n  text-align: center;\n}\n.block {\n  display: block;\n  width: 100%;\n}\n\n.bar .dropdown-hover,\n.bar .dropdown-click {\n  position: static;\n} /*float:left*/\n.bar-block .dropdown-hover,\n.bar-block .dropdown-click {\n  width: 100%;\n}\n.bar-block .dropdown-hover .dropdown-content,\n.bar-block .dropdown-click .dropdown-content {\n  min-width: 100%;\n}\n.bar-block .dropdown-hover .button,\n.bar-block .dropdown-click .button {\n  width: 100%;\n  text-align: left;\n  padding: 8px 16px;\n}\n\n.sidebar {\n  height: 100%;\n  width: 180px;\n  background-color: var(--sidebarlistco);\n  position: fixed !important;\n  top: 0;\n  z-index: 10000000;\n  overflow: auto;\n}\n.sidebar-right {\n  right: 0 !important;\n  left: none;\n}\n.sidebar-sticky {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 99;\n  background-color: var(--sidebarco);\n}\n.dropdown-click,\n.dropdown-hover {\n  position: relative;\n  display: inline-block;\n  cursor: pointer;\n}\n.dropdown-hover:hover .dropdown-content {\n  display: block;\n}\n.dropdown-hover:first-child,\n.dropdown-click:hover {\n  background-color: var(--buttonbgcho);\n  color: var(--buttontextcho);\n}\n.dropdown-hover:hover > .button:first-child,\n.dropdown-click:hover > .button:first-child {\n  background-color: var(--buttonbgcho);\n  color: var(--buttontextcho);\n}\n.dropdown-content {\n  cursor: auto;\n  color: var(--buttontextcho);\n  background-color: var(--buttonbgc);\n  display: none;\n  position: absolute;\n  min-width: 130px;\n  margin: 0;\n  padding: 0;\n  z-index: 9999;\n}\n.dropdown-hover .button span:after {\n  width: 0;\n  height: 0;\n  border: 5px solid transparent;\n  border-bottom: none;\n  border-top-color: var(--idsitecolor);\n  content: \"\";\n  vertical-align: middle;\n  display: inline-block;\n  margin-left: 5px;\n}\n.dropdown-click .button span:after {\n  width: 0;\n  height: 0;\n  border: 5px solid transparent;\n  border-bottom: none;\n  border-top-color: var(--idsitecolor);\n  content: \"\";\n  vertical-align: middle;\n  display: inline-block;\n  margin-left: 5px;\n}\n\n.container:after,\n.container:before,\n.panel:after,\n.panel:before,\n.row:after,\n.row:before,\n.row-padding:after,\n.row-padding:before,\n.cell-row:before,\n.cell-row:after,\n.clear:after,\n.clear:before,\n.bar:before,\n.bar:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n/* .col,.half,.third,.twothird,.threequarter,.quarter{float:left;width:100%} */\n\n.row,\n.row-padding {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-content: center;\n}\n.col,\n.rest,\n.half,\n.third,\n.twothird,\n.threequarter,\n.quarter {\n  width: 100%;\n}\n.row-padding > .half,\n.row-padding > .third,\n.row-padding > .twothird,\n.row-padding > .threequarter,\n.row-padding > .quarter,\n.row-padding > .col {\n  padding: 0 8px;\n}\n.flex-nowrap {\n  flex-wrap: nowrap;\n}\n.flex-justifycenter {\n  justify-content: center;\n}\n.flex-justifyend {\n  justify-content: flex-end;\n}\n\n.col.s8 {\n  width: 8.33333%;\n}\n.col.s16 {\n  width: 16.66666%;\n}\n.col.s25 {\n  width: 24.99999%;\n}\n.col.s33 {\n  width: 33.33333%;\n}\n.col.s41 {\n  width: 41.66666%;\n}\n.col.s50 {\n  width: 49.99999%;\n}\n.col.s58 {\n  width: 58.33333%;\n}\n.col.s66 {\n  width: 66.66666%;\n}\n.col.s75 {\n  width: 74.99999%;\n}\n.col.s83 {\n  width: 83.33333%;\n}\n.col.s91 {\n  width: 91.66666%;\n}\n.col.s100 {\n  width: 99.99999%;\n}\n@media (max-width: 600px) {\n  .colrest {\n    width: 100% !important;\n  }\n  .hide-small {\n    display: none !important;\n  }\n  .col {\n    text-align: center;\n  }\n  .right-align {\n    text-align: center !important;\n  }\n}\n@media (min-width: 601px) {\n  .col.m8 {\n    width: 8.33333%;\n  }\n  .col.m16 {\n    width: 16.66666%;\n  }\n  .col.m25,\n  .quarter {\n    width: 24.99999%;\n  }\n  .col.m33,\n  .third {\n    width: 33.33333%;\n  }\n  .col.m41 {\n    width: 41.66666%;\n  }\n  .col.m50,\n  .half {\n    width: 49.99999%;\n  }\n  .col.m58 {\n    width: 58.33333%;\n  }\n  .col.m66,\n  .twothird {\n    width: 66.66666%;\n  }\n  .col.m75,\n  .threequarter {\n    width: 74.99999%;\n  }\n  .col.m83 {\n    width: 83.33333%;\n  }\n  .col.m91 {\n    width: 91.66666%;\n  }\n  .col.m100 {\n    width: 99.99999%;\n  }\n  .rest {\n    overflow: hidden;\n    width: auto;\n    flex-grow: 1;\n  }\n}\n@media (max-width: 992px) and (min-width: 601px) {\n  .hide-medium {\n    display: none !important;\n  }\n  .paddingoff {\n    padding: none;\n  }\n}\n@media (min-width: 993px) {\n  .col.l8 {\n    width: 8.33333%;\n  }\n  .col.l16 {\n    width: 16.66666%;\n  }\n  .col.l25 {\n    width: 24.99999%;\n  }\n  .col.l33 {\n    width: 33.33333%;\n  }\n  .col.l41 {\n    width: 41.66666%;\n  }\n  .col.l50 {\n    width: 49.99999%;\n  }\n  .col.l58 {\n    width: 58.33333%;\n  }\n  .col.l66 {\n    width: 66.66666%;\n  }\n  .col.l75 {\n    width: 74.99999%;\n  }\n  .col.l83 {\n    width: 83.33333%;\n  }\n  .col.l91 {\n    width: 91.66666%;\n  }\n  .col.l100 {\n    width: 99.99999%;\n  }\n  .hide-large {\n    display: none !important;\n  }\n}\n\n.container,\n.panel {\n  padding: var(--conpanpad);\n  width: var(--conpanwid);\n  margin: var(--conpanmar);\n}\n.panel {\n  margin: var(--panmar);\n}\n\n.width-10 {\n  width: 10%;\n}\n.width-15 {\n  width: 15%;\n}\n.width-20 {\n  width: 20%;\n}\n.width-25 {\n  width: 25%;\n}\n.width-33 {\n  width: 33.33%;\n}\n.width-50 {\n  width: 50%;\n}\n.width-75 {\n  width: 75%;\n}\n.width-100 {\n  width: 100%;\n}\n.width-fit-content {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.width-auto {\n  width: auto;\n}\n.height-100px {\n  height: 100px;\n}\n.height-200px {\n  height: 200px;\n}\n.height-300px {\n  height: 300px;\n}\n.height-400px {\n  height: 400px;\n}\n.height-500px {\n  height: 500px;\n}\n.height-600px {\n  height: 600px;\n}\n.height-100 {\n  height: 100%;\n}\n.height-auto {\n  height: auto;\n}\n@media (max-width: 600px) {\n  .width-5vw {\n    width: 5vw !important;\n  }\n  .width-10vw {\n    width: 10vw !important;\n  }\n  .width-20vw {\n    width: 20vw !important;\n  }\n  .width-30vw {\n    width: 30vw !important;\n  }\n  .width-50vw {\n    width: 50vw !important;\n  }\n  .width-75vw {\n    width: 75vw !important;\n  }\n  .width-90vw {\n    width: 90vw !important;\n  }\n  .width-100vw {\n    width: 100vw;\n  }\n  .height-100px {\n    height: 50px;\n  }\n  .height-200px {\n    height: 100px;\n  }\n  .height-300px {\n    height: 150px;\n  }\n  .height-400px {\n    height: 200px;\n  }\n  .height-500px {\n    height: 250px;\n  }\n  .height-600px {\n    height: 300px;\n  }\n  .height-100auto {\n    height: auto;\n  }\n}\n\n.cell-row {\n  display: table;\n  width: 100%;\n}\n.cell {\n  display: table-cell;\n}\n.cell-top {\n  vertical-align: top;\n}\n.cell-middle {\n  vertical-align: middle;\n}\n.cell-bottom {\n  vertical-align: bottom;\n}\n\n.content,\n.auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n.content {\n  max-width: 980px;\n}\n.auto {\n  max-width: 1140px;\n}\n\n.modal {\n  z-index: 999;\n  display: none;\n  padding-top: 100px;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgba(0, 0, 0, 0.4);\n}\n.modal-content {\n  margin: auto;\n  background-color: rgba(0, 0, 0, 0.8);\n  position: relative;\n  padding: 0;\n  outline: 0;\n  width: 80%;\n}\n\n@media (max-width: 1205px) {\n  .auto {\n    max-width: 95%;\n  }\n}\n@media (max-width: 600px) {\n  .modal-content {\n    margin: 0 16px;\n    width: auto !important;\n  }\n  .modal {\n    padding-top: 30px;\n  }\n  .dropdown-hover.mobile .dropdown-content,\n  .dropdown-click.mobile .dropdown-content {\n    position: relative;\n  }\n  .mobile {\n    display: block;\n    width: 100% !important;\n  }\n  .bar-item.mobile,\n  .dropdown-hover.mobile,\n  .dropdown-click.mobile {\n    text-align: center;\n  }\n  .dropdown-hover.mobile,\n  .dropdown-hover.mobile .btn,\n  .dropdown-hover.mobile .button,\n  .dropdown-click.mobile,\n  .dropdown-click.mobile .btn,\n  .dropdown-click.mobile .button {\n    width: 100%;\n  }\n}\n@media (max-width: 768px) {\n  .modal-content {\n    width: 500px;\n  }\n  .modal {\n    padding-top: 50px;\n  }\n}\n@media (min-width: 993px) {\n  .modal-content {\n    width: 900px;\n  }\n  .sidebar.collapse {\n    display: block !important;\n  }\n}\n@media (max-width: 992px) {\n  .sidebar.collapse {\n    display: none;\n  }\n  .main {\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n  }\n  .auto {\n    max-width: 100%;\n  }\n}\n\n.hide {\n  display: none !important;\n}\n.show-block,\n.show {\n  display: block !important;\n}\n.show-inline-block {\n  display: inline-block !important;\n}\n\n.display-block {\n  display: block;\n}\n.display-inline {\n  display: inline;\n}\n.display-inlineblock {\n  display: inline-block;\n}\n.display-fixed {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 3;\n  overflow: auto;\n}\n.display-position {\n  position: absolute;\n}\n.display-container {\n  position: relative;\n}\n.display-container:hover .display-hover {\n  display: block;\n}\n.display-container:hover span.display-hover {\n  display: inline-block;\n}\n.display-hover {\n  display: none;\n}\n.display-topleft {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.display-topright {\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n.display-bottomleft {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n}\n.display-bottomright {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n}\n.display-middle {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  -ms-transform: translate(-50%, -50%);\n}\n.display-left {\n  position: absolute;\n  top: 50%;\n  left: 0%;\n  transform: translate(0%, -50%);\n  -ms-transform: translate(-0%, -50%);\n}\n.display-right {\n  position: absolute;\n  top: 50%;\n  right: 0%;\n  transform: translate(0%, -50%);\n  -ms-transform: translate(0%, -50%);\n}\n.display-topmiddle {\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translate(-50%, 0%);\n  -ms-transform: translate(-50%, 0%);\n}\n.display-bottommiddle {\n  position: absolute;\n  left: 50%;\n  bottom: 0;\n  transform: translate(-50%, 0%);\n  -ms-transform: translate(-50%, 0%);\n}\n\n@media (max-width: 600px) {\n  .display-right-mobile {\n    position: relative;\n    top: auto;\n    transform: none;\n  }\n}\n\n.circle {\n  border-radius: 50%;\n}\n.round-small {\n  border-radius: 2px;\n}\n.round,\n.round-medium {\n  border-radius: 4px;\n}\n.round-large {\n  border-radius: 8px;\n}\n.round-xlarge {\n  border-radius: 16px;\n}\n.round-xxlarge {\n  border-radius: 32px;\n}\n\n.code,\n.codespan {\n  font-family: Consolas, \"courier new\";\n  font-size: 16px;\n}\n.code {\n  width: auto;\n  background-color: #fff;\n  padding: 8px 12px;\n  border-left: 4px solid #4caf50;\n  word-wrap: break-word;\n}\n.codespan {\n  color: crimson;\n  background-color: #f1f1f1;\n  padding-left: 4px;\n  padding-right: 4px;\n  font-size: 110%;\n}\n\n.card {\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc);\n}\n.card-2 {\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc),\n    0 2px 15px 0 var(--shadowc);\n}\n.card-4,\n.hover-shadow:hover {\n  box-shadow: 0 4px 10px 0 var(--shadowc), 0 4px 20px 0 var(--shadowc),\n    0 2px 30px 0 var(--shadowc);\n}\n.hover-none:hover {\n  background-color: transparent !important;\n  box-shadow: none !important;\n}\n.transparent {\n  background-color: transparent !important;\n}\n\n.animate-top {\n  position: relative;\n  -webkit-animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animatetop {\n  from {\n    top: -1000px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatetop {\n  from {\n    top: -1000px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n.animate-left {\n  position: relative;\n  -webkit-animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animateleft {\n  from {\n    left: -1000px;\n    opacity: 0;\n  }\n  to {\n    left: 0;\n    opacity: 1;\n  }\n}\n@keyframes animateleft {\n  from {\n    left: -1000px;\n    opacity: 0;\n  }\n  to {\n    left: 0;\n    opacity: 1;\n  }\n}\n.animate-right {\n  position: relative;\n  -webkit-animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animateright {\n  from {\n    right: -1000px;\n    opacity: 0;\n  }\n  to {\n    right: 0;\n    opacity: 1;\n  }\n}\n@keyframes animateright {\n  from {\n    right: -1000px;\n    opacity: 0;\n  }\n  to {\n    right: 0;\n    opacity: 1;\n  }\n}\n.animate-bottom {\n  position: relative;\n  -webkit-animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animatebottom {\n  from {\n    bottom: -1000px;\n    opacity: 0;\n  }\n  to {\n    bottom: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatebottom {\n  from {\n    bottom: -1000px;\n    opacity: 0;\n  }\n  to {\n    bottom: 0;\n    opacity: 1;\n  }\n}\n.animate-zoom {\n  position: relative;\n  -webkit-animation: animatezoom 1s;\n          animation: animatezoom 1s;\n}\n@-webkit-keyframes animatezoom {\n  from {\n    transform: scale(0);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n@keyframes animatezoom {\n  from {\n    transform: scale(0);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n.animate-spin {\n  -webkit-animation: spin 4s infinite linear;\n          animation: spin 4s infinite linear;\n  transform-origin: center center;\n}\n@-webkit-keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n.animate-fading {\n  position: relative;\n  -webkit-animation: fading 5s infinite;\n          animation: fading 5s infinite;\n}\n@-webkit-keyframes fading {\n  0% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes fading {\n  0% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.animate-opacity {\n  position: relative;\n  -webkit-animation: opac 2s;\n          animation: opac 2s;\n}\n@-webkit-keyframes opac {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes opac {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n\n.opacity,\n.hover-opacity:hover {\n  opacity: 0.6;\n}\n.opacity-off,\n.hover-opacity-off:hover {\n  opacity: 1;\n}\n.opacity-max {\n  opacity: 0.25;\n}\n.opacity-min {\n  opacity: 0.75;\n}\n.grayscale-max,\n.hover-grayscale:hover {\n  filter: grayscale(100%);\n}\n.grayscale {\n  filter: grayscale(75%);\n}\n.grayscale-min {\n  filter: grayscale(50%);\n}\n.sepia-max,\n.hover-sepia:hover {\n  filter: sepia(100%);\n}\n.sepia {\n  filter: sepia(75%);\n}\n.sepia-min {\n  filter: sepia(50%);\n}\n.blur-max,\n.hover-blur:hover {\n  filter: blur(10px);\n}\n.blur {\n  filter: blur(6px);\n}\n.blur-min {\n  filter: blur(2px);\n}\n.saturate-max,\n.hover-saturate:hover {\n  filter: saturate(9);\n}\n.saturate {\n  filter: saturate(6);\n}\n.saturate-min {\n  filter: saturate(3);\n}\n.contrast-max,\n.hover-contrast:hover {\n  filter: contrast(200%);\n}\n.contrast {\n  filter: contrast(180%);\n}\n.contrast-min {\n  filter: contrast(150%);\n}\n.drop-shadow-max,\n.hover-drop-shadow:hover {\n  filter: drop-shadow(0 0 30px crimson);\n}\n.drop-shadow {\n  filter: drop-shadow(0 0 20px crimson);\n}\n.drop-shadow-min {\n  filter: drop-shadow(0 0 10px crimson);\n}\n\n.tiny {\n  font-size: 10px !important;\n}\n.small {\n  font-size: 12px !important;\n}\n.medium {\n  font-size: 15px !important;\n}\n.large {\n  font-size: 18px !important;\n}\n.xlarge {\n  font-size: 24px !important;\n}\n.xxlarge {\n  font-size: 36px !important;\n}\n.xxxlarge {\n  font-size: 48px !important;\n}\n.jumbo {\n  font-size: 64px !important;\n}\n\n.outline-0 {\n  outline: none !important;\n}\n.border-0 {\n  border: none !important;\n}\n.border {\n  border: var(--border) !important;\n}\n.hover-border:hover {\n  border: var(--border) !important;\n}\n.focus-border:focus {\n  border: var(--inputborderfo) !important;\n}\n.border-top {\n  border-top: var(--border) !important;\n}\n.border-bottom {\n  border-bottom: var(--border) !important;\n}\n.border-left {\n  border-left: var(--border) !important;\n}\n.border-right {\n  border-right: var(--border) !important;\n}\n.topbar {\n  border-top: var(--borbar) !important;\n}\n.bottombar {\n  border-bottom: var(--borbar) !important;\n}\n.leftbar {\n  border-left: var(--borbar) !important;\n}\n.rightbar {\n  border-right: var(--borbar) !important;\n}\n\n.stretch {\n  margin-left: -16px;\n  margin-right: -16px;\n}\n.section,\n.code {\n  margin-top: 16px !important;\n  margin-bottom: 16px !important;\n}\n.margin-0 {\n  margin: 0 !important;\n}\n.margin {\n  margin: 16px !important;\n}\n.margin-top {\n  margin-top: 16px !important;\n}\n.margin-bottom {\n  margin-bottom: 16px !important;\n}\n.margin-left {\n  margin-left: 16px !important;\n}\n.margin-right {\n  margin-right: 16px !important;\n}\n\n.padding-0 {\n  padding: 0 !important;\n}\n.padding-left-0 {\n  padding-left: 0 !important;\n}\n.padding-right-0 {\n  padding-right: 0 !important;\n}\n.padding-small {\n  padding: 4px 8px !important;\n}\n.padding {\n  padding: 8px 16px !important;\n}\n.padding-large {\n  padding: 12px 24px !important;\n}\n.padding-16 {\n  padding-top: 16px !important;\n  padding-bottom: 16px !important;\n}\n.padding-24 {\n  padding-top: 24px !important;\n  padding-bottom: 24px !important;\n}\n.padding-32 {\n  padding-top: 32px !important;\n  padding-bottom: 32px !important;\n}\n.padding-48 {\n  padding-top: 48px !important;\n  padding-bottom: 48px !important;\n}\n.padding-64 {\n  padding-top: 64px !important;\n  padding-bottom: 64px !important;\n}\n.padding-top-64 {\n  padding-top: 64px !important;\n}\n.padding-top-48 {\n  padding-top: 48px !important;\n}\n.padding-top-32 {\n  padding-top: 32px !important;\n}\n.padding-top-24 {\n  padding-top: 24px !important;\n}\n\n.overlay {\n  position: fixed;\n  display: none;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 2;\n}\n.top,\n.bottom {\n  position: fixed;\n  width: 100%;\n  z-index: 1;\n}\n.top {\n  top: 0;\n}\n.bottom {\n  bottom: 0;\n}\n.left {\n  float: left !important;\n}\n.right {\n  float: right !important;\n}\n.left-align {\n  text-align: left;\n}\n.right-align {\n  text-align: right;\n}\n.justify {\n  text-align: justify !important;\n}\n.center {\n  text-align: center !important;\n}\n.wide {\n  letter-spacing: 4px;\n}\n.wideword {\n  word-spacing: 8px;\n}\n.text-shadow {\n  text-shadow: var(--text-shadow);\n}\n.text-line-through {\n  text-decoration: line-through;\n  color: red !important;\n}\n.text-decoration-none {\n  text-decoration: none;\n}\n\n::-moz-selection {\n  color: red;\n  background: yellow;\n}\n\n::selection {\n  color: red;\n  background: yellow;\n}\n:-webkit-full-screen {\n  background-color: aqua;\n}\n:-ms-fullscreen {\n  background-color: aqua;\n}\n:fullscreen {\n  background-color: aqua;\n}\n/* Colors */\n.bgc-1,\n.hover-bgc-1:hover {\n  background-color: var(--bgc-1) !important;\n  transition: 0.5s;\n}\n.bgc-2,\n.hover-bgc-2:hover {\n  background-color: var(--bgc-2) !important;\n  transition: 0.5s;\n}\n.bgc-3,\n.hover-bgc-3:hover {\n  background-color: var(--bgc-3) !important;\n  transition: 0.5s;\n}\n.bgc-4,\n.hover-bgc-4:hover {\n  background-color: var(--bgc-4) !important;\n  transition: 0.5s;\n}\n.textc-1,\n.hover-textc-1:hover {\n  color: var(--textc-1) !important;\n  transition: 0.5s;\n}\n.textc-2,\n.hover-textc-2:hover {\n  color: var(--textc-2) !important;\n  transition: 0.5s;\n}\n.textc-3,\n.hover-textc-3:hover {\n  color: var(--textc-3) !important;\n  transition: 0.5s;\n}\n.textc-4,\n.hover-textc-4:hover {\n  color: var(--textc-4) !important;\n  transition: 0.5s;\n}\n.borderc-1,\n.hover-borderc-1:hover {\n  border-color: var(--borc-1) !important;\n  transition: 0.5s;\n}\n.borderc-2,\n.hover-borderc-2:hover {\n  border-color: var(--borc-2) !important;\n  transition: 0.5s;\n}\n.borderc-3,\n.hover-borderc-3:hover {\n  border-color: var(--borc-3) !important;\n  transition: 0.5s;\n}\n.borderc-4,\n.hover-borderc-4:hover {\n  border-color: var(--borc-4) !important;\n  transition: 0.5s;\n}\n\n/**/\n/**/\n\n\n.clip-path-polygon\n{-webkit-clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);}\n.bgc-header\n{\n  background-image: linear-gradient(to bottom,\n  #04009a, #002aad, #0044bc, #005cc9,\n  #0073d4, #0084dd, #0094e3, #00a4e8,\n  #00b2ed, #00c0ef, #19cef0, #3edbf0)!important;\n  background-position: center center;\n  margin-bottom: 50px;\n}\n\n.bgcimg-header\n{\n  width: 25vw;\n  height: 25vw;\n  min-width: 150px;\n  min-height: 150px;\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\n}\n\n.img-header\n{\n  width: 25vw;\n  height: 25vw;\n  min-width: 150px;\n  min-height: 150px;\n}\n\n.imguser\n{\n  width: 100%;\n  height: 100%;\n  min-width: 50px;\n  min-height: 50px;\n  margin: 20px auto 0px;\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1953,6 +4378,200 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
 
 
 /***/ }),
@@ -34701,6 +37320,17 @@ function _extends() {
 
   return _extends.apply(this, arguments);
 }
+
+/***/ }),
+
+/***/ "./node_modules/axios/package.json":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/package.json ***!
+  \*****************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/","#USER"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"E:\\\\projects\\\\Laravel\\\\ecommerce-2","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
