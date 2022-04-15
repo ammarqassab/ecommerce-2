@@ -2,4 +2,4 @@
 // require('./bootstrap');
 
 
-require('./components/indexApp');
+require('./components/index');

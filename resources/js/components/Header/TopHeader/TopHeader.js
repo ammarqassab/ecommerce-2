@@ -34,7 +34,7 @@ export default function TopHeader() {
                         <MyNavLink to={"/yourCart"} ><span className="fas fa-cart-arrow-down textc-3"></span> Your Cart</MyNavLink>
                         {authContext.auth.token ?
                             <>
-                            <div onClick={dashboard}  className="col m25 text-decoration-none textc-3 hover-textc-4 center padding-large" ><span className="fas fa-cogs textc-3"></span> Dashboard</div>
+                            <MyNavLink to={"/dashboard"} ><span className="fas fa-cogs textc-3"></span> Dashboard</MyNavLink>
                             <div onClick={logout}  className="col m25 text-decoration-none textc-3 hover-textc-4 center padding-large"><span className="fas fa-sign-out-alt textc-3"></span> Log out</div>
                             </>
                         :
