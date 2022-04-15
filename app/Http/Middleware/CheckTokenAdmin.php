@@ -12,27 +12,29 @@ class CheckTokenAdmin
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
-      
-      
+
+
             if(auth()->user()->tokenCan('server:admin'))
             {
-                return $next($request);
+                return response()->json([
+                    'status'=>'200',
+                    'message'=>'Admin'
+                ]);
             }
 
             if(auth()->user()->tokenCan('server:user'))
 
             {
                 return response()->json([
-                    'status'=>'407',
-                'message'=>'you not admin'
+                    'status'=>'205',
+                    'message'=>'User'
                 ]);
 
             }
 
     }
 }
-       

@@ -21,3 +21,9 @@ Route::any('/{query}',function()
 {
     return view('Home');
 })->where('query','.*');
+
+Route::middleware(['auth:sanctum' , 'CheckAdmin'])->group(function() {
+    Route::post('dashboar', function () {
+        return view('dashboar');
+    });
+});

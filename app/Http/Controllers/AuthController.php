@@ -7,6 +7,8 @@ use App\http\Controllers\BaseController as BaseController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+
 use Illuminate\Support\Facades\Validator;
 
 //use Laravel\Passport\RefreshToken;
@@ -26,6 +28,7 @@ class AuthController extends BaseController
                 'email' => 'required|email',
                 'phone' => 'required|numeric',
                 'address' => 'required',
+                'city' => 'required',
                 'profile_image'=>'file|mimes:jpeg,bmp,png,pdf,doc,docx',
                 'password' => 'required',
                 'c_password' => 'required|same:password'
@@ -91,6 +94,7 @@ class AuthController extends BaseController
             $success['email'] = $user->email;
             $success['phone'] = $user->phone;
             $success['address'] = $user->address;
+            $success['city'] = $user->city;
             $success['profile_image'] = $user->profile_image;
             $success['role']=$role;
             return $this->sendResponse($success, 'login Successfully!');
@@ -104,10 +108,12 @@ class AuthController extends BaseController
 
     public function logout(Request $request){
 
-        // $request->user()->currentAccessToken()->delete();
+        auth()->user()->tokens()->delete();
 
+        /* $request->user()->currentAccessToken()->delete();
+        $user->tokens()->where('id', $tokenId)->delete(); */
 
         return $this->sendResponse('Logout','USER logout Successfully!');
-
+        
     }
 }
