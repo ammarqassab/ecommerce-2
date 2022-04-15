@@ -20,7 +20,6 @@ export default function App() {
                 <Route path="/yourCart" element={<h1>yourCart</h1>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/dashboard" element={<h1>Dashboard</h1>} />
             </Routes>
         </div>
     );

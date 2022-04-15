@@ -23,6 +23,7 @@ export default function TopHeader() {
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));
     }
 
+
     return (
         <div id="top-header" className="panle padding-0 border-bottom bgc-1">
             <div className="row-padding">
@@ -33,7 +34,7 @@ export default function TopHeader() {
                         <MyNavLink to={"/yourCart"} ><span className="fas fa-cart-arrow-down textc-3"></span> Your Cart</MyNavLink>
                         {authContext.auth.token ?
                             <>
-                            <MyNavLink to={"/dashboard"} ><span className="fas fa-cogs textc-3"></span> Dashboard</MyNavLink>
+                            <div onClick={dashboard}  className="col m25 text-decoration-none textc-3 hover-textc-4 center padding-large" ><span className="fas fa-cogs textc-3"></span> Dashboard</div>
                             <div onClick={logout}  className="col m25 text-decoration-none textc-3 hover-textc-4 center padding-large"><span className="fas fa-sign-out-alt textc-3"></span> Log out</div>
                             </>
                         :

@@ -12,7 +12,7 @@
         <!-- Styles -->
 
         <style>
-
+            
         </style>
 <!-- ammar -->
 
@@ -36,8 +36,8 @@
     </head>
     <body>
 
-        <div id="root"></div>
+        <div id="dashboard"></div>
 
-        <script src="{{asset('js/app.js')}}"></script>
+        <script src="{{asset('js/dashboard.js')}}"></script>
     </body>
 </html>
