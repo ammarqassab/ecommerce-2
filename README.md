@@ -35,7 +35,7 @@ firstname-lastname-username-email-phone-address-password-c_password-profile_imag
 firstname-lastname-username-email-phone-address-profile_image  ---> same information updated
 
 ----
-php artisan migrate:fresh seed : create tables with admin seeddr 
+php artisan migrate:fresh --seed : create tables with admin seeddr 
 Admin :
 ahmad@gmail.com
 123456
