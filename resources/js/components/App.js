@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
@@ -8,7 +9,7 @@ import Login from './pages/Login/Login';
 export default function App() {
     return (
         <div>
-            <Header/>
+            <Header />
             <Routes>
                 <Route index element={<Home />} />
                 <Route path="/products" element={<h1>products</h1>} />
@@ -21,6 +22,7 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Routes>
+            <Footer />
         </div>
     );
 }
