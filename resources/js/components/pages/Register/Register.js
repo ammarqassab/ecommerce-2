@@ -18,7 +18,7 @@ export default function Register () {
         e.preventDefault();
         if(password === confirmPassword) {
 
-            setuser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, password:password, c_password:confirmPassword});
+            setuser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, city:city, password:password, c_password:confirmPassword});
 
             registeruser(user)
             .then( (responsee) => {

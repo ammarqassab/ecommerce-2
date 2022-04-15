@@ -18,7 +18,7 @@ export default function TopHeader() {
         .then( (responsee) => {
             authContext.setauth({});
             localStorage.clear();
-            // window.location.assign("http://127.0.0.1:8000");
+            window.location.assign("http://127.0.0.1:8000");
         })
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));
     }
