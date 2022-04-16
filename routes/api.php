@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function()
 
 Route::middleware(['auth:sanctum' , 'CheckAdmin'])->group(function()
 {
-    Route::post('dashboar',function() {  });
+    Route::post('dashboard',function() {
+
+    });
 });
 
