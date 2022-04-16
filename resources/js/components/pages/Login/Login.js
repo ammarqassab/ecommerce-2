@@ -25,7 +25,7 @@ export default function Login () {
                 localStorage.setItem("email", responsee.data.data.email);
                 localStorage.setItem("phone", responsee.data.data.phone);
                 localStorage.setItem("address", responsee.data.data.address);
-                // localStorage.setItem("city", responsee.data.data.city);
+                localStorage.setItem("city", responsee.data.data.city);
                 // localStorage.setItem("id", responsee.data.data.id);
                 localStorage.setItem("token", responsee.data.data.token);
                 localStorage.setItem("role", responsee.data.data.role);

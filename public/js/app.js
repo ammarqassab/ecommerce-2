@@ -2244,8 +2244,8 @@ function AuthProvider(props) {
     var username = localStorage.getItem("username");
     var email = localStorage.getItem("email");
     var phone = localStorage.getItem("phone");
-    var address = localStorage.getItem("address"); // const city = localStorage.getItem("city");
-    // const id = localStorage.getItem("id");
+    var address = localStorage.getItem("address");
+    var city = localStorage.getItem("city"); // const id = localStorage.getItem("id");
 
     var token = localStorage.getItem("token");
     var role = localStorage.getItem("role");
@@ -2259,6 +2259,7 @@ function AuthProvider(props) {
         email: email,
         phone: phone,
         address: address,
+        city: city,
         token: token,
         role: role,
         message: message
@@ -2289,17 +2290,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Context_AuthContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/AuthContext */ "./resources/js/components/Context/AuthContext.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Dashboardadmin_Dashboardadmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Dashboardadmin/Dashboardadmin */ "./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
 function Dashboard() {
   var authContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(_Context_AuthContext__WEBPACK_IMPORTED_MODULE_1__.AuthContext);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    children: authContext.auth.token ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      children: "Dashboard"
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: authContext.auth.token ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Dashboardadmin_Dashboardadmin__WEBPACK_IMPORTED_MODULE_2__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
       children: "Not Found"
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Dashboardadmin)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Dashboardadmin() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+      children: "welcome admin"
     })
   });
 }
@@ -2677,7 +2703,8 @@ function TopHeader() {
   function logout() {
     (0,_Api_FormApi__WEBPACK_IMPORTED_MODULE_1__.logoutuser)(authContext.auth.token).then(function (responsee) {
       authContext.setauth({});
-      localStorage.clear(); // window.location.assign("http://127.0.0.1:8000");
+      localStorage.clear();
+      window.location.assign("http://127.0.0.1:8000");
     })["catch"](function () {
       return alert("حدث خطأ في تسجيل الخروج");
     });
@@ -2896,8 +2923,8 @@ function Login() {
         localStorage.setItem("username", responsee.data.data.username);
         localStorage.setItem("email", responsee.data.data.email);
         localStorage.setItem("phone", responsee.data.data.phone);
-        localStorage.setItem("address", responsee.data.data.address); // localStorage.setItem("city", responsee.data.data.city);
-        // localStorage.setItem("id", responsee.data.data.id);
+        localStorage.setItem("address", responsee.data.data.address);
+        localStorage.setItem("city", responsee.data.data.city); // localStorage.setItem("id", responsee.data.data.id);
 
         localStorage.setItem("token", responsee.data.data.token);
         localStorage.setItem("role", responsee.data.data.role);
@@ -3062,6 +3089,7 @@ function Register() {
         email: email,
         phone: phone,
         address: address,
+        city: city,
         password: password,
         c_password: confirmPassword
       });
