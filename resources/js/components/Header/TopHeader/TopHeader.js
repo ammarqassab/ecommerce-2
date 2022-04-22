@@ -1,7 +1,8 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {NavLink} from "react-router-dom";
 import { logoutuser } from '../../Api/FormApi';
-import { AuthContext } from '../../Context/AuthContext';
+import { logoutUser } from '../../Store/AuthSlice';
 
 function MyNavLink (props) {
     return (
@@ -10,15 +11,16 @@ function MyNavLink (props) {
 }
 export default function TopHeader() {
 
-    const authContext = React.useContext(AuthContext);
-
+    const auth = useSelector( (state) => state.auth);
+    const dispatch = useDispatch();
+    
     function logout() {
 
-        logoutuser(authContext.auth.token)
+        logoutuser(auth.token)
         .then( (responsee) => {
-            authContext.setauth({});
+            dispatch(logoutUser());
             localStorage.clear();
-            window.location.assign("http://127.0.0.1:8000");
+            // window.location.assign("http://127.0.0.1:8000");
         })
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));
     }
@@ -32,7 +34,7 @@ export default function TopHeader() {
                     <div className="row margin">
                         <MyNavLink to={"/search"} ><span className="fas fa-search textc-3"></span> Search</MyNavLink>
                         <MyNavLink to={"/yourCart"} ><span className="fas fa-cart-arrow-down textc-3"></span> Your Cart</MyNavLink>
-                        {authContext.auth.token ?
+                        {auth.token ?
                             <>
                             <MyNavLink to={"/dashboard"} ><span className="fas fa-cogs textc-3"></span> Dashboard</MyNavLink>
                             <div onClick={logout}  className="col m25 text-decoration-none textc-3 hover-textc-4 center padding-large"><span className="fas fa-sign-out-alt textc-3"></span> Log out</div>

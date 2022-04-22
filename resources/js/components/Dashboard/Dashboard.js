@@ -1,13 +1,13 @@
 import React from 'react';
-import { AuthContext } from '../Context/AuthContext';
+import { useSelector } from 'react-redux';
 import Dashboardadmin from './Dashboardadmin/Dashboardadmin';
 
 export default function Dashboard() {
-    const authContext = React.useContext(AuthContext);
+    const auth = useSelector( (state) => state.auth);
 
     return (
         <div>
-            {authContext.auth.token ? <Dashboardadmin/> : <h1>Not Found</h1>}
+            {auth.token ? <Dashboardadmin/> : <h1>Not Found</h1>}
         </div>
     );
 }

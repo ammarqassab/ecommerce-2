@@ -1,6 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { loginuser } from '../../Api/FormApi';
-import { AuthContext } from '../../Context/AuthContext';
+import { addDataUser } from '../../Store/AuthSlice';
 
 export default function Login () {
 
@@ -8,7 +9,7 @@ export default function Login () {
     const [password,setpassword] = React.useState("");
     const [user,setuser] = React.useState({});
 
-    const authContext = React.useContext(AuthContext);
+    const dispatch = useDispatch();
 
     function login(e) {
         e.preventDefault();
@@ -31,7 +32,7 @@ export default function Login () {
                 localStorage.setItem("role", responsee.data.data.role);
                 localStorage.setItem("message", responsee.data.message);
 
-                authContext.setauth(responsee.data.data);
+                dispatch(addDataUser(responsee.data.data));
                 window.location.assign("http://127.0.0.1:8000");
             }
 
