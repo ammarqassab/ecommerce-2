@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 function MyNavLink (props) {
     return (
-    <NavLink className="bar-item button textc-1  margin round-xlarge" style={({ isActive }) => {return {backgroundColor: isActive ? "#ff9900" : ""};}} {...props}>
+    <NavLink className="bar-item button textc-1  margin round-xlarge" style={({ isActive }) => {return {backgroundColor: isActive ? "#ff9900" : "#3edbf0"};}} {...props}>
         {props.children}
     </NavLink>);
     // className="hide-small"

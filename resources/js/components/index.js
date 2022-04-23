@@ -37,6 +37,7 @@ function Index() {
             <Routes>
                 <Route path='*' element={<App/>} />
                 <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/dashboard/:id' element={<Dashboard/>}/>
             </Routes>
         </BrowserRouter>
     );
