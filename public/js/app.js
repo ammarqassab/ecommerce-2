@@ -4038,8 +4038,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Dashboardadmin_Dashboardadmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Dashboardadmin/Dashboardadmin */ "./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Footer_Bobbles_Bobbles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Footer/Bobbles/Bobbles */ "./resources/js/components/Footer/Bobbles/Bobbles.js");
+/* harmony import */ var _Dashboardadmin_Dashboardadmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Dashboardadmin/Dashboardadmin */ "./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js");
+/* harmony import */ var _Dashboarduser_Dashboarduser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dashboarduser/Dashboarduser */ "./resources/js/components/Dashboard/Dashboarduser/Dashboarduser.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
 
 
 
@@ -4048,10 +4053,10 @@ function Dashboard() {
   var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.auth;
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    children: auth.token ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Dashboardadmin_Dashboardadmin__WEBPACK_IMPORTED_MODULE_2__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [auth.token && auth.role == "admin" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Dashboardadmin_Dashboardadmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}) : auth.token && auth.role == "user" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Dashboarduser_Dashboarduser__WEBPACK_IMPORTED_MODULE_4__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
       children: "Not Found"
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Footer_Bobbles_Bobbles__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
   });
 }
 
@@ -5279,6 +5284,29 @@ function Siderbar() {
         }), " Users"]
       })]
     })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Dashboard/Dashboarduser/Dashboarduser.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/Dashboard/Dashboarduser/Dashboarduser.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Dashboarduser)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Dashboarduser() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+    children: "Dashboard user"
   });
 }
 
