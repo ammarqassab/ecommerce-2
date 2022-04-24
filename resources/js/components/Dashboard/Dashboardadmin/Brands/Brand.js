@@ -31,9 +31,8 @@ export default function Brand() {
                     <table className="table-all">
                     <thead>
                         <tr>
-                            <th>S.N</th>
+                            <th>id</th>
                             <th>Tital</th>
-                            <th>Slug</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -43,11 +42,9 @@ export default function Brand() {
                             <td>test</td>
                             <td>test</td>
                             <td>test</td>
-                            <td>test</td>
                             <td><span className="badge"><span className="fas fa-edit textc-1"></span></span><span className="badge"><span className="fas fa-trash-alt textc-1"></span></span></td>
                         </tr>
                         <tr>
-                            <td>test</td>
                             <td>test</td>
                             <td>test</td>
                             <td>test</td>

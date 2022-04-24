@@ -31,7 +31,7 @@ export default function Products() {
                     <table className="table-all">
                     <thead>
                         <tr>
-                            <th>S.N</th>
+                            <th>id</th>
                             <th>Tital</th>
                             <th>Brand</th>
                             <th>Category</th>
