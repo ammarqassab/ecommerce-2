@@ -52,10 +52,10 @@ install sanctum
 - 
 - add brand : post:(http://127.0.0.1:8000/api/dashboard/addbrand) , token admin , {title(text),Status(text)} --> valid token , massege add
 - 
-- delete brand : post:(http://127.0.0.1:8000/api/dashboard/deletebrand) , token admin , {id(number)-title(text),Status(text)} 
+- delete brand : delete:(http://127.0.0.1:8000/api/dashboard/deletebrand) , token admin , {id(number)-title(text),Status(text)} 
 - --> valid token , massege delete
 - 
-- edit brand : post:(http://127.0.0.1:8000/api/dashboard/editbrand) , token admin , {id(number)-title(text),Status(text)} 
+- edit brand : put:(http://127.0.0.1:8000/api/dashboard/editbrand) , token admin , {id(number)-title(text),Status(text)} 
 - --> valid token , massege edit
 - /////////////////////////////////////////////////////////////////////////////////////////////
 - 2-new table category
@@ -67,10 +67,10 @@ install sanctum
 - add category : post:(http://127.0.0.1:8000/api/dashboard/addcategory) , token admin , {title, Summary, photo, Status} 
 - --> valid token , massege add
 - 
-- delete category : post:(http://127.0.0.1:8000/api/dashboard/deletecategory) , token admin ,{id, title, Summary, photo, Status, data}
+- delete category : delete:(http://127.0.0.1:8000/api/dashboard/deletecategory) , token admin ,{id, title, Summary, photo, Status, data}
 - --> valid token , massege delete
 - 
-- edit category : post:(http://127.0.0.1:8000/api/dashboard/editcategory) , token admin , {id, title, Summary, photo, Status, data} 
+- edit category : put:(http://127.0.0.1:8000/api/dashboard/editcategory) , token admin , {id, title, Summary, photo, Status, data} 
 - --> valid token , massege edit
 - /////////////////////////////////////////////////////////////////////////////////////////////
 - 3-new table Products
@@ -82,9 +82,9 @@ install sanctum
 - add Products : post:(http://127.0.0.1:8000/api/dashboard/addproducts) , token admin , {Tital, Summary, Description, Brand, Category, Price, Discount %, Size, Condition, Quantity, Photo, Status} 
 - --> valid token , massege add
 - 
-- delete Products : post:(http://127.0.0.1:8000/api/dashboard/deleteproducts) , token admin ,{id, Tital, Summary, Description, Brand, Category, Price, Discount %, Size, Condition, Quantity, Photo, Status, data}
+- delete Products : delete:(http://127.0.0.1:8000/api/dashboard/deleteproducts) , token admin ,{id, Tital, Summary, Description, Brand, Category, Price, Discount %, Size, Condition, Quantity, Photo, Status, data}
 - --> valid token , massege delete
 - 
-- edit Products : post:(http://127.0.0.1:8000/api/dashboard/editproducts) , token admin , {id, Tital, Summary, Description, Brand, Category, Price, Discount %, Size, Condition, Quantity, Photo, Status, data} 
+- edit Products : put:(http://127.0.0.1:8000/api/dashboard/editproducts) , token admin , {id, Tital, Summary, Description, Brand, Category, Price, Discount %, Size, Condition, Quantity, Photo, Status, data} 
 - --> valid token , massege edit
 ## end update 02
