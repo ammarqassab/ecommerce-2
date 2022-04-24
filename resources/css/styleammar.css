@@ -53,7 +53,7 @@
 --borc-3: #3edbf0;
 --borc-4: #ff9900;
 --shadowc: #3edbf0;
---tagandbadge: #ff9900;
+--tagandbadge: #3edbf0;
 }
 /**/
 html {
@@ -410,6 +410,9 @@ a {
   padding-left: 8px;
   padding-right: 8px;
   text-align: center;
+  margin: 0px 10px;
+  cursor: pointer;
+  border: 2px solid black;
 }
 .badge {
   border-radius: 50%;

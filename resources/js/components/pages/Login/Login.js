@@ -44,7 +44,7 @@ export default function Login () {
     return (
         <form>
             <div className="container width-75vw">
-                <div className="margin padding card -2 hover-shadow transparent" >
+                <div className="margin padding card-2 hover-shadow transparent" >
                     <div className="center" >
                         <div className="bar margin display-container" >
                             <div className="bar-item xlarge textc-3 bottombar borderc-3">Login</div>
