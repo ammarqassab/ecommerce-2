@@ -1,39 +1,64 @@
 import React from 'react';
-// import Chart from 'chart.js/auto';
-// import { getRelativePosition } from 'chart.js/helpers';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+// import faker from "faker";
 
-// const labels = ['Item 1', 'Item 2', 'Item 3'];
-// const data = {
-//     labels: labels,
-//     datasets: [{
-//         label: 'My First Dataset',
-//         data: [65, 59, 80, 81, 56, 55, 40],
-//         fill: false,
-//         borderColor: 'rgb(75, 192, 192)',
-//         tension: 0.1
-//     }]
-// };
-// const ctx = document.getElementById('myChart');
-// const chart = new Chart(ctx, {
-//     type: 'line',
-//     data: data,
-//     options: {
-//         onClick: (e) => {
-//         const canvasPosition = getRelativePosition(e, chart);
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
-//         // Substitute the appropriate scale IDs
-//         const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-//         const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-//         }
-//     }
-// });
+export const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+        position: 'top',
+        },
+        title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+        },
+    },
+};
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+export const data = {
+    labels,
+    datasets: [
+        {
+        label: 'Dataset 1',
+        data: [0, 200, 100, 400, 300, 500, 700],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+        {
+        label: 'Dataset 2',
+        data: [0, 100, 200, 400, 300, 400, 700],
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        },
+    ],
+};
 
 export default function ChartLine() {
-
     return (
-        <div className='card hover-shadow transparent margin padding animate-top' >
-            {/* <canvas id="myChart" width="400" height="400"></canvas> */}
-            Chart Line
+        <div className='card hover-shadow margin padding animate-top'>
+            <Line options={options} data={data} />
         </div>
     );
 }
