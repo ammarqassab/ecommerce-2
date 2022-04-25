@@ -27,6 +27,10 @@ export default function AddCategory(props) {
                         <input type="text" className="input transparent round focus-border" placeholder="Write Short Description..." required/>
                     </div>
                     <div className="col s100 padding" >
+                        <label className=' xlarge textc-3'>Discount % :</label>
+                        <input type="number" className="input transparent round focus-border" placeholder="Enter Discount" required/>
+                    </div>
+                    <div className="col s100 padding" >
                         <label className=' xlarge textc-3'>Photo :</label>
                         <input type="file" className="input transparent round focus-border" placeholder="Choose" required/>
                     </div>

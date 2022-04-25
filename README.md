@@ -50,18 +50,18 @@ install sanctum
 - --> valid token , massege edit
 - /////////////////////////////////////////////////////////////////////////////////////////////
 - 2-new table category
-- category table (id(number), title(text), Summary(text), photo(file), Status(text), data)
+- category table (id(number), title(text), Summary(text), Discount %(n), photo(file), Status(text), data)
 - 
 - all category : get:(http://127.0.0.1:8000/api/dashboard/allcategory) , token admin 
-- --> valid token , [{id, title, Summary, photo, Status, data},{id, title, Summary, photo, Status, data}]
+- --> valid token , [{id, title, Summary, Discount, photo, Status, data},{id, title, Summary, Discount, photo, Status, data}]
 - 
-- add category : post:(http://127.0.0.1:8000/api/dashboard/addcategory) , token admin , {title, Summary, photo, Status} 
+- add category : post:(http://127.0.0.1:8000/api/dashboard/addcategory) , token admin , {title, Summary, Discount, photo, Status} 
 - --> valid token , massege add
 - 
-- delete category : delete:(http://127.0.0.1:8000/api/dashboard/deletecategory) , token admin ,{id, title, Summary, photo, Status, data}
+- delete category : delete:(http://127.0.0.1:8000/api/dashboard/deletecategory) , token admin ,{id, title, Summary, Discount, photo, Status, data}
 - --> valid token , massege delete
 - 
-- edit category : put:(http://127.0.0.1:8000/api/dashboard/editcategory) , token admin , {id, title, Summary, photo, Status, data} 
+- edit category : put:(http://127.0.0.1:8000/api/dashboard/editcategory) , token admin , {id, title, Summary, Discount, photo, Status, data} 
 - --> valid token , massege edit
 - /////////////////////////////////////////////////////////////////////////////////////////////
 - 3-new table Products
