@@ -1947,7 +1947,7 @@ input:disabled {
     left: 0;
     width: 100%;
     height: 155px;
-    /* background-image: url("../img/wave.png"); */
+    background-image:url(./img/wave.png);
     background-position: bottom bottom ;
     background-size: 1000px 300px;
     }
@@ -2037,3 +2037,94 @@ input:disabled {
     #0073d4, #0084dd, #0094e3, #00a4e8)!important;
 }
 /* end Footer */
+
+/* Scroll */
+.upscroll
+{
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  display:none;
+  background-color: #0073d4;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 7px;
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.5s;
+  z-index: 100000000000000;
+  text-align: center;
+}
+.upscroll:hover
+{
+  background-color: #ff9900;
+}
+.upscroll.showscroll
+{
+  display:block;
+}
+/* end Scroll */
+
+/* Card */
+.text-bad
+{
+  color: red;
+  display: none;
+}
+.z-index-100000
+{
+  z-index: 100000;
+}
+.pointer
+{
+  cursor: pointer;
+}
+.margin-auto
+{
+  margin:auto;
+}
+.clip-path-circle
+{
+  clip-path: circle(50.0% at 50% 20%);
+  background-color: #0094e3;
+}
+.clip-path-circle:hover
+{
+  transition: 1s;
+  clip-path: circle(110.0% at 50% 20%);
+}
+.clip-path-add
+{
+  clip-path: polygon(0 0, 49% 0, 44% 100%, 0 100%);
+  background-color: #0094e3;
+}
+.clip-path-add:hover
+{
+  transition: 1s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.clip-path-card
+{
+  clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);
+  background-color: #0094e3;
+}
+div:hover.clip-path-card
+{
+  transition: 1s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.hot-dael-width
+{
+  width: 100px;
+}
+.hot-dael
+{
+  padding-top: 38%;
+  font-size: 20%;
+  height: 110px;
+}
+
+/* end Card */

@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "../../css/slick.css";
+import "../../css/slick-theme.css";
 import "../../css/styleammar.css";
 import "../../css/all.min.css";
 import App from './App';
