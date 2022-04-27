@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\AuthController;
 use  App\Http\Controllers\ProfileController;
+use  App\Http\Controllers\BrandController;
+use  App\Http\Controllers\CategoryController;
+use  App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,10 +31,36 @@ Route::middleware('auth:sanctum')->group(function()
 
 });
 
+Route::get('allbrand',[BrandController::class,'index']);
+Route::get('allcategory',[CategoryController::class,'index']);
+Route::get('allproduct',[ProductsController::class,'index']);
+Route::group([
+    'prefix'=>'dashboard',
+    'middleware'=>['auth:sanctum','privateAdmin'],
+],function()
+{
+    //Brands
+    
+    Route::post('addbrand',[BrandController::class,'store']);
+    Route::post('editbrand/{id}',[BrandController::class,'update']);
+    Route::delete('deletebrand/{id}',[BrandController::class,'destroy']);
+    //Categories
+    
+    Route::post('addcategory',[CategoryController::class,'store']);
+    Route::post('editcategory/{id}',[CategoryController::class,'update']);
+    Route::delete('deletecategory/{id}',[CategoryController::class,'destroy']);
+    //Products  //note : put intro xxx-w
+   
+    Route::post('addproduct',[ProductsController::class,'store']);
+    Route::post('editproduct/{id}',[ProductsController::class,'update']);
+    Route::delete('deleteproduct/{id}',[ProductsController::class,'destroy']);
+});
+
+
 Route::middleware(['auth:sanctum' , 'CheckAdmin'])->group(function()
 {
     Route::post('dashboard',function() {
 
     });
 });
-
+ 
