@@ -10,6 +10,8 @@ import Dashboard from './Dashboard/Dashboard';
 import { Provider, useDispatch } from 'react-redux';
 import store from './Store/Store';
 import { addDataUser } from './Store/AuthSlice';
+import { allBrandApi } from './Api/DashboardAdminApi/BrandApi';
+import { addBrand } from './Store/BrandSlice';
 
 function Index() {
 
@@ -31,7 +33,14 @@ function Index() {
             const message = localStorage.getItem("message");
 
             dispatch(addDataUser({firstname, lastname, username, email, phone, address, city, token, role, message}));
+
         }
+
+        allBrandApi()
+            .then( (responsee) => {
+                dispatch(addBrand(responsee.data.data));
+            })
+            .catch( () => alert("حدث خطأ في تحميل الماركات"));
     }, []);
 
     return (

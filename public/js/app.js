@@ -3887,6 +3887,70 @@ __webpack_require__(/*! ./components/index */ "./resources/js/components/index.j
 
 /***/ }),
 
+/***/ "./resources/js/components/Api/DashboardAdminApi/BrandApi.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/Api/DashboardAdminApi/BrandApi.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addBrandApi": () => (/* binding */ addBrandApi),
+/* harmony export */   "allBrandApi": () => (/* binding */ allBrandApi),
+/* harmony export */   "deleteBrandApi": () => (/* binding */ deleteBrandApi),
+/* harmony export */   "editBrandApi": () => (/* binding */ editBrandApi)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _FormApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../FormApi */ "./resources/js/components/Api/FormApi.js");
+
+
+var allBrandApi = function allBrandApi() {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: _FormApi__WEBPACK_IMPORTED_MODULE_1__.apiurl,
+    timeout: _FormApi__WEBPACK_IMPORTED_MODULE_1__.timeOut
+  });
+  var responsee = service.get('/allbrand');
+  return responsee;
+};
+var addBrandApi = function addBrandApi(token, values) {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: _FormApi__WEBPACK_IMPORTED_MODULE_1__.apiurl,
+    timeout: _FormApi__WEBPACK_IMPORTED_MODULE_1__.timeOut,
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  });
+  var responsee = service.post('/dashboard/addbrand', values);
+  return responsee;
+};
+var deleteBrandApi = function deleteBrandApi(token, id) {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: _FormApi__WEBPACK_IMPORTED_MODULE_1__.apiurl,
+    timeout: _FormApi__WEBPACK_IMPORTED_MODULE_1__.timeOut,
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  });
+  var responsee = service["delete"]('/dashboard/deletebrand/' + id);
+  return responsee;
+};
+var editBrandApi = function editBrandApi(token, id, values) {
+  var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: _FormApi__WEBPACK_IMPORTED_MODULE_1__.apiurl,
+    timeout: _FormApi__WEBPACK_IMPORTED_MODULE_1__.timeOut,
+    headers: {
+      Authorization: "Bearer ".concat(token),
+      'Accept': 'application/json'
+    }
+  });
+  var responsee = service.post('/dashboard/editbrand/' + id, values);
+  return responsee;
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/Api/FormApi.js":
 /*!************************************************!*\
   !*** ./resources/js/components/Api/FormApi.js ***!
@@ -3896,21 +3960,24 @@ __webpack_require__(/*! ./components/index */ "./resources/js/components/index.j
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "apiurl": () => (/* binding */ apiurl),
 /* harmony export */   "loginuser": () => (/* binding */ loginuser),
 /* harmony export */   "logoutuser": () => (/* binding */ logoutuser),
-/* harmony export */   "registeruser": () => (/* binding */ registeruser)
+/* harmony export */   "registeruser": () => (/* binding */ registeruser),
+/* harmony export */   "timeOut": () => (/* binding */ timeOut)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var apiurl = 'http://127.0.0.1:8000/api'; // axios.defaults.validateStatus = () => {
+var apiurl = 'http://127.0.0.1:8000/api';
+var timeOut = 20000; // axios.defaults.validateStatus = () => {
 //     return true;
 //     };
 
 var registeruser = function registeruser(values) {
   var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
     baseURL: apiurl,
-    timeout: 20000,
+    timeout: timeOut,
     headers: {
       'Accept': 'application/json'
     }
@@ -3921,7 +3988,7 @@ var registeruser = function registeruser(values) {
 var loginuser = function loginuser(values) {
   var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
     baseURL: apiurl,
-    timeout: 20000,
+    timeout: timeOut,
     headers: {
       'Accept': 'application/json'
     }
@@ -3932,7 +3999,7 @@ var loginuser = function loginuser(values) {
 var logoutuser = function logoutuser(token) {
   var service = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
     baseURL: apiurl,
-    timeout: 20000,
+    timeout: timeOut,
     headers: {
       Authorization: "Bearer ".concat(token)
     }
@@ -4077,76 +4144,161 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AddBrand)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Api/DashboardAdminApi/BrandApi */ "./resources/js/components/Api/DashboardAdminApi/BrandApi.js");
+/* harmony import */ var _Store_BrandSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Store/BrandSlice */ "./resources/js/components/Store/BrandSlice.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
 function AddBrand(props) {
   var handleToggle = props.handleToggle;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  var editindex = props.index;
+  var editid = props.id;
+  var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.auth;
+  });
+  var brand = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.brand.data;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(''),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      title = _React$useState2[0],
+      settitle = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState('active'),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      status = _React$useState4[0],
+      setstatus = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState({}),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      data = _React$useState6[0],
+      setdata = _React$useState6[1];
+
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+    if (editindex > 0) {
+      settitle(brand[editindex - 1].title);
+      setstatus(brand[editindex - 1].status);
+    }
+  }, []); // React.useEffect( () => {setdata({title:title, status:status});}, []);
+
+  var submit = function submit(e) {
+    e.preventDefault();
+    (0,_Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_2__.addBrandApi)(auth.token, {
+      title: title,
+      status: status
+    }).then(function (responsee) {
+      dispatch((0,_Store_BrandSlice__WEBPACK_IMPORTED_MODULE_3__.updataBrand)(responsee.data.data));
+    })["catch"](function () {
+      return alert("حدث خطأ في إضافة الماركات");
+    });
+  };
+
+  var edit = function edit(e) {
+    e.preventDefault();
+    (0,_Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_2__.editBrandApi)(auth.token, editid, {
+      title: title,
+      status: status
+    }).then(function (responsee) {
+      dispatch((0,_Store_BrandSlice__WEBPACK_IMPORTED_MODULE_3__.editBrand)([editindex, responsee.data.data]));
+    })["catch"](function () {
+      return alert("حدث خطأ في تعديل الماركة");
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: " margin padding transparent animate-top",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "display-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-        children: "Add Brands"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+        children: editid ? "EDIT Brands" : "ADD Brands"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: " display-right button round-large border borderc-3 margin-right xlarge",
         onClick: handleToggle,
         children: " x "
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "bar margin display-container",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "bar-item xlarge textc-3 bottombar borderc-3",
-            children: "ADD"
+            children: editid ? "EDIT" : "ADD"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "row-padding",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "col s100 padding",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
             className: " xlarge textc-3",
             children: "Title :"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
             type: "text",
             className: "input transparent round focus-border",
             placeholder: "Enter Title",
+            value: title,
+            onChange: function onChange(e) {
+              return settitle(e.target.value);
+            },
             required: true
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "col s100 padding",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
             className: " xlarge textc-3",
             children: "Status :"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
             className: "select transparent round focus-border",
-            name: "Status",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-              value: " ",
+            value: status,
+            onChange: function onChange(e) {
+              return setstatus(e.target.value);
+            },
+            required: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+              value: "choose",
               disabled: true,
               children: "Choose your Status"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
               value: "active",
               children: "Active"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
               value: "inactive",
               children: "Inactive"
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "col s100 padding",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
             type: "reset",
             className: "button round-large border margin-right",
             children: "Reset"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
             type: "submit",
             className: "button round-large border",
-            children: "Submit"
+            onClick: function onClick(e) {
+              editid ? edit(e) : submit(e);
+            },
+            children: editid ? "Edit" : "Submit"
           })]
         })]
       })]
@@ -4168,8 +4320,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Brand)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _AddBrand__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddBrand */ "./resources/js/components/Dashboard/Dashboardadmin/Brands/AddBrand.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Api/DashboardAdminApi/BrandApi */ "./resources/js/components/Api/DashboardAdminApi/BrandApi.js");
+/* harmony import */ var _Store_BrandSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Store/BrandSlice */ "./resources/js/components/Store/BrandSlice.js");
+/* harmony import */ var _AddBrand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AddBrand */ "./resources/js/components/Dashboard/Dashboardadmin/Brands/AddBrand.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4186,103 +4341,143 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function Brand() {
+  var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.auth;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var brand = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.brand.data;
+  });
+
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       taggle = _React$useState2[0],
       settaggle = _React$useState2[1];
 
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      edittaggle = _React$useState4[0],
+      setedittaggle = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      editindex = _React$useState6[0],
+      seteeditindex = _React$useState6[1];
+
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      editid = _React$useState8[0],
+      seteeditid = _React$useState8[1];
+
   var handleToggle = function handleToggle() {
+    setedittaggle(false);
     taggle ? settaggle(false) : settaggle(true);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  var handleeditToggle = function handleeditToggle(id, index) {
+    settaggle(false);
+    edittaggle ? setedittaggle(false) : setedittaggle(true);
+    seteeditindex(index);
+    seteeditid(id);
+  };
+
+  var deletebrand = function deletebrand(id, index) {
+    (0,_Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_2__.deleteBrandApi)(auth.token, id).then(function () {
+      dispatch((0,_Store_BrandSlice__WEBPACK_IMPORTED_MODULE_3__.deleteBrand)(index));
+    })["catch"](function () {
+      return alert("حدث خطأ في حذف الماركة");
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: " animate-top",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "transparent display-container margin padding",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
         children: "Brands"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: " display-right button round-large border borderc-3 margin-right",
         onClick: handleToggle,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
           className: "fas fa-plus textc-1"
         }), " Add Brand"]
       })]
-    }), taggle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_AddBrand__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }), taggle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_AddBrand__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      id: null,
+      index: null,
       handleToggle: handleToggle
-    }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    }) : edittaggle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_AddBrand__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      id: editid,
+      index: editindex + 1,
+      handleToggle: handleeditToggle
+    }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "transparent margin padding",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "display-container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
           children: "Table"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: " display-right",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
             type: "text",
             className: "input transparent round focus-border width-30vw margin-right",
             placeholder: "Search Brand"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "responsive",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
           className: "table-all",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 children: "id"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 children: "Tital"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 children: "Status"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 children: "Action"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                children: "test"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                children: "test"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                children: "test"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "badge",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    className: "fas fa-edit textc-1"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "badge",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    className: "fas fa-trash-alt textc-1"
-                  })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+            children: brand ? brand.map(function (iteme, index) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                  children: index + 1
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                  children: iteme.title
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                  children: iteme.status
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    className: "badge",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                      className: "fas fa-edit textc-1",
+                      onClick: function onClick() {
+                        return handleeditToggle(iteme.id, index);
+                      }
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    className: "badge",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                      className: "fas fa-trash-alt textc-1",
+                      onClick: function onClick() {
+                        return deletebrand(iteme.id, index);
+                      }
+                    })
+                  })]
                 })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                children: "test"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                children: "test"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                children: "test"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "badge",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    className: "fas fa-edit textc-1"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "badge",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    className: "fas fa-trash-alt textc-1"
-                  })
-                })]
-              })]
-            })]
+              }, index);
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tr", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: "not Brand"
+              })
+            })
           })]
         })
       })]
@@ -4707,7 +4902,17 @@ function Dashboardadmin() {
   var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.auth;
   });
+  var brand = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.brand.data;
+  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var brandlen = 0;
+
+  for (var i in brand) {
+    brandlen++;
+  }
+
+  ;
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(true),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -4777,7 +4982,7 @@ function Dashboardadmin() {
           className: " row-padding",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Counter, {
             name: 'brand',
-            number: 0
+            number: brandlen
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Counter, {
             name: 'Category',
             number: 0
@@ -6406,6 +6611,54 @@ var _authSlice$actions = authSlice.actions,
 
 /***/ }),
 
+/***/ "./resources/js/components/Store/BrandSlice.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Store/BrandSlice.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addBrand": () => (/* binding */ addBrand),
+/* harmony export */   "brandSlice": () => (/* binding */ brandSlice),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "deleteBrand": () => (/* binding */ deleteBrand),
+/* harmony export */   "editBrand": () => (/* binding */ editBrand),
+/* harmony export */   "updataBrand": () => (/* binding */ updataBrand)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+
+var brandSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
+  name: "brand",
+  initialState: {
+    data: null
+  },
+  reducers: {
+    addBrand: function addBrand(state, action) {
+      state.data = action.payload;
+    },
+    updataBrand: function updataBrand(state, action) {
+      state.data.push(action.payload);
+    },
+    deleteBrand: function deleteBrand(state, action) {
+      state.data.splice(action.payload, 1);
+    },
+    editBrand: function editBrand(state, action) {
+      state.data.splice(action.payload[0] - 1, 1, action.payload[1]);
+    }
+  }
+});
+var _brandSlice$actions = brandSlice.actions,
+    addBrand = _brandSlice$actions.addBrand,
+    updataBrand = _brandSlice$actions.updataBrand,
+    deleteBrand = _brandSlice$actions.deleteBrand,
+    editBrand = _brandSlice$actions.editBrand;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (brandSlice.reducer);
+
+/***/ }),
+
 /***/ "./resources/js/components/Store/Store.js":
 /*!************************************************!*\
   !*** ./resources/js/components/Store/Store.js ***!
@@ -6417,13 +6670,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _AuthSlice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthSlice */ "./resources/js/components/Store/AuthSlice.js");
+/* harmony import */ var _BrandSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BrandSlice */ "./resources/js/components/Store/BrandSlice.js");
 
 
-var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.configureStore)({
+
+var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
   reducer: {
-    auth: _AuthSlice__WEBPACK_IMPORTED_MODULE_0__.authSlice.reducer
+    auth: _AuthSlice__WEBPACK_IMPORTED_MODULE_0__.authSlice.reducer,
+    brand: _BrandSlice__WEBPACK_IMPORTED_MODULE_1__.brandSlice.reducer
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -6445,13 +6701,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_styleammar_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../css/styleammar.css */ "./resources/css/styleammar.css");
 /* harmony import */ var _css_all_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../css/all.min.css */ "./resources/css/all.min.css");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./App */ "./resources/js/components/App.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var _Dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Dashboard/Dashboard */ "./resources/js/components/Dashboard/Dashboard.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Store_Store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Store/Store */ "./resources/js/components/Store/Store.js");
 /* harmony import */ var _Store_AuthSlice__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Store/AuthSlice */ "./resources/js/components/Store/AuthSlice.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Api/DashboardAdminApi/BrandApi */ "./resources/js/components/Api/DashboardAdminApi/BrandApi.js");
+/* harmony import */ var _Store_BrandSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Store/BrandSlice */ "./resources/js/components/Store/BrandSlice.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -6495,27 +6755,33 @@ function Index() {
         message: message
       }));
     }
+
+    (0,_Api_DashboardAdminApi_BrandApi__WEBPACK_IMPORTED_MODULE_11__.allBrandApi)().then(function (responsee) {
+      dispatch((0,_Store_BrandSlice__WEBPACK_IMPORTED_MODULE_12__.addBrand)(responsee.data.data));
+    })["catch"](function () {
+      return alert("حدث خطأ في تحميل الماركات");
+    });
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.BrowserRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Routes, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.BrowserRouter, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Routes, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
         path: "*",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_App__WEBPACK_IMPORTED_MODULE_6__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_App__WEBPACK_IMPORTED_MODULE_6__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
         path: "/dashboard",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_7__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
         path: "/dashboard/:id",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_7__["default"], {})
       })]
     })
   });
 }
 
 if (document.getElementById('root')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_8__.Provider, {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_8__.Provider, {
     store: _Store_Store__WEBPACK_IMPORTED_MODULE_9__["default"],
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Index, {})
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Index, {})
   }), document.getElementById('root'));
 }
 
