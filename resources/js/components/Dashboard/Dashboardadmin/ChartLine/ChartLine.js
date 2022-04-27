@@ -57,7 +57,7 @@ export const data = {
 
 export default function ChartLine() {
     return (
-        <div className='card hover-shadow margin padding animate-top'>
+        <div className='margin padding animate-top'>
             <Line options={options} data={data} />
         </div>
     );

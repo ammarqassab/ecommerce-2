@@ -10,7 +10,7 @@ export default function Category() {
 
     return (
         <div className=' animate-top'>
-            <div className=' card hover-shadow transparent display-container margin padding'>
+            <div className='transparent display-container margin padding'>
                 <h1>Category</h1>
                 <div className=' display-right button round-large border borderc-3 margin-right' onClick={handleToggle}>
                     <span className="fas fa-plus textc-1"></span> Add Category
@@ -19,7 +19,7 @@ export default function Category() {
 
             {taggle ? <AddCategory handleToggle={handleToggle} /> : ''}
 
-            <div className=" card hover-shadow transparent margin padding">
+            <div className="transparent margin padding">
                 <div className='display-container'>
                     <h1>Table</h1>
                     <div className=' display-right'>

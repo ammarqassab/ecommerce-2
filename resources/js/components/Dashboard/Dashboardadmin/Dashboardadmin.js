@@ -69,12 +69,12 @@ export default function Dashboardadmin() {
                         <div className="bar textc-2 transparent" >
                             <div className="bar-item button textc-1 margin round-xlarge bgc-3" onClick={functaggle} >☰</div>
                             <MyNavLink to={"/"} ><span className="fas fa-home textc-1"></span> Home</MyNavLink>
-                            <MyNavLink to={"/"} ><span className="fas fa-user-cog textc-1"></span> {auth.username}</MyNavLink>
+                            <MyNavLink to={"/dashboard"} ><span className="fas fa-user-cog textc-1"></span> {auth.username}</MyNavLink>
                             <div className="bar-item button textc-1 margin round-xlarge bgc-3" onClick={logout}><span className="fas fa-sign-out-alt textc- "></span> Logout</div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div className='transparent' >
                     <div className=' row-padding'>
                         <Counter name={'brand'} number={0}/>

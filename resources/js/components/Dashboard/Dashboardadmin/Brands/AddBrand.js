@@ -5,7 +5,7 @@ export default function AddBrand(props) {
     const handleToggle = props.handleToggle;
 
     return (
-        <div className='card hover-shadow margin padding transparent animate-top'>
+        <div className=' margin padding transparent animate-top'>
             <div className='display-container'>
                 <h1>Add Brands</h1>
                 <div className=' display-right button round-large border borderc-3 margin-right xlarge' onClick={handleToggle}> x </div>

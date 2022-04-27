@@ -40,12 +40,12 @@ Route::group([
 ],function()
 {
     //Brands
-    
+
     Route::post('addbrand',[BrandController::class,'store']);
     Route::post('editbrand/{id}',[BrandController::class,'update']);
     Route::delete('deletebrand/{id}',[BrandController::class,'destroy']);
     //Categories
-    
+
     Route::post('addcategory',[CategoryController::class,'store']);
     Route::post('editcategory/{id}',[CategoryController::class,'update']);
     Route::delete('deletecategory/{id}',[CategoryController::class,'destroy']);
@@ -63,4 +63,4 @@ Route::middleware(['auth:sanctum' , 'CheckAdmin'])->group(function()
 
     });
 });
- 
+

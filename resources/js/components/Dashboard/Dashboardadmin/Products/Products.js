@@ -10,7 +10,7 @@ export default function Products() {
 
     return (
         <div className=' animate-top'>
-            <div className=' card hover-shadow transparent display-container margin padding'>
+            <div className='transparent display-container margin padding'>
                 <h1>Products</h1>
                 <div className=' display-right button round-large border borderc-3 margin-right' onClick={handleToggle}>
                     <span className="fas fa-plus textc-1"></span> Add Products
@@ -19,7 +19,7 @@ export default function Products() {
 
             {taggle ? <AddProducts handleToggle={handleToggle} /> : ''}
 
-            <div className=" card hover-shadow transparent margin padding">
+            <div className="transparent margin padding">
                 <div className='display-container'>
                     <h1>Table</h1>
                     <div className=' display-right'>
