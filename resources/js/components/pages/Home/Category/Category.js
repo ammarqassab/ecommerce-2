@@ -120,9 +120,9 @@ export default function Category() {
         <Slider {...settings}>
             {category ?
                 category.map((iteme, index) =>
-                <div key={index}>
+                (iteme.status == "active" ? <div key={index}>
                     <Card num={index + 1} title={iteme.title} summary={iteme.summary} disscount={iteme.disscount} img={iteme.category_image}/>
-                </div>
+                </div> : "")
                 )
             : ""
             }

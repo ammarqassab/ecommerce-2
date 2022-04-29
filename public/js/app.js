@@ -7317,7 +7317,7 @@ function Category() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_slick__WEBPACK_IMPORTED_MODULE_2__["default"], _objectSpread(_objectSpread({}, settings), {}, {
       children: category ? category.map(function (iteme, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        return iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Card, {
             num: index + 1,
             title: iteme.title,
@@ -7325,7 +7325,7 @@ function Category() {
             disscount: iteme.disscount,
             img: iteme.category_image
           })
-        }, index);
+        }, index) : "";
       }) : ""
     }))]
   });
