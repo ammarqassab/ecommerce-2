@@ -30,11 +30,14 @@ function Counter (props) {
 export default function Dashboardadmin() {
 
     const auth = useSelector( (state) => state.auth);
-    let brand = useSelector( (state) => state.brand.data);
+    const brand = useSelector( (state) => state.brand.data);
+    const category = useSelector( (state) => state.category.data);
     const dispatch = useDispatch();
 
     let brandlen = 0;
     for (let i in brand) { brandlen ++ };
+    let categorylen = 0;
+    for (let i in category) { categorylen ++ };
 
     const [taggle, settaggle] = React.useState(true);
 
@@ -82,7 +85,7 @@ export default function Dashboardadmin() {
                 <div className='transparent' >
                     <div className=' row-padding'>
                         <Counter name={'brand'} number={brandlen}/>
-                        <Counter name={'Category'} number={0}/>
+                        <Counter name={'Category'} number={categorylen}/>
                         <Counter name={'Products'} number={0}/>
                         <Counter name={'Users'} number={0}/>
                     </div>

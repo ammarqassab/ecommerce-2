@@ -12,6 +12,8 @@ import store from './Store/Store';
 import { addDataUser } from './Store/AuthSlice';
 import { allBrandApi } from './Api/DashboardAdminApi/BrandApi';
 import { addBrand } from './Store/BrandSlice';
+import { addCategory} from './Store/CategorySlice';
+import { allCategoryApi } from './Api/DashboardAdminApi/CategoryApi';
 
 function Index() {
 
@@ -25,15 +27,14 @@ function Index() {
             const username = localStorage.getItem("username");
             const email = localStorage.getItem("email");
             const phone = localStorage.getItem("phone");
+            const profile_image = localStorage.getItem("profile_image");
             const address = localStorage.getItem("address");
             const city = localStorage.getItem("city");
-            // const id = localStorage.getItem("id");
             const token = localStorage.getItem("token");
             const role = localStorage.getItem("role");
             const message = localStorage.getItem("message");
 
-            dispatch(addDataUser({firstname, lastname, username, email, phone, address, city, token, role, message}));
-
+            dispatch(addDataUser({firstname, lastname, username, email, phone, profile_image, address, city, token, role, message}));
         }
 
         allBrandApi()
@@ -41,6 +42,12 @@ function Index() {
                 dispatch(addBrand(responsee.data.data));
             })
             .catch( () => alert("حدث خطأ في تحميل الماركات"));
+
+        allCategoryApi()
+            .then( (responsee) => {
+                dispatch(addCategory(responsee.data.data));
+            })
+            .catch( () => alert("حدث خطأ في تحميل الفئة"));
     }, []);
 
     return (

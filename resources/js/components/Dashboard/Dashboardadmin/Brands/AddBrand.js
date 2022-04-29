@@ -15,7 +15,6 @@ export default function AddBrand(props) {
 
     const [title, settitle] = React.useState('');
     const [status, setstatus] = React.useState('active');
-    const [data, setdata] = React.useState({});
 
     React.useEffect(() => {
         if(editindex > 0) {
@@ -24,8 +23,6 @@ export default function AddBrand(props) {
         }
     }, []);
 
-    // React.useEffect( () => {setdata({title:title, status:status});}, []);
-
     const submit = (e) => {
         e.preventDefault();
 
@@ -33,7 +30,7 @@ export default function AddBrand(props) {
         .then( (responsee) => {
             dispatch(updataBrand(responsee.data.data));
         })
-        .catch( () => alert("حدث خطأ في إضافة الماركات"));
+        .catch( () => alert("حدث خطأ في إضافة الماركة"));
     };
 
     const edit = (e) => {

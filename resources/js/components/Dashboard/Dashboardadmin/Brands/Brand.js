@@ -74,7 +74,7 @@ export default function Brand() {
                             <td><span className="badge"><span className="fas fa-edit textc-1" onClick={() => handleeditToggle(iteme.id, index)}></span></span><span className="badge"><span className="fas fa-trash-alt textc-1" onClick={() => deletebrand(iteme.id, index)}></span></span></td>
                         </tr>
                         )
-                        : <tr><td>not Brand</td></tr>
+                        : <tr><td>no Brand</td></tr>
                         }
                     </tbody>
                     </table>

@@ -27,15 +27,12 @@ export default function Register () {
     const [phone,setphone] = React.useState("");
     const [address,setaddress] = React.useState("");
     const [city,setcity] = React.useState("");
-    const [user,setuser] = React.useState({});
 
     function register(e) {
         e.preventDefault();
         if(password === confirmPassword) {
 
-            setuser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, city:city, password:password, c_password:confirmPassword});
-
-            registeruser(user)
+            registeruser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, city:city, password:password, c_password:confirmPassword})
             .then( (responsee) => {
                 if(responsee.data.message === "register successfully") {
                     window.location.assign("http://127.0.0.1:8000/login");
