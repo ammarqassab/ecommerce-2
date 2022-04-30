@@ -126,8 +126,23 @@ class productsController extends BaseController
         {
             $image_name=$products->product_image;
         }
-        dd(request->all());
-        $products->save();
+       /// dd(request->all());
+      //  $products->save();   not update stay old
+      $products->update([
+        'title' =>$request->title,
+        'price' =>$request->price,
+       'category_id' =>$request->category_id,
+        'summary' =>$request->summary,
+        'description' =>$request->description,
+        'brand_id' =>$request->brand_id,
+         'product_image' =>$image_name,
+       'disscount' =>$request->disscount,
+        'size' =>$request->size,
+        'condition' =>$request->condition,
+       'quantity' =>$request->quantity,
+        'status' =>$request->status,
+
+      ]);
         return $this->sendResponse($products, 'product update');
     }
      ##################################################################
