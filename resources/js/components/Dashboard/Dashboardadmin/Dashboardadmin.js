@@ -32,12 +32,15 @@ export default function Dashboardadmin() {
     const auth = useSelector( (state) => state.auth);
     const brand = useSelector( (state) => state.brand.data);
     const category = useSelector( (state) => state.category.data);
+    const products = useSelector( (state) => state.products.data);
     const dispatch = useDispatch();
 
     let brandlen = 0;
     for (let i in brand) { brandlen ++ };
     let categorylen = 0;
     for (let i in category) { categorylen ++ };
+    let productslen = 0;
+    for (let i in products) { productslen ++ };
 
     const [taggle, settaggle] = React.useState(true);
 
@@ -86,7 +89,7 @@ export default function Dashboardadmin() {
                     <div className=' row-padding'>
                         <Counter name={'brand'} number={brandlen}/>
                         <Counter name={'Category'} number={categorylen}/>
-                        <Counter name={'Products'} number={0}/>
+                        <Counter name={'Products'} number={productslen}/>
                         <Counter name={'Users'} number={0}/>
                     </div>
                 </div>

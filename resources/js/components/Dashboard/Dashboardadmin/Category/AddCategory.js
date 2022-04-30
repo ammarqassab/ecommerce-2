@@ -1,4 +1,3 @@
-import { update } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategoryApi, editCategoryApi } from '../../../Api/DashboardAdminApi/CategoryApi';

@@ -126,7 +126,7 @@ class productsController extends BaseController
         {
             $image_name=$products->product_image;
         }
-        dd(request->all());
+        // dd(request->all());
         $products->save();
         return $this->sendResponse($products, 'product update');
     }

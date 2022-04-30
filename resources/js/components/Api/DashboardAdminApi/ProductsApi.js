@@ -10,7 +10,7 @@ export const allProductsApi = () => {
         baseURL:apiurl,
         timeout:timeOut
     });
-    const responsee = service.get('/allproducts');
+    const responsee = service.get('/allproduct');
     return responsee;
 };
 
@@ -23,7 +23,7 @@ export const addProductsApi = (token, values) => {
         }
 
     });
-    const responsee = service.post('/dashboard/addproducts',values);
+    const responsee = service.post('/dashboard/addproduct',values);
     return responsee;
 };
 
@@ -38,7 +38,7 @@ export const deleteProductsApi = (token, id) => {
         }
 
     });
-    const responsee = service.delete('/dashboard/deleteproducts/' + id);
+    const responsee = service.delete('/dashboard/deleteproduct/' + id);
     return responsee;
 };
 
@@ -53,6 +53,6 @@ export const editProductsApi = (token, id, values) => {
         }
 
     });
-    const responsee = service.post('/dashboard/editproducts/' + id, values);
+    const responsee = service.post('/dashboard/editproduct/' + id, values);
     return responsee;
 };

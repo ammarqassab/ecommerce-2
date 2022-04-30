@@ -14,6 +14,8 @@ import { allBrandApi } from './Api/DashboardAdminApi/BrandApi';
 import { addBrand } from './Store/BrandSlice';
 import { addCategory} from './Store/CategorySlice';
 import { allCategoryApi } from './Api/DashboardAdminApi/CategoryApi';
+import { allProductsApi } from './Api/DashboardAdminApi/ProductsApi';
+import { addProducts } from './Store/ProductsSlice';
 
 function Index() {
 
@@ -47,7 +49,13 @@ function Index() {
             .then( (responsee) => {
                 dispatch(addCategory(responsee.data.data));
             })
-            .catch( () => alert("حدث خطأ في تحميل الفئة"));
+            .catch( () => alert("حدث خطأ في تحميل الفئات"));
+
+        allProductsApi()
+            .then( (responsee) => {
+                dispatch(addProducts(responsee.data.data));
+            })
+            .catch( () => alert("حدث خطأ في تحميل المنتجات"));
     }, []);
 
     return (
