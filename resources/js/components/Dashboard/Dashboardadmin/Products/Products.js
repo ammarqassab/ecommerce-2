@@ -1,25 +1,52 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProductsApi } from '../../../Api/DashboardAdminApi/ProductsApi';
 import AddProducts from './AddProducts';
+import { deleteProducts } from '../../../Store/ProductsSlice';
 
 export default function Products() {
+
+    const products = useSelector( (state) => state.products.data);
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
     const [taggle, settaggle] = React.useState(false);
+    const [edittaggle, setedittaggle] = React.useState(false);
+    const [editindex, seteeditindex] = React.useState(null);
+    const [editid, seteeditid] = React.useState(null);
 
     const handleToggle = () => {
+        setedittaggle(false);
         taggle ? settaggle(false) : settaggle(true) ;
+    };
+
+    const handleeditToggle = (id, index) => {
+        settaggle(false);
+        edittaggle ? setedittaggle(false) : setedittaggle(true) ;
+        seteeditindex(index) ;
+        seteeditid(id);
+    };
+
+    const deleteproduct = (id, index) => {
+        deleteProductsApi(auth.token, id)
+        .then(() => {
+            dispatch(deleteProducts(index));
+        })
+        .catch(() => alert("حدث خطأ في حذف المنتج"));
     };
 
     return (
         <div className=' animate-top'>
-            <div className=' card hover-shadow transparent display-container margin padding'>
+            <div className='transparent display-container margin padding'>
                 <h1>Products</h1>
                 <div className=' display-right button round-large border borderc-3 margin-right' onClick={handleToggle}>
                     <span className="fas fa-plus textc-1"></span> Add Products
                 </div>
             </div>
 
-            {taggle ? <AddProducts handleToggle={handleToggle} /> : ''}
+            {taggle ? <AddProducts id={null} index={null} handleToggle={handleToggle} /> : edittaggle ? <AddProducts id={editid} index={editindex + 1} handleToggle={handleeditToggle} /> : ''}
 
-            <div className=" card hover-shadow transparent margin padding">
+            <div className="transparent margin padding">
                 <div className='display-container'>
                     <h1>Table</h1>
                     <div className=' display-right'>
@@ -33,10 +60,12 @@ export default function Products() {
                         <tr>
                             <th>id</th>
                             <th>Tital</th>
+                            <th>Summary</th>
+                            {/* <th>Description</th> */}
                             <th>Brand</th>
                             <th>Category</th>
-                            <th>Price</th>
                             <th>Discount %</th>
+                            <th>Price</th>
                             <th>Size</th>
                             <th>Condition</th>
                             <th>Quantity</th>
@@ -46,34 +75,26 @@ export default function Products() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td><span className="badge"><span className="fas fa-edit textc-1"></span></span><span className="badge"><span className="fas fa-trash-alt textc-1"></span></span></td>
+                        {products ? products.map((iteme, index) =>
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{iteme.title}</td>
+                            <td>{iteme.summary}</td>
+                            {/* <td>{iteme.description}</td> */}
+                            <td>{iteme.brand_id}</td>
+                            <td>{iteme.category_id}</td>
+                            <td>{iteme.disscount}</td>
+                            <td>{iteme.price}</td>
+                            <td>{iteme.size}</td>
+                            <td>{iteme.condition}</td>
+                            <td>{iteme.quantity}</td>
+                            <td><img src={'../upload/product_images/' + iteme.product_image} style={{width: "50px",height: "50px"}}  /></td>
+                            <td>{iteme.status}</td>
+                            <td><span className="badge"><span className="fas fa-edit textc-1" onClick={() => handleeditToggle(iteme.id, index)}></span></span><span className="badge"><span className="fas fa-trash-alt textc-1" onClick={() => deleteproduct(iteme.id, index)}></span></span></td>
                         </tr>
-                        <tr>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td><span className="badge"><span className="fas fa-edit textc-1"></span></span><span className="badge"><span className="fas fa-trash-alt textc-1"></span></span></td>
-                        </tr>
+                        )
+                        : <tr><td>no Products</td></tr>
+                        }
                     </tbody>
                     </table>
                 </div>

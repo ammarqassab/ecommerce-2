@@ -7,16 +7,13 @@ export default function Login () {
 
     const [email,setemail] = React.useState("");
     const [password,setpassword] = React.useState("");
-    const [user,setuser] = React.useState({});
 
     const dispatch = useDispatch();
 
     function login(e) {
         e.preventDefault();
 
-        setuser({email:email, password:password});
-
-        loginuser(user)
+        loginuser({email:email, password:password})
         .then( (responsee) => {
 
             if (responsee.data.data.token){
@@ -25,9 +22,9 @@ export default function Login () {
                 localStorage.setItem("username", responsee.data.data.username);
                 localStorage.setItem("email", responsee.data.data.email);
                 localStorage.setItem("phone", responsee.data.data.phone);
+                localStorage.setItem("profile_image", responsee.data.data.profile_image);
                 localStorage.setItem("address", responsee.data.data.address);
                 localStorage.setItem("city", responsee.data.data.city);
-                // localStorage.setItem("id", responsee.data.data.id);
                 localStorage.setItem("token", responsee.data.data.token);
                 localStorage.setItem("role", responsee.data.data.role);
                 localStorage.setItem("message", responsee.data.message);

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 
-const apiurl= 'http://127.0.0.1:8000/api';
+export const apiurl= 'http://127.0.0.1:8000/api';
+export const timeOut= 20000;
 
 // axios.defaults.validateStatus = () => {
 //     return true;
@@ -10,7 +11,7 @@ const apiurl= 'http://127.0.0.1:8000/api';
 export const registeruser = (values) => {
     const service = axios.create({
         baseURL:apiurl,
-        timeout:20000,
+        timeout:timeOut,
         headers:{
             'Accept': 'application/json'
         }
@@ -23,7 +24,7 @@ export const registeruser = (values) => {
 export const loginuser = (values) => {
     const service = axios.create({
         baseURL:apiurl,
-        timeout:20000,
+        timeout:timeOut,
         headers:{
             'Accept': 'application/json'
         }
@@ -36,7 +37,7 @@ export const loginuser = (values) => {
 export const logoutuser = (token) => {
     const service = axios.create({
         baseURL:apiurl,
-        timeout:20000,
+        timeout:timeOut,
         headers:{
             Authorization:`Bearer ${token}`
         }

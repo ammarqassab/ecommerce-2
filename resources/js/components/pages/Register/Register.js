@@ -1,6 +1,21 @@
 import React from 'react';
 import { registeruser } from '../../Api/FormApi';
 
+function Form(props) {
+
+    const type = props.type;
+    const name = props.name;
+    const value = props.value;
+    const setvalue = props.setvalue;
+
+    return (
+        <div className="col m50 padding" >
+            <label className=' xlarge textc-3'>{name} :</label>
+            <input type={type} className="input transparent round focus-border" placeholder={name} value={value} onChange={e => setvalue(e.target.value) } required/>
+        </div>
+    );
+}
+
 export default function Register () {
 
     const [firstname,setfirstname] = React.useState("");
@@ -12,15 +27,12 @@ export default function Register () {
     const [phone,setphone] = React.useState("");
     const [address,setaddress] = React.useState("");
     const [city,setcity] = React.useState("");
-    const [user,setuser] = React.useState({});
 
     function register(e) {
         e.preventDefault();
         if(password === confirmPassword) {
 
-            setuser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, city:city, password:password, c_password:confirmPassword});
-
-            registeruser(user)
+            registeruser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, city:city, password:password, c_password:confirmPassword})
             .then( (responsee) => {
                 if(responsee.data.message === "register successfully") {
                     window.location.assign("http://127.0.0.1:8000/login");
@@ -45,33 +57,15 @@ export default function Register () {
                         </div>
                     </div>
                     <div className="row-padding">
-                        <div className="col m50 padding" >
-                            <input type="text" className="input transparent round focus-border" placeholder="First Name" name="f_name" value={firstname} onChange={e => setfirstname(e.target.value) } required/>
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="text" className="input transparent round focus-border" placeholder="Last Name" name="l_name" value={lastname} onChange={e => setlastname(e.target.value) } required/>
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="text" className="input transparent round focus-border" placeholder="User Name" name="u_name" value={username} onChange={e => setusername(e.target.value) } required/>
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="email" className="input transparent round focus-border" placeholder="Email" name="email" value={email} onChange={e => setemail(e.target.value) } required/>
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="password" className="input transparent round focus-border" placeholder="Password" name="password" value={password} onChange={e => setpassword(e.target.value) } required/>
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="password" className="input transparent round focus-border" placeholder="Confirm Password" name="repassword" value={confirmPassword} onChange={e => setconfirmPassword(e.target.value) } required/>
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="text" className="input transparent round focus-border" placeholder="Phone" name="phone" value={phone} onChange={e => setphone(e.target.value) } />
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="text" className="input transparent round focus-border" placeholder="Address" name="address" value={address} onChange={e => setaddress(e.target.value) } />
-                        </div>
-                        <div className="col m50 padding" >
-                            <input type="text" className="input transparent round focus-border" placeholder="City" name="city" value={city} onChange={e => setcity(e.target.value) } />
-                        </div>
+                        <Form type={"text"} name={"First Name"} value={firstname} setvalue={setfirstname}/>
+                        <Form type={"text"} name={"Last Name"} value={lastname} setvalue={setlastname}/>
+                        <Form type={"text"} name={"User Name"} value={username} setvalue={setusername}/>
+                        <Form type={"email"} name={"Email"} value={email} setvalue={setemail}/>
+                        <Form type={"password"} name={"Password"} value={password} setvalue={setpassword}/>
+                        <Form type={"password"} name={"Confirm Password"} value={confirmPassword} setvalue={setconfirmPassword}/>
+                        <Form type={"text"} name={"Phone"} value={phone} setvalue={setphone}/>
+                        <Form type={"text"} name={"Address"} value={address} setvalue={setaddress}/>
+                        <Form type={"text"} name={"City"} value={city} setvalue={setcity}/>
                         <div className="col s100 padding" >
                             <button type="submit" className="button round-large display-block border" name="signup_button" onClick={register}>Register</button>
                         </div>

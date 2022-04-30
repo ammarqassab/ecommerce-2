@@ -28,7 +28,7 @@ class productsController extends BaseController
     public function store(Request $request)
     {
         $input = $request->all();
-     
+
         $validator = Validator::make($input, [
             'title' => 'required',
             'summary' => 'required',
@@ -59,15 +59,15 @@ class productsController extends BaseController
         $user = Auth::user();
         $input['user_id'] = Auth::id();
 
-       
+
         $products = Product::create([
             'title' => $request->title,
             'price' =>  $request->price,
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
             'summary' => $request->summary,
-            'description' => $request->description, 
-            
+            'description' => $request->description,
+
             'product_image' => $image_name,
             'disscount' =>  $request->disscount,
             'size' => $request->size,
@@ -102,7 +102,7 @@ class productsController extends BaseController
         'condition' =>'required',
         'quantity' =>'required',
         'status' =>'required',
-                  
+
         ]);
         if ($validator->fails()) {
             return $this->sendError('validation error', $validator->errors());
@@ -122,10 +122,11 @@ class productsController extends BaseController
             $request->product_image->move(public_path('/upload/product_images'),$image_name);
 
         }
-        else 
+        else
         {
             $image_name=$products->product_image;
         }
+<<<<<<< HEAD
        /// dd(request->all());
       //  $products->save();   not update stay old
       $products->update([
@@ -143,6 +144,10 @@ class productsController extends BaseController
         'status' =>$request->status,
 
       ]);
+=======
+        // dd(request->all());
+        $products->save();
+>>>>>>> 50706b59f2f4ffaa3442ee2629cd75d9d3514a66
         return $this->sendResponse($products, 'product update');
     }
      ##################################################################

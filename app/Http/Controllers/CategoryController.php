@@ -39,7 +39,7 @@ class CategoryController extends BaseController
         }
         $input = $request->all();
 
-       
+
         if($request->hasFile('category_image'))
         {
             $image_name='category_image-'.time().'.'.$request->category_image->extension();
@@ -55,17 +55,17 @@ class CategoryController extends BaseController
             'status' => $request->status,
             'disscount'=>$request->disscount,
 
-           
+
         ]);
         return $this->sendResponse( $category, 'category added successfully');
-    } 
+    }
     ##################################################################
       /* update Category  */
     public function update(Request $request, $id)
     {
         $errorMessage = [];
         $category = Category::find($id);
-       
+
         if ($category  == null) {
             return $this->sendError('the category does not exist', $errorMessage);
         }
@@ -74,7 +74,7 @@ class CategoryController extends BaseController
             'summary' => 'required',
             'category_image' => 'required|file|mimes:jpeg,bmp,png,pdf,doc,docx',
             'status' =>'required',
-             'disscount'=>'required',    
+             'disscount'=>'required',
         ]);
        // return $request->all();
         if ($validator->fails()) {
@@ -95,7 +95,7 @@ class CategoryController extends BaseController
             $request->category_image->move(public_path('/upload/category_images'),$image_name);
 
         }
-        else 
+        else
         {
             $image_name=$category->profile_image;
         }

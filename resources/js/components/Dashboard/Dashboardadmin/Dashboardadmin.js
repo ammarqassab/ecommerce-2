@@ -30,7 +30,17 @@ function Counter (props) {
 export default function Dashboardadmin() {
 
     const auth = useSelector( (state) => state.auth);
+    const brand = useSelector( (state) => state.brand.data);
+    const category = useSelector( (state) => state.category.data);
+    const products = useSelector( (state) => state.products.data);
     const dispatch = useDispatch();
+
+    let brandlen = 0;
+    for (let i in brand) { brandlen ++ };
+    let categorylen = 0;
+    for (let i in category) { categorylen ++ };
+    let productslen = 0;
+    for (let i in products) { productslen ++ };
 
     const [taggle, settaggle] = React.useState(true);
 
@@ -69,17 +79,17 @@ export default function Dashboardadmin() {
                         <div className="bar textc-2 transparent" >
                             <div className="bar-item button textc-1 margin round-xlarge bgc-3" onClick={functaggle} >☰</div>
                             <MyNavLink to={"/"} ><span className="fas fa-home textc-1"></span> Home</MyNavLink>
-                            <MyNavLink to={"/"} ><span className="fas fa-user-cog textc-1"></span> {auth.username}</MyNavLink>
+                            <MyNavLink to={"/dashboard"} ><span className="fas fa-user-cog textc-1"></span> {auth.username}</MyNavLink>
                             <div className="bar-item button textc-1 margin round-xlarge bgc-3" onClick={logout}><span className="fas fa-sign-out-alt textc- "></span> Logout</div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div className='transparent' >
                     <div className=' row-padding'>
-                        <Counter name={'brand'} number={0}/>
-                        <Counter name={'Category'} number={0}/>
-                        <Counter name={'Products'} number={0}/>
+                        <Counter name={'brand'} number={brandlen}/>
+                        <Counter name={'Category'} number={categorylen}/>
+                        <Counter name={'Products'} number={productslen}/>
                         <Counter name={'Users'} number={0}/>
                     </div>
                 </div>
