@@ -79,3 +79,4 @@ install sanctum
 - edit Products : put:(http://127.0.0.1:8000/api/dashboard/editproducts) , token admin , {id, Tital, Summary, Description, Brand, Category, Price, Discount %, Size, Condition, Quantity, Photo, Status, data} 
 - --> valid token , massege edit
 ## end update 02
+- php artisan storage:link

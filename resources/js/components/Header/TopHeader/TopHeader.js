@@ -6,14 +6,14 @@ import { logoutUser } from '../../Store/AuthSlice';
 
 function MyNavLink (props) {
     return (
-        <NavLink className="col m25 text-decoration-none hover-textc-4 center padding-large"  style={({ isActive }) => {return {color: isActive ? "#ff9900" : "#3edbf0"};}} {...props}>{props.children}</NavLink>
+        <NavLink className="col m25 text-decoration-none hover-textc-4 center padding-large"  style={({ isActive }) => {return {color: isActive ? "rgb(255, 0, 150)" : "#3edbf0"};}} {...props}>{props.children}</NavLink>
     );
 }
 export default function TopHeader() {
 
     const auth = useSelector( (state) => state.auth);
     const dispatch = useDispatch();
-    
+
     function logout() {
 
         logoutuser(auth.token)

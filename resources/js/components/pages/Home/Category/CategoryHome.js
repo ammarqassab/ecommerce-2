@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Slider from "react-slick";
 
-export function Card(props) {
+export function CardCategory(props) {
 
     const num = props.num;
     const title = props.title;
@@ -16,7 +16,7 @@ export function Card(props) {
                 <img src={`../upload/category_images/${img}`} alt={title} className='width-100 height-300px' />
             </div>
 
-            <div className='row-padding center card hover-shadow ' >
+            <div className='row-padding card hover-shadow bgc-2' >
                 <div className='col s100' >
                     <div className='row-padding' >
                         <div className='col s100'><span className='textc-4' >Number :</span> {num}</div>
@@ -28,7 +28,7 @@ export function Card(props) {
                         <div className='col s100 left-align' ><span className='textc-4' >Summary :</span> {summary}</div>
                     </div>
                 </div>
-                <button id='product' className='col s100 padding-small clip-path-add large textc-2 border-0 pointer' >Discount % : {disscount}</button>
+                <button className='col s100 padding-small clip-path-add large textc-2 border-0 pointer' >Discount % : {disscount}</button>
             </div>
         </div>
     );
@@ -69,7 +69,7 @@ export function Card(props) {
         // </div>
 
 
-export default function Category() {
+export default function CategoryHome() {
 
     const category = useSelector( (state) => state.category.data);
 
@@ -121,10 +121,10 @@ export default function Category() {
             {category ?
                 category.map((iteme, index) =>
                 (iteme.status == "active" ? <div key={index}>
-                    <Card num={index + 1} title={iteme.title} summary={iteme.summary} disscount={iteme.disscount} img={iteme.category_image}/>
-                </div> : "")
+                    <CardCategory num={index + 1} title={iteme.title} summary={iteme.summary} disscount={iteme.disscount} img={iteme.category_image}/>
+                </div> : null)
                 )
-            : ""
+            : null
             }
         </Slider>
     </>

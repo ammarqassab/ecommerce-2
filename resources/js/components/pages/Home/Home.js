@@ -1,5 +1,6 @@
 import React from 'react';
-import Category from './Category/Category';
+import CategoryHome from './Category/CategoryHome';
+import ProductsHome from './ProductsHome/ProductsHome';
 
 export default function Home() {
     return (
@@ -13,7 +14,8 @@ export default function Home() {
                 </div>
                 <br/><br/><br/>
             </div>
-            <Category/>
+            <CategoryHome/>
+            <ProductsHome/>
         </>
     );
 }

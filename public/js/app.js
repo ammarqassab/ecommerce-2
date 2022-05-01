@@ -4168,12 +4168,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Header_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header/Header */ "./resources/js/components/Header/Header.js");
 /* harmony import */ var _Footer_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Footer/Footer */ "./resources/js/components/Footer/Footer.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var _pages_Home_Home__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Home/Home */ "./resources/js/components/pages/Home/Home.js");
 /* harmony import */ var _pages_Register_Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Register/Register */ "./resources/js/components/pages/Register/Register.js");
 /* harmony import */ var _pages_Login_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Login/Login */ "./resources/js/components/pages/Login/Login.js");
 /* harmony import */ var _Header_Upscroll_Upscroll__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Header/Upscroll/Upscroll */ "./resources/js/components/Header/Upscroll/Upscroll.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _pages_CategorySider_CategorySider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/CategorySider/CategorySider */ "./resources/js/components/pages/CategorySider/CategorySider.js");
+/* harmony import */ var _pages_AboutUs_AboutUs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/AboutUs/AboutUs */ "./resources/js/components/pages/AboutUs/AboutUs.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -4185,54 +4189,45 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Header_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Routes, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Header_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Routes, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_pages_Home_Home__WEBPACK_IMPORTED_MODULE_3__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
-        path: "/products",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
-          children: "products"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_pages_Home_Home__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/category",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
-          children: "category"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_pages_CategorySider_CategorySider__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/blog",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h1", {
           children: "blog"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/contactUs",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h1", {
           children: "contact Us"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/aboutUs",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
-          children: "about Us"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_pages_AboutUs_AboutUs__WEBPACK_IMPORTED_MODULE_8__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/search",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h1", {
           children: "search"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/yourCart",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h1", {
           children: "yourCart"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/login",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_pages_Login_Login__WEBPACK_IMPORTED_MODULE_5__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_pages_Login_Login__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         path: "/register",
-        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_pages_Register_Register__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+        element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_pages_Register_Register__WEBPACK_IMPORTED_MODULE_4__["default"], {})
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Header_Upscroll_Upscroll__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Footer_Footer__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Header_Upscroll_Upscroll__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Footer_Footer__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
   });
 }
 
@@ -5186,7 +5181,7 @@ function MyNavLink(props) {
     style: function style(_ref) {
       var isActive = _ref.isActive;
       return {
-        backgroundColor: isActive ? "#ff9900" : "#3edbf0"
+        backgroundColor: isActive ? "rgb(255, 0, 150)" : "#3edbf0"
       };
     }
   }, props), {}, {
@@ -5807,6 +5802,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Products() {
+  var brand = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.brand.data;
+  });
+  var category = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.category.data;
+  });
   var products = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.products.data;
   });
@@ -5934,9 +5935,17 @@ function Products() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                   children: iteme.summary
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  children: iteme.brand_id
+                  children: brand ? brand.map(function (itemeb, index) {
+                    return iteme.brand_id == itemeb.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                      children: itemeb.title
+                    }, index) : "";
+                  }) : iteme.brand_id
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  children: iteme.category_id
+                  children: category ? category.map(function (itemec, index) {
+                    return iteme.category_id == itemec.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                      children: itemec.title
+                    }, index) : "";
+                  }) : iteme.category_id
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                   children: iteme.disscount
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
@@ -6127,7 +6136,7 @@ function MyNavLink(props) {
     style: function style(_ref) {
       var isActive = _ref.isActive;
       return {
-        backgroundColor: isActive ? "#ff9900" : "#3edbf0"
+        backgroundColor: isActive ? "rgb(255, 0, 150)" : "#3edbf0"
       };
     }
   }, props), {}, {
@@ -6836,16 +6845,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Bottomfooter_Bottomfooter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Bottomfooter/Bottomfooter */ "./resources/js/components/Footer/Bottomfooter/Bottomfooter.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Wave_Wave__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Wave/Wave */ "./resources/js/components/Footer/Wave/Wave.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
  // import Bobbles from './Bobbles/Bobbles';
 
- // import Wave from './Wave/Wave';
+
 
 
 
 function Header() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Bottomfooter_Bottomfooter__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Wave_Wave__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Bottomfooter_Bottomfooter__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Footer/Wave/Wave.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Footer/Wave/Wave.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Wave)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+function Wave() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "wave-container",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "wave wave1"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "wave wave2"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "wave wave3"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "wave wave4"
+      })]
+    })
   });
 }
 
@@ -6910,7 +6955,7 @@ function MyNavLink(props) {
     style: function style(_ref) {
       var isActive = _ref.isActive;
       return {
-        backgroundColor: isActive ? "#ff9900" : "#3edbf0"
+        backgroundColor: isActive ? "rgb(255, 0, 150)" : "#3edbf0"
       };
     }
   }, props), {}, {
@@ -6926,9 +6971,6 @@ function Siderbar() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(MyNavLink, {
         to: "/",
         children: "Home"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(MyNavLink, {
-        to: "/products",
-        children: "Products"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(MyNavLink, {
         to: "/category",
         children: "Category"
@@ -6986,7 +7028,7 @@ function MyNavLink(props) {
     style: function style(_ref) {
       var isActive = _ref.isActive;
       return {
-        color: isActive ? "#ff9900" : "#3edbf0"
+        color: isActive ? "rgb(255, 0, 150)" : "#3edbf0"
       };
     }
   }, props), {}, {
@@ -7475,17 +7517,179 @@ if (document.getElementById('root')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/Home/Category/Category.js":
-/*!*****************************************************************!*\
-  !*** ./resources/js/components/pages/Home/Category/Category.js ***!
-  \*****************************************************************/
+/***/ "./resources/js/components/pages/AboutUs/AboutUs.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/pages/AboutUs/AboutUs.js ***!
+  \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Card": () => (/* binding */ Card),
-/* harmony export */   "default": () => (/* binding */ Category)
+/* harmony export */   "default": () => (/* binding */ AboutUs)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function CardAbout(props) {
+  var name = props.name;
+  var des = props.des;
+  var icon = props.icon;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "col m50 l25",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "margin",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: " row-padding",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: " col s33 xxlarge textc-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: icon
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: " col s66",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "large textc-4",
+            children: name
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "textc-2",
+            children: des
+          })]
+        })]
+      })
+    })
+  });
+}
+
+function AboutUs() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: " bgc-1",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: " row-padding",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CardAbout, {
+          name: "FREE SHIPING",
+          des: 'Orders over $100',
+          icon: "fas fa-fire"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CardAbout, {
+          name: 'FREE RETURN',
+          des: 'Within 30 days returns',
+          icon: "fas fa-sync-alt"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CardAbout, {
+          name: 'SUCURE PAYMENT',
+          des: '100% secure payment',
+          icon: "fas fa-lock"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CardAbout, {
+          name: 'BEST PEICE',
+          des: 'Guaranteed price',
+          icon: "fas fa-bolt"
+        })]
+      })
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/CategorySider/CategorySider.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/pages/CategorySider/CategorySider.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CategorySider)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Home_Category_CategoryHome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Home/Category/CategoryHome */ "./resources/js/components/pages/Home/Category/CategoryHome.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+function CategorySider() {
+  var category = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.category.data;
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "bgc-header",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "bar margin-top display-container",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "bar-item xlarge textc-4 bottombar borderc-4",
+          children: "Category"
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: " row-padding",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: " col m25 hide-small height-100",
+        style: {
+          overflowY: "auto"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: " margin",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+            className: "ul hoverul",
+            children: category ? category.map(function (iteme, index) {
+              return iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                className: "textc-2 hover-textc-4",
+                children: iteme.title
+              }, index) : null;
+            }) : null
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: " col m75 height-100",
+        style: {
+          overflowY: "auto"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "margin",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: " row-padding",
+            children: category ? category.map(function (iteme, index) {
+              return iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "col m50 l33",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Home_Category_CategoryHome__WEBPACK_IMPORTED_MODULE_2__.CardCategory, {
+                  num: index + 1,
+                  title: iteme.title,
+                  summary: iteme.summary,
+                  disscount: iteme.disscount,
+                  img: iteme.category_image
+                })
+              }, index) : null;
+            }) : null
+          })
+        })
+      })]
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Home/Category/CategoryHome.js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/pages/Home/Category/CategoryHome.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CardCategory": () => (/* binding */ CardCategory),
+/* harmony export */   "default": () => (/* binding */ CategoryHome)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -7503,7 +7707,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-function Card(props) {
+function CardCategory(props) {
   var num = props.num;
   var title = props.title;
   var summary = props.summary;
@@ -7519,7 +7723,7 @@ function Card(props) {
         className: "width-100 height-300px"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "row-padding center card hover-shadow ",
+      className: "row-padding card hover-shadow bgc-2",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "col s100",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -7551,7 +7755,6 @@ function Card(props) {
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-        id: "product",
         className: "col s100 padding-small clip-path-add large textc-2 border-0 pointer",
         children: ["Discount % : ", disscount]
       })]
@@ -7589,7 +7792,7 @@ function Card(props) {
 // </div>
 // </div>
 
-function Category() {
+function CategoryHome() {
   var category = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.category.data;
   });
@@ -7637,15 +7840,15 @@ function Category() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_slick__WEBPACK_IMPORTED_MODULE_2__["default"], _objectSpread(_objectSpread({}, settings), {}, {
       children: category ? category.map(function (iteme, index) {
         return iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Card, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CardCategory, {
             num: index + 1,
             title: iteme.title,
             summary: iteme.summary,
             disscount: iteme.disscount,
             img: iteme.category_image
           })
-        }, index) : "";
-      }) : ""
+        }, index) : null;
+      }) : null
     }))]
   });
 }
@@ -7673,31 +7876,195 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Home)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Category_Category__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Category/Category */ "./resources/js/components/pages/Home/Category/Category.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Category_CategoryHome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Category/CategoryHome */ "./resources/js/components/pages/Home/Category/CategoryHome.js");
+/* harmony import */ var _ProductsHome_ProductsHome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductsHome/ProductsHome */ "./resources/js/components/pages/Home/ProductsHome/ProductsHome.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
 
 
 function Home() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "bgc-header clip-path-polygon ",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "panel padding-0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "height-300px display-container",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "display-middle bgcimg-header border",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "../img/headerimg.png",
               className: "display-bottomleft img-header"
             })
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {})]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Category_Category__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Category_CategoryHome__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ProductsHome_ProductsHome__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Home/ProductsHome/ProductsHome.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/pages/Home/ProductsHome/ProductsHome.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProductsHome)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-slick */ "./node_modules/react-slick/lib/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+function Card(props) {
+  var settings = {
+    dots: true,
+    lazyLoad: true,
+    infinite: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+    rows: 1,
+    responsive: [{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4
+      }
+    }, {
+      breakpoint: 850,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 650,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 350,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
+  };
+  var products = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.products.data;
+  });
+  var id = props.id;
+
+  var numDiscount = function numDiscount(price, disscount) {
+    return disscount <= 100 ? price - price / 100 * disscount : price;
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_slick__WEBPACK_IMPORTED_MODULE_2__["default"], _objectSpread(_objectSpread({}, settings), {}, {
+    children: products ? products.map(function (iteme, index) {
+      return id == iteme.category_id && iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "margin",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "display-container clip-path-circle",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: '../upload/product_images/' + iteme.product_image,
+              alt: iteme.title,
+              className: "width-100 height-300px"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row-padding center card hover-shadow ",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col s100",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "row-padding",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "col s50",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    className: "fas fa-heart large textc-3 hover-textc-4"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "col s50",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    className: "fas fa-cart-arrow-down large textc-3 hover-textc-4"
+                  })
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col s100",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "row-padding",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "col s100 left-align",
+                  children: iteme.title
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                  className: "col s100 large",
+                  children: [numDiscount(iteme.price, iteme.disscount), " $ || ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                    className: "text-line-through",
+                    children: [" ", iteme.price, " $"]
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "col s100 left-align",
+                  children: iteme.summary
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "col s100 left-align",
+                  children: iteme.description
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "col s100 padding-small clip-path-add large textc-2 border-0 pointer",
+              children: "ADD To Card"
+            })]
+          })]
+        })
+      }, index) : null;
+    }) : null
+  }));
+}
+
+function ProductsHome() {
+  var brand = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.brand.data;
+  });
+  var category = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.category.data;
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: category ? category.map(function (iteme, index) {
+      return iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "margin",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "bar margin-top display-container",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "bar-item xlarge textc-4 bottombar borderc-4",
+              children: [iteme.title, " || Discount % = ", iteme.disscount]
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Card, {
+          id: iteme.id
+        })]
+      }, index) : null;
+    }) : null
   });
 }
 
@@ -21553,7 +21920,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* Slider */\n.slick-slider\n{\n    position: relative;\n\n    display: block;\n    box-sizing: border-box;\n\n    -webkit-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n\n    -webkit-touch-callout: none;\n    -khtml-user-select: none;\n    touch-action: pan-y;\n    -webkit-tap-highlight-color: transparent;\n}\n\n.slick-list\n{\n    position: relative;\n\n    display: block;\n    overflow: hidden;\n\n    margin: 0;\n    padding: 0;\n}\n.slick-list:focus\n{\n    outline: none;\n}\n.slick-list.dragging\n{\n    cursor: pointer;\n    cursor: hand;\n}\n\n.slick-slider .slick-track,\n.slick-slider .slick-list\n{\n    transform: translate3d(0, 0, 0);\n}\n\n.slick-track\n{\n    position: relative;\n    top: 0;\n    left: 0;\n\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\n.slick-track:before,\n.slick-track:after\n{\n    display: table;\n\n    content: '';\n}\n.slick-track:after\n{\n    clear: both;\n}\n.slick-loading .slick-track\n{\n    visibility: hidden;\n}\n\n.slick-slide\n{\n    display: none;\n    float: left;\n\n    height: 100%;\n    min-height: 1px;\n}\n[dir='rtl'] .slick-slide\n{\n    float: right;\n}\n.slick-slide img\n{\n    display: block;\n}\n.slick-slide.slick-loading img\n{\n    display: none;\n}\n.slick-slide.dragging img\n{\n    pointer-events: none;\n}\n.slick-initialized .slick-slide\n{\n    display: block;\n}\n.slick-loading .slick-slide\n{\n    visibility: hidden;\n}\n.slick-vertical .slick-slide\n{\n    display: block;\n\n    height: auto;\n\n    border: 1px solid transparent;\n}\n.slick-arrow.slick-hidden {\n    display: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* Slider */\n.slick-slider\n{\n    position: relative;\n\n    display: block;\n    box-sizing: border-box;\n\n    -webkit-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n\n    -webkit-touch-callout: none;\n    -khtml-user-select: none;\n    touch-action: pan-y;\n    -webkit-tap-highlight-color: transparent;\n}\n\n.slick-list\n{\n    position: relative;\n\n    display: block;\n    overflow: hidden;\n\n    margin: 0;\n    padding: 0;\n}\n.slick-list:focus\n{\n    outline: none;\n}\n.slick-list.dragging\n{\n    cursor: pointer;\n    cursor: hand;\n}\n\n.slick-slider .slick-track,\n.slick-slider .slick-list\n{\n    transform: translate3d(0, 0, 0);\n}\n\n.slick-track\n{\n    position: relative;\n    top: 0;\n    left: 0;\n\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\n.slick-track:before,\n.slick-track:after\n{\n    display: table;\n\n    content: '';\n}\n.slick-track:after\n{\n    clear: both;\n}\n.slick-loading .slick-track\n{\n    visibility: hidden;\n}\n\n.slick-slide\n{\n    display: none;\n    float: left;\n\n    height: 100%;\n    min-height: 1px;\n}\n[dir='rtl'] .slick-slide\n{\n    float: right;\n}\n.slick-slide img\n{\n    display: block;\n}\n.slick-slide.slick-loading img\n{\n    display: none;\n}\n.slick-slide.dragging img\n{\n    pointer-events: none;\n}\n.slick-initialized .slick-slide\n{\n    display: block;\n}\n.slick-loading .slick-slide\n{\n    visibility: hidden;\n}\n.slick-vertical .slick-slide\n{\n    display: block;\n\n    height: auto;\n\n    border: 1px solid transparent;\n}\n.slick-arrow.slick-hidden {\n    display: none;\n}\n/* .slick-cloned {\n    display: none !important;\n} */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21589,7 +21956,7 @@ var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_g
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_sofia_8QIHdirahM3j_su5uI0_woff2__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_wave_png__WEBPACK_IMPORTED_MODULE_4__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n:root {\n--bgc-id: #3edbf0;\n--text-id: rgb(0, 0, 0);\n--bor-id: #3edbf0;\n--hover: #ff9900;\n--fontf: 'Times New Roman', serif;\n--text-shadow: 0px 0px 15px #3edbf0;\n\n--textinput: #3edbf0;\n--inputrequired: rgba(255, 0, 0, 0.3);\n--inputborder: 2px solid var(--bor-id);\n--inputborderfo: 2px solid #ff9900;\n\n--buttonbgc: transparent;\n--buttontextc: #000;\n--buttonbgcho: #ff9900;\n--buttontextcho: rgb(0, 0, 0);\n\n--sidebarco: rgb(20, 20, 20);\n--sidebarlistco: rgb(20, 20, 20);\n\n--conpanmar: auto auto auto auto;\n--conpanpad: 1% 3%;\n--conpanwid: 94%;\n--panmar: 3%;\n\n--border: 2px solid var(--bor-id);\n--borbar: 6px solid var(--bor-id);\n\n--bordertab: 1px solid var(--bor-id);\n--trc: rgb(220, 220, 220);\n--trfc: rgb(180, 180, 180);\n--hovertabl: var(--hover);\n--widtabl: 100%;\n--widthtd: 11%;\n\n--widul: 100%;\n--hoverul: var(--hover);\n--borderul: 2px solid var(--bor-id);\n--borbotul: 2px solid var(--bor-id);\n\n--bgc-1: #04009a;\n--bgc-2: #cdfefc;\n--bgc-3: #3edbf0;\n--bgc-4: #ff9900;\n--textc-1: rgb(0, 0, 0);\n--textc-2: rgb(255, 255, 255);\n--textc-3: #3edbf0;\n--textc-4: #ff9900;\n--borc-1: #04009a;\n--borc-2: #cdfefc;\n--borc-3: #3edbf0;\n--borc-4: #ff9900;\n--shadowc: #3edbf0;\n--tagandbadge: #3edbf0;\n}\n/**/\nhtml {\n  box-sizing: border-box;\n}\n* {\n  box-sizing: border-box;\n}\n/* normalize.css */\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  padding: 0;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection {\n  display: block;\n}\nsummary {\n  display: list-item;\n}\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n}\nprogress {\n  vertical-align: baseline;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden],\ntemplate {\n  display: none;\n}\na {\n  background-color: transparent;\n}\na:active,\na:hover {\n  outline-width: 0;\n}\nabbr[title] {\n  border-bottom: none;\n  text-decoration: underline;\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted;\n}\nb,\nstrong {\n  font-weight: bolder;\n}\ndfn {\n  font-style: italic;\n}\nmark {\n  background: #ff0;\n  color: #000;\n}\nsmall {\n  font-size: 80%;\n}\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsub {\n  bottom: -0.25em;\n}\nsup {\n  top: -0.5em;\n}\nfigure {\n  margin: 1em 40px;\n}\nimg {\n  border-style: none;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\nhr {\n  box-sizing: content-box;\n  height: 0;\n  overflow: visible;\n}\nbutton,\ninput,\nselect,\ntextarea,\noptgroup {\n  font: inherit;\n  margin: 0;\n}\noptgroup {\n  font-weight: bold;\n}\nbutton,\ninput {\n  overflow: visible;\n}\nbutton,\nselect {\n  text-transform: none;\n}\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button;\n}\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted white;\n}\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\nlegend {\n  color: inherit;\n  display: table;\n  max-width: 100%;\n  padding: 0;\n  white-space: normal;\n}\ntextarea {\n  overflow: auto;\n}\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  padding: 0;\n}\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n[type=\"search\"] {\n  -webkit-appearance: textfield;\n  outline-offset: -2px;\n}\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  font: inherit;\n}\n/* End normalize.css */\nhtml,\nbody {\n  font-family: var(--fontf);\n  font-size: 17px;\n  line-height: 1.5;\n}\nhtml {\n  overflow-x: hidden;\n}\n\nh1 {\n  font-size: 36px;\n}\nh2 {\n  font-size: 30px;\n}\nh3 {\n  font-size: 24px;\n}\nh4 {\n  font-size: 20px;\n}\nh5 {\n  font-size: 18px;\n}\nh6 {\n  font-size: 16px;\n}\n\n@font-face {\n  font-family: \"Tangerine\";\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"woff2\");\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\n    U+FEFF, U+FFFD;\n}\n/* latin */\n@font-face {\n  font-family: \"Sofia\";\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"woff2\");\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\n    U+FEFF, U+FFFD;\n}\n.serif {\n  font-family: serif;\n}\n.sans-serif {\n  font-family: sans-serif;\n}\n.times {\n  font-family: \"Times New Roman\", Times, serif;\n}\n.monospace {\n  font-family: monospace;\n}\n.tangerine {\n  font-family: \"Tangerine\", cursive;\n}\n.sofia {\n  font-family: \"Sofia\", cursive;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: var(--fontf);\n  font-weight: 400;\n  margin: 10px 0;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid var(--bor-id);\n  margin: 20px 0;\n}\n\n.image {\n  max-width: 100%;\n  height: auto;\n}\nimg {\n  vertical-align: middle;\n}\na {\n  color: inherit;\n}\n\n.table,\n.table-all {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: var(--widtabl);\n  margin: auto;\n  display: table;\n}\n.table-all {\n  border: var(--bordertab);\n}\n.bordered tr,\n.table-all tr {\n  border-bottom: var(--bordertab);\n}\n.bordered tr:last-child,\n.table-all tr:last-child {\n  border-bottom: none;\n}\n.border-table {\n  border: var(--bordertab) !important;\n}\n.striped tbody tr:nth-child(even) {\n  background-color: var(--trc);\n}\n.table thead tr:first-child {\n  background-color: var(--trfc) !important;\n}\n.table-all thead tr:first-child {\n  background-color: var(--trfc) !important;\n}\n.table-all tbody tr:nth-child(even) {\n  background-color: var(--trc);\n}\n.hovertabl tbody tr:hover {\n  background-color: var(--hovertabl);\n}\n.table-all tbody tr:hover {\n  background-color: var(--hovertabl);\n}\n.centered tr th,\n.centered tr td,\n.table-all tr th,\n.table-all tr td {\n  text-align: center;\n}\n.righted tr th,\n.righted tr td {\n  text-align: right;\n}\n.table td,\n.table th,\n.table-all td,\n.table-all th {\n  padding: 8px 8px;\n  display: table-cell;\n  text-align: left;\n  vertical-align: top;\n  margin: auto;\n  width: var(--widthtd);\n}\n.table th:first-child,\n.table td:first-child,\n.table-all th:first-child,\n.table-all td:first-child {\n  padding-left: 16px;\n}\n.responsive {\n  display: block;\n  overflow-x: auto;\n}\n\n.badge,\n.tag {\n  background-color: var(--tagandbadge) !important;\n  display: inline-block;\n  padding-left: 8px;\n  padding-right: 8px;\n  text-align: center;\n  margin: 0px 10px;\n  cursor: pointer;\n  border: 2px solid black;\n}\n.badge {\n  border-radius: 50%;\n}\n\n.ul {\n  list-style-type: none;\n  padding: 0;\n  margin: 0;\n  overflow: hidden;\n  width: var(--widul);\n}\n.ul li {\n  color: #ff9900;\n  padding: 8px 16px;\n  border-bottom: var(--borbotul);\n}\n.ul li:last-child {\n  border-bottom: none;\n}\n.ul.hoverul li:hover {\n  color: var(--textc-1)!important;\n  background-color: var(--hoverul);\n}\n.borderul {\n  border: var(--borderul) !important;\n}\n::marker {\n  color: red;\n}\n\n.tooltip {\n  position: relative;\n}\n.tooltip .text {\n  display: none;\n}\n.tooltip:hover .text {\n  display: inline-block;\n}\n.text.text-positiontop {\n  position: absolute;\n  left: 0;\n  bottom: 20px;\n}\n.text.text-positionbottom {\n  position: absolute;\n  left: 0;\n  bottom: -20px;\n}\n\n.input {\n  padding: 8px;\n  display: block;\n  border: var(--inputborder);\n  color: #000;\n  width: 100%;\n  outline: none;\n}\n.select {\n  padding: 9px 0;\n  width: 100%;\n  border: var(--inputborder);\n  color: var(--text-id);\n  width: 100%;\n  outline: none;\n}\n.checkbox,\n.radio {\n  width: 24px;\n  height: 24px;\n  position: relative;\n  top: 6px;\n}\n:-ms-input-placeholder {\n  color: var(--textinput);\n}\n::-moz-placeholder {\n  color: var(--textinput);\n}\n::placeholder {\n  color: var(--textinput);\n}\ninput:out-of-range {\n  border: 2px solid red;\n}\n.checked:checked + label {\n  color: var(--textc-4) !important;\n}\ninput:required {\n  background-color: var(--inputrequired);\n}\ninput[type=\"text\"]:-moz-read-only {\n  background-color: var(--inputrequired);\n}\ninput[type=\"text\"]:read-only {\n  background-color: var(--inputrequired);\n}\ninput:disabled {\n  background-color: var(--inputrequired);\n}\n.input-width100:focus {\n  width: 100% !important;\n}\n\n.btn,\n.button {\n  border: none;\n  display: inline-block;\n  padding: 8px 16px;\n  margin: 0px;\n  vertical-align: middle;\n  overflow: hidden;\n  text-decoration: none;\n  color: var(--buttontextc);\n  background-color: var(--buttonbgc);\n  text-align: center;\n  cursor: pointer;\n  white-space: nowrap;\n  outline: 0;\n  font-weight: 700;\n}\n.btn,\n.button {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.disabled,\n.btn:disabled,\n.button:disabled {\n  cursor: not-allowed;\n  opacity: 0.4;\n}\n.disabled *,\n:disabled * {\n  pointer-events: none;\n}\n.btn.disabled:hover,\n.btn:disabled:hover {\n  box-shadow: none;\n}\n.button:hover {\n  color: var(--buttontextcho) !important;\n  background-color: var(--buttonbgcho) !important;\n}\n.btn:hover {\n  box-shadow: 0 6px 10px 0 var(--shadowc), 0 8px 20px 0 var(--shadowc);\n}\n.ripple:active {\n  opacity: 0.4;\n}\n\n.bar {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-content: center;\n}\n.center .bar {\n  display: inline-block;\n  width: auto;\n}\n.bar .bar-item {\n  padding: 8px 16px;\n  width: auto;\n  float: left;\n  border: none;\n  outline: none;\n}\n.bar .button {\n  white-space: normal;\n}\n.bar-block {\n  width: auto;\n}\n.bar-block .bar-item {\n  width: 100%;\n  display: block;\n  padding: 8px 16px;\n  text-align: left;\n  border: none;\n  white-space: normal;\n  float: none;\n  outline: none;\n}\n.bar-block.center .bar-item {\n  text-align: center;\n}\n.block {\n  display: block;\n  width: 100%;\n}\n\n.bar .dropdown-hover,\n.bar .dropdown-click {\n  position: static;\n} /*float:left*/\n.bar-block .dropdown-hover,\n.bar-block .dropdown-click {\n  width: 100%;\n}\n.bar-block .dropdown-hover .dropdown-content,\n.bar-block .dropdown-click .dropdown-content {\n  min-width: 100%;\n}\n.bar-block .dropdown-hover .button,\n.bar-block .dropdown-click .button {\n  width: 100%;\n  text-align: left;\n  padding: 8px 16px;\n}\n\n.sidebar {\n  height: 100%;\n  width: 180px;\n  background-color: var(--sidebarlistco);\n  position: fixed !important;\n  top: 0;\n  z-index: 10000000;\n  overflow: auto;\n}\n.sidebar-right {\n  right: 0 !important;\n  left: none;\n}\n.sidebar-sticky {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 99;\n  background-color: var(--sidebarco);\n}\n.dropdown-click,\n.dropdown-hover {\n  position: relative;\n  display: inline-block;\n  cursor: pointer;\n}\n.dropdown-hover:hover .dropdown-content {\n  display: block;\n}\n.dropdown-hover:first-child,\n.dropdown-click:hover {\n  background-color: var(--buttonbgcho);\n  color: var(--buttontextcho);\n}\n.dropdown-hover:hover > .button:first-child,\n.dropdown-click:hover > .button:first-child {\n  background-color: var(--buttonbgcho);\n  color: var(--buttontextcho);\n}\n.dropdown-content {\n  cursor: auto;\n  color: var(--buttontextcho);\n  background-color: var(--buttonbgc);\n  display: none;\n  position: absolute;\n  min-width: 130px;\n  margin: 0;\n  padding: 0;\n  z-index: 9999;\n}\n.dropdown-hover .button span:after {\n  width: 0;\n  height: 0;\n  border: 5px solid transparent;\n  border-bottom: none;\n  border-top-color: var(--idsitecolor);\n  content: \"\";\n  vertical-align: middle;\n  display: inline-block;\n  margin-left: 5px;\n}\n.dropdown-click .button span:after {\n  width: 0;\n  height: 0;\n  border: 5px solid transparent;\n  border-bottom: none;\n  border-top-color: var(--idsitecolor);\n  content: \"\";\n  vertical-align: middle;\n  display: inline-block;\n  margin-left: 5px;\n}\n\n.container:after,\n.container:before,\n.panel:after,\n.panel:before,\n.row:after,\n.row:before,\n.row-padding:after,\n.row-padding:before,\n.cell-row:before,\n.cell-row:after,\n.clear:after,\n.clear:before,\n.bar:before,\n.bar:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n/* .col,.half,.third,.twothird,.threequarter,.quarter{float:left;width:100%} */\n\n.row,\n.row-padding {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-content: center;\n}\n.col,\n.rest,\n.half,\n.third,\n.twothird,\n.threequarter,\n.quarter {\n  width: 100%;\n}\n.row-padding > .half,\n.row-padding > .third,\n.row-padding > .twothird,\n.row-padding > .threequarter,\n.row-padding > .quarter,\n.row-padding > .col {\n  padding: 0 8px;\n}\n.flex-nowrap {\n  flex-wrap: nowrap;\n}\n.flex-justifycenter {\n  justify-content: center;\n}\n.flex-justifyend {\n  justify-content: flex-end;\n}\n\n.col.s8 {\n  width: 8.33333%;\n}\n.col.s16 {\n  width: 16.66666%;\n}\n.col.s25 {\n  width: 24.99999%;\n}\n.col.s33 {\n  width: 33.33333%;\n}\n.col.s41 {\n  width: 41.66666%;\n}\n.col.s50 {\n  width: 49.99999%;\n}\n.col.s58 {\n  width: 58.33333%;\n}\n.col.s66 {\n  width: 66.66666%;\n}\n.col.s75 {\n  width: 74.99999%;\n}\n.col.s83 {\n  width: 83.33333%;\n}\n.col.s91 {\n  width: 91.66666%;\n}\n.col.s100 {\n  width: 99.99999%;\n}\n@media (max-width: 600px) {\n  .colrest {\n    width: 100% !important;\n  }\n  .hide-small {\n    display: none !important;\n  }\n  .col {\n    text-align: center;\n  }\n  .right-align {\n    text-align: center !important;\n  }\n}\n@media (min-width: 601px) {\n  .col.m8 {\n    width: 8.33333%;\n  }\n  .col.m16 {\n    width: 16.66666%;\n  }\n  .col.m25,\n  .quarter {\n    width: 24.99999%;\n  }\n  .col.m33,\n  .third {\n    width: 33.33333%;\n  }\n  .col.m41 {\n    width: 41.66666%;\n  }\n  .col.m50,\n  .half {\n    width: 49.99999%;\n  }\n  .col.m58 {\n    width: 58.33333%;\n  }\n  .col.m66,\n  .twothird {\n    width: 66.66666%;\n  }\n  .col.m75,\n  .threequarter {\n    width: 74.99999%;\n  }\n  .col.m83 {\n    width: 83.33333%;\n  }\n  .col.m91 {\n    width: 91.66666%;\n  }\n  .col.m100 {\n    width: 99.99999%;\n  }\n  .rest {\n    overflow: hidden;\n    width: auto;\n    flex-grow: 1;\n  }\n}\n@media (max-width: 992px) and (min-width: 601px) {\n  .hide-medium {\n    display: none !important;\n  }\n  .paddingoff {\n    padding: none;\n  }\n}\n@media (min-width: 993px) {\n  .col.l8 {\n    width: 8.33333%;\n  }\n  .col.l16 {\n    width: 16.66666%;\n  }\n  .col.l25 {\n    width: 24.99999%;\n  }\n  .col.l33 {\n    width: 33.33333%;\n  }\n  .col.l41 {\n    width: 41.66666%;\n  }\n  .col.l50 {\n    width: 49.99999%;\n  }\n  .col.l58 {\n    width: 58.33333%;\n  }\n  .col.l66 {\n    width: 66.66666%;\n  }\n  .col.l75 {\n    width: 74.99999%;\n  }\n  .col.l83 {\n    width: 83.33333%;\n  }\n  .col.l91 {\n    width: 91.66666%;\n  }\n  .col.l100 {\n    width: 99.99999%;\n  }\n  .hide-large {\n    display: none !important;\n  }\n}\n\n.container,\n.panel {\n  padding: var(--conpanpad);\n  width: var(--conpanwid);\n  margin: var(--conpanmar);\n}\n.panel {\n  margin: var(--panmar);\n}\n\n.width-10 {\n  width: 10%;\n}\n.width-15 {\n  width: 15%;\n}\n.width-20 {\n  width: 20%;\n}\n.width-25 {\n  width: 25%;\n}\n.width-33 {\n  width: 33.33%;\n}\n.width-50 {\n  width: 50%;\n}\n.width-75 {\n  width: 75%;\n}\n.width-100 {\n  width: 100%;\n}\n.width-fit-content {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.width-auto {\n  width: auto;\n}\n.height-100px {\n  height: 100px;\n}\n.height-200px {\n  height: 200px;\n}\n.height-300px {\n  height: 300px;\n}\n.height-400px {\n  height: 400px;\n}\n.height-500px {\n  height: 500px;\n}\n.height-600px {\n  height: 600px;\n}\n.height-100 {\n  height: 100%;\n}\n.height-auto {\n  height: auto;\n}\n@media (max-width: 600px) {\n  .width-5vw {\n    width: 5vw !important;\n  }\n  .width-10vw {\n    width: 10vw !important;\n  }\n  .width-20vw {\n    width: 20vw !important;\n  }\n  .width-30vw {\n    width: 30vw !important;\n  }\n  .width-50vw {\n    width: 50vw !important;\n  }\n  .width-75vw {\n    width: 75vw !important;\n  }\n  .width-90vw {\n    width: 90vw !important;\n  }\n  .width-100vw {\n    width: 100vw;\n  }\n  .height-100px {\n    height: 50px;\n  }\n  .height-200px {\n    height: 100px;\n  }\n  .height-300px {\n    height: 150px;\n  }\n  .height-400px {\n    height: 200px;\n  }\n  .height-500px {\n    height: 250px;\n  }\n  .height-600px {\n    height: 300px;\n  }\n  .height-100auto {\n    height: auto;\n  }\n}\n\n.cell-row {\n  display: table;\n  width: 100%;\n}\n.cell {\n  display: table-cell;\n}\n.cell-top {\n  vertical-align: top;\n}\n.cell-middle {\n  vertical-align: middle;\n}\n.cell-bottom {\n  vertical-align: bottom;\n}\n\n.content,\n.auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n.content {\n  max-width: 980px;\n}\n.auto {\n  max-width: 1140px;\n}\n\n.modal {\n  z-index: 999;\n  display: none;\n  padding-top: 100px;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgba(0, 0, 0, 0.4);\n}\n.modal-content {\n  margin: auto;\n  background-color: rgba(0, 0, 0, 0.8);\n  position: relative;\n  padding: 0;\n  outline: 0;\n  width: 80%;\n}\n\n@media (max-width: 1205px) {\n  .auto {\n    max-width: 95%;\n  }\n}\n@media (max-width: 600px) {\n  .modal-content {\n    margin: 0 16px;\n    width: auto !important;\n  }\n  .modal {\n    padding-top: 30px;\n  }\n  .dropdown-hover.mobile .dropdown-content,\n  .dropdown-click.mobile .dropdown-content {\n    position: relative;\n  }\n  .mobile {\n    display: block;\n    width: 100% !important;\n  }\n  .bar-item.mobile,\n  .dropdown-hover.mobile,\n  .dropdown-click.mobile {\n    text-align: center;\n  }\n  .dropdown-hover.mobile,\n  .dropdown-hover.mobile .btn,\n  .dropdown-hover.mobile .button,\n  .dropdown-click.mobile,\n  .dropdown-click.mobile .btn,\n  .dropdown-click.mobile .button {\n    width: 100%;\n  }\n}\n@media (max-width: 768px) {\n  .modal-content {\n    width: 500px;\n  }\n  .modal {\n    padding-top: 50px;\n  }\n}\n@media (min-width: 993px) {\n  .modal-content {\n    width: 900px;\n  }\n  .sidebar.collapse {\n    display: block !important;\n  }\n}\n@media (max-width: 992px) {\n  .sidebar.collapse {\n    display: none;\n  }\n  .main {\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n  }\n  .auto {\n    max-width: 100%;\n  }\n}\n\n.hide {\n  display: none !important;\n}\n.show-block,\n.show {\n  display: block !important;\n}\n.show-inline-block {\n  display: inline-block !important;\n}\n\n.display-block {\n  display: block;\n}\n.display-inline {\n  display: inline;\n}\n.display-inlineblock {\n  display: inline-block;\n}\n.display-fixed {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 3;\n  overflow: auto;\n}\n.display-position {\n  position: absolute;\n}\n.display-container {\n  position: relative;\n}\n.display-container:hover .display-hover {\n  display: block;\n}\n.display-container:hover span.display-hover {\n  display: inline-block;\n}\n.display-hover {\n  display: none;\n}\n.display-topleft {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.display-topright {\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n.display-bottomleft {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n}\n.display-bottomright {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n}\n.display-middle {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  -ms-transform: translate(-50%, -50%);\n}\n.display-left {\n  position: absolute;\n  top: 50%;\n  left: 0%;\n  transform: translate(0%, -50%);\n  -ms-transform: translate(-0%, -50%);\n}\n.display-right {\n  position: absolute;\n  top: 50%;\n  right: 0%;\n  transform: translate(0%, -50%);\n  -ms-transform: translate(0%, -50%);\n}\n.display-topmiddle {\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translate(-50%, 0%);\n  -ms-transform: translate(-50%, 0%);\n}\n.display-bottommiddle {\n  position: absolute;\n  left: 50%;\n  bottom: 0;\n  transform: translate(-50%, 0%);\n  -ms-transform: translate(-50%, 0%);\n}\n\n@media (max-width: 600px) {\n  .display-right-mobile {\n    position: relative;\n    top: auto;\n    transform: none;\n  }\n}\n\n.circle {\n  border-radius: 50%;\n}\n.round-small {\n  border-radius: 2px;\n}\n.round,\n.round-medium {\n  border-radius: 4px;\n}\n.round-large {\n  border-radius: 8px;\n}\n.round-xlarge {\n  border-radius: 16px;\n}\n.round-xxlarge {\n  border-radius: 32px;\n}\n\n.code,\n.codespan {\n  font-family: Consolas, \"courier new\";\n  font-size: 16px;\n}\n.code {\n  width: auto;\n  background-color: #fff;\n  padding: 8px 12px;\n  border-left: 4px solid #4caf50;\n  word-wrap: break-word;\n}\n.codespan {\n  color: crimson;\n  background-color: #f1f1f1;\n  padding-left: 4px;\n  padding-right: 4px;\n  font-size: 110%;\n}\n\n.card {\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc);\n}\n.card-2 {\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc),\n    0 2px 15px 0 var(--shadowc);\n}\n.card-4,\n.hover-shadow:hover {\n  box-shadow: 0 4px 10px 0 var(--shadowc), 0 4px 20px 0 var(--shadowc),\n    0 2px 30px 0 var(--shadowc);\n}\n.hover-none:hover {\n  background-color: transparent !important;\n  box-shadow: none !important;\n}\n.transparent {\n  background-color: transparent !important;\n}\n\n.animate-top {\n  position: relative;\n  -webkit-animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animatetop {\n  from {\n    top: -1000px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatetop {\n  from {\n    top: -1000px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n.animate-left {\n  position: relative;\n  -webkit-animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animateleft {\n  from {\n    left: -1000px;\n    opacity: 0;\n  }\n  to {\n    left: 0;\n    opacity: 1;\n  }\n}\n@keyframes animateleft {\n  from {\n    left: -1000px;\n    opacity: 0;\n  }\n  to {\n    left: 0;\n    opacity: 1;\n  }\n}\n.animate-right {\n  position: relative;\n  -webkit-animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animateright {\n  from {\n    right: -1000px;\n    opacity: 0;\n  }\n  to {\n    right: 0;\n    opacity: 1;\n  }\n}\n@keyframes animateright {\n  from {\n    right: -1000px;\n    opacity: 0;\n  }\n  to {\n    right: 0;\n    opacity: 1;\n  }\n}\n.animate-bottom {\n  position: relative;\n  -webkit-animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animatebottom {\n  from {\n    bottom: -1000px;\n    opacity: 0;\n  }\n  to {\n    bottom: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatebottom {\n  from {\n    bottom: -1000px;\n    opacity: 0;\n  }\n  to {\n    bottom: 0;\n    opacity: 1;\n  }\n}\n.animate-zoom {\n  position: relative;\n  -webkit-animation: animatezoom 1s;\n          animation: animatezoom 1s;\n}\n@-webkit-keyframes animatezoom {\n  from {\n    transform: scale(0);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n@keyframes animatezoom {\n  from {\n    transform: scale(0);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n.animate-spin {\n  -webkit-animation: spin 4s infinite linear;\n          animation: spin 4s infinite linear;\n  transform-origin: center center;\n}\n@-webkit-keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n.animate-fading {\n  position: relative;\n  -webkit-animation: fading 5s infinite;\n          animation: fading 5s infinite;\n}\n@-webkit-keyframes fading {\n  0% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes fading {\n  0% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.animate-opacity {\n  position: relative;\n  -webkit-animation: opac 2s;\n          animation: opac 2s;\n}\n@-webkit-keyframes opac {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes opac {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n\n.opacity,\n.hover-opacity:hover {\n  opacity: 0.6;\n}\n.opacity-off,\n.hover-opacity-off:hover {\n  opacity: 1;\n}\n.opacity-max {\n  opacity: 0.25;\n}\n.opacity-min {\n  opacity: 0.75;\n}\n.grayscale-max,\n.hover-grayscale:hover {\n  filter: grayscale(100%);\n}\n.grayscale {\n  filter: grayscale(75%);\n}\n.grayscale-min {\n  filter: grayscale(50%);\n}\n.sepia-max,\n.hover-sepia:hover {\n  filter: sepia(100%);\n}\n.sepia {\n  filter: sepia(75%);\n}\n.sepia-min {\n  filter: sepia(50%);\n}\n.blur-max,\n.hover-blur:hover {\n  filter: blur(10px);\n}\n.blur {\n  filter: blur(6px);\n}\n.blur-min {\n  filter: blur(2px);\n}\n.saturate-max,\n.hover-saturate:hover {\n  filter: saturate(9);\n}\n.saturate {\n  filter: saturate(6);\n}\n.saturate-min {\n  filter: saturate(3);\n}\n.contrast-max,\n.hover-contrast:hover {\n  filter: contrast(200%);\n}\n.contrast {\n  filter: contrast(180%);\n}\n.contrast-min {\n  filter: contrast(150%);\n}\n.drop-shadow-max,\n.hover-drop-shadow:hover {\n  filter: drop-shadow(0 0 30px crimson);\n}\n.drop-shadow {\n  filter: drop-shadow(0 0 20px crimson);\n}\n.drop-shadow-min {\n  filter: drop-shadow(0 0 10px crimson);\n}\n\n.tiny {\n  font-size: 10px !important;\n}\n.small {\n  font-size: 12px !important;\n}\n.medium {\n  font-size: 15px !important;\n}\n.large {\n  font-size: 18px !important;\n}\n.xlarge {\n  font-size: 24px !important;\n}\n.xxlarge {\n  font-size: 36px !important;\n}\n.xxxlarge {\n  font-size: 48px !important;\n}\n.jumbo {\n  font-size: 64px !important;\n}\n\n.outline-0 {\n  outline: none !important;\n}\n.border-0 {\n  border: none !important;\n}\n.border {\n  border: var(--border) !important;\n}\n.hover-border:hover {\n  border: var(--border) !important;\n}\n.focus-border:focus {\n  border: var(--inputborderfo) !important;\n}\n.border-top {\n  border-top: var(--border) !important;\n}\n.border-bottom {\n  border-bottom: var(--border) !important;\n}\n.border-left {\n  border-left: var(--border) !important;\n}\n.border-right {\n  border-right: var(--border) !important;\n}\n.topbar {\n  border-top: var(--borbar) !important;\n}\n.bottombar {\n  border-bottom: var(--borbar) !important;\n}\n.leftbar {\n  border-left: var(--borbar) !important;\n}\n.rightbar {\n  border-right: var(--borbar) !important;\n}\n\n.stretch {\n  margin-left: -16px;\n  margin-right: -16px;\n}\n.section,\n.code {\n  margin-top: 16px !important;\n  margin-bottom: 16px !important;\n}\n.margin-0 {\n  margin: 0 !important;\n}\n.margin {\n  margin: 16px !important;\n}\n.margin-top {\n  margin-top: 16px !important;\n}\n.margin-bottom {\n  margin-bottom: 16px !important;\n}\n.margin-left {\n  margin-left: 16px !important;\n}\n.margin-right {\n  margin-right: 16px !important;\n}\n\n.padding-0 {\n  padding: 0 !important;\n}\n.padding-left-0 {\n  padding-left: 0 !important;\n}\n.padding-right-0 {\n  padding-right: 0 !important;\n}\n.padding-small {\n  padding: 4px 8px !important;\n}\n.padding {\n  padding: 8px 16px !important;\n}\n.padding-large {\n  padding: 12px 24px !important;\n}\n.padding-16 {\n  padding-top: 16px !important;\n  padding-bottom: 16px !important;\n}\n.padding-24 {\n  padding-top: 24px !important;\n  padding-bottom: 24px !important;\n}\n.padding-32 {\n  padding-top: 32px !important;\n  padding-bottom: 32px !important;\n}\n.padding-48 {\n  padding-top: 48px !important;\n  padding-bottom: 48px !important;\n}\n.padding-64 {\n  padding-top: 64px !important;\n  padding-bottom: 64px !important;\n}\n.padding-top-64 {\n  padding-top: 64px !important;\n}\n.padding-top-48 {\n  padding-top: 48px !important;\n}\n.padding-top-32 {\n  padding-top: 32px !important;\n}\n.padding-top-24 {\n  padding-top: 24px !important;\n}\n\n.overlay {\n  position: fixed;\n  display: none;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 2;\n}\n.top,\n.bottom {\n  position: fixed;\n  width: 100%;\n  z-index: 1;\n}\n.top {\n  top: 0;\n}\n.bottom {\n  bottom: 0;\n}\n.left {\n  float: left !important;\n}\n.right {\n  float: right !important;\n}\n.left-align {\n  text-align: left;\n}\n.right-align {\n  text-align: right;\n}\n.justify {\n  text-align: justify !important;\n}\n.center {\n  text-align: center !important;\n}\n.wide {\n  letter-spacing: 4px;\n}\n.wideword {\n  word-spacing: 8px;\n}\n.text-shadow {\n  text-shadow: var(--text-shadow);\n}\n.text-line-through {\n  text-decoration: line-through;\n  color: red !important;\n}\n.text-decoration-none {\n  text-decoration: none;\n}\n\n::-moz-selection {\n  color: red;\n  background: yellow;\n}\n\n::selection {\n  color: red;\n  background: yellow;\n}\n:-webkit-full-screen {\n  background-color: aqua;\n}\n:-ms-fullscreen {\n  background-color: aqua;\n}\n:fullscreen {\n  background-color: aqua;\n}\n/* Colors */\n.bgc-1,\n.hover-bgc-1:hover {\n  background-color: var(--bgc-1) !important;\n  transition: 0.5s;\n}\n.bgc-2,\n.hover-bgc-2:hover {\n  background-color: var(--bgc-2) !important;\n  transition: 0.5s;\n}\n.bgc-3,\n.hover-bgc-3:hover {\n  background-color: var(--bgc-3) !important;\n  transition: 0.5s;\n}\n.bgc-4,\n.hover-bgc-4:hover {\n  background-color: var(--bgc-4) !important;\n  transition: 0.5s;\n}\n.textc-1,\n.hover-textc-1:hover {\n  color: var(--textc-1) !important;\n  transition: 0.5s;\n}\n.textc-2,\n.hover-textc-2:hover {\n  color: var(--textc-2) !important;\n  transition: 0.5s;\n}\n.textc-3,\n.hover-textc-3:hover {\n  color: var(--textc-3) !important;\n  transition: 0.5s;\n}\n.textc-4,\n.hover-textc-4:hover {\n  color: var(--textc-4) !important;\n  transition: 0.5s;\n}\n.borderc-1,\n.hover-borderc-1:hover {\n  border-color: var(--borc-1) !important;\n  transition: 0.5s;\n}\n.borderc-2,\n.hover-borderc-2:hover {\n  border-color: var(--borc-2) !important;\n  transition: 0.5s;\n}\n.borderc-3,\n.hover-borderc-3:hover {\n  border-color: var(--borc-3) !important;\n  transition: 0.5s;\n}\n.borderc-4,\n.hover-borderc-4:hover {\n  border-color: var(--borc-4) !important;\n  transition: 0.5s;\n}\n\n/**/\n/**/\n\n\n.clip-path-polygon\n{-webkit-clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);}\n.bgc-header\n{\n  background-image: linear-gradient(to bottom,\n  #04009a, #002aad, #0044bc, #005cc9,\n  #0073d4, #0084dd, #0094e3, #00a4e8,\n  #00b2ed, #00c0ef, #19cef0, #3edbf0)!important;\n  background-position: center center;\n  margin-bottom: 50px;\n}\n\n.bgcimg-header\n{\n  width: 25vw;\n  height: 25vw;\n  min-width: 150px;\n  min-height: 150px;\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\n}\n\n.img-header\n{\n  width: 25vw;\n  height: 25vw;\n  min-width: 150px;\n  min-height: 150px;\n}\n\n.imguser\n{\n  width: 100%;\n  height: 100%;\n  min-width: 50px;\n  min-height: 50px;\n  margin: 20px auto 0px;\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\n}\n\n\n/* Bobbles */\n\n/* background anmite */\n\n.bobbles\n{\n    margin: 0px;\n    padding: 0px;\n    /* width: 100vw;\n    height: 100vh; */\n    position: absolute;\n    bottom: 0vh;\n}\n.bobbles li\n{\n    list-style-type: none;\n    margin: 0px;\n    padding: 0px;\n    position: fixed;\n    bottom: -20vh;\n    width: 2vw;\n    height: 2vw;\n    background-color: #3490de;\n    -webkit-animation-name: amator;\n            animation-name: amator;\n    -webkit-animation-duration: 25s;\n            animation-duration: 25s;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite;\n    -webkit-animation-timing-function: linear;\n            animation-timing-function: linear;\n    z-index: -1;\n}\n.bobbles li:nth-child(1)\n{\n    left: 25vw;\n    width: 3vw;\n    height: 3vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n}\n.bobbles li:nth-child(2)\n{\n    left: 10vw;\n    width: 8vw;\n    height: 8vw;\n    -webkit-animation-delay: 2s;\n            animation-delay: 2s;\n    -webkit-animation-duration: 12s;\n            animation-duration: 12s;\n}\n.bobbles li:nth-child(3)\n{\n    left: 70vw;\n    width: 3vw;\n    height: 3vw;\n    -webkit-animation-delay: 4s;\n            animation-delay: 4s;\n}\n.bobbles li:nth-child(4)\n{\n    left: 40vw;\n    width: 6vw;\n    height: 6vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n}\n.bobbles li:nth-child(5)\n{\n    left: 65vw;\n    width: 6vw;\n    height: 6vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n}\n.bobbles li:nth-child(6)\n{\n    left: 75vw;\n    width: 8vw;\n    height: 8vw;\n    -webkit-animation-delay: 3s;\n            animation-delay: 3s;\n    -webkit-animation-duration: 18s;\n            animation-duration: 18s;\n}\n.bobbles li:nth-child(7)\n{\n    left: 35vw;\n    width: 9vw;\n    height: 9vw;\n    -webkit-animation-delay: 5s;\n            animation-delay: 5s;\n}\n.bobbles li:nth-child(8)\n{\n    left: 50vw;\n    width: 3vw;\n    height: 3vw;\n    -webkit-animation-delay: 15s;\n            animation-delay: 15s;\n    -webkit-animation-duration: 45s;\n            animation-duration: 45s;\n}\n.bobbles li:nth-child(9)\n{\n    left: 20vw;\n    width: 5vw;\n    height: 5vw;\n    -webkit-animation-delay: 2s;\n            animation-delay: 2s;\n    -webkit-animation-duration: 35s;\n            animation-duration: 35s;\n}\n.bobbles li:nth-child(10)\n{\n    left: 80vw;\n    width: 10vw;\n    height: 10vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n    -webkit-animation-duration: 11s;\n            animation-duration: 11s;\n}\n@-webkit-keyframes amator\n{\n    0%\n    {\n        transform: translateY(0vh) rotate(0deg);\n        opacity: 1;\n        border-radius: 0%;\n    }\n    50%\n    {\n        border-radius: 40%;\n    }\n    100%\n    {\n        transform: translateY(-120vh) rotate(720deg);\n        opacity: 0;\n        border-radius: 50%;\n    }\n}\n@keyframes amator\n{\n    0%\n    {\n        transform: translateY(0vh) rotate(0deg);\n        opacity: 1;\n        border-radius: 0%;\n    }\n    50%\n    {\n        border-radius: 40%;\n    }\n    100%\n    {\n        transform: translateY(-120vh) rotate(720deg);\n        opacity: 0;\n        border-radius: 50%;\n    }\n}\n/* end Bobbles  */\n\n/* Wave */\n.wave-container\n{\n    position: relative;\n    width: 100%;\n    /* overflow: hidden; */\n}\n\n.wave-container .wave\n{\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n    height: 155px;\n    background-image:url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n    background-position: bottom bottom ;\n    background-size: 1000px 300px;\n    }\n.wave-container .wave.wave1\n{\n    -webkit-animation: animatewave 30s linear infinite;\n            animation: animatewave 30s linear infinite;\n    z-index: 1000;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n    bottom: 0;\n    opacity: 1;\n}\n.wave-container .wave.wave2\n{\n    -webkit-animation: animatewave2 20s linear infinite;\n            animation: animatewave2 20s linear infinite;\n    z-index: 999;\n    -webkit-animation-delay: -5s;\n            animation-delay: -5s;\n    bottom: 10px;\n    opacity: 0.7;\n}\n.wave-container .wave.wave3\n{\n    -webkit-animation: animatewave3 15s linear infinite;\n            animation: animatewave3 15s linear infinite;\n    z-index: 998;\n    -webkit-animation-delay: -10s;\n            animation-delay: -10s;\n    bottom: 15px;\n    opacity: 0.4;\n}\n.wave-container .wave.wave4\n{\n    -webkit-animation: animatewave4 10s linear infinite;\n            animation: animatewave4 10s linear infinite;\n    z-index: 997;\n    -webkit-animation-delay: -5s;\n            animation-delay: -5s;\n    bottom: 20px;\n    opacity: 0.2;\n}\n@-webkit-keyframes animatewave\n{\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n@keyframes animatewave\n{\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n    @-webkit-keyframes animatewave2\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n    }\n    @keyframes animatewave2\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n    }\n    @-webkit-keyframes animatewave3\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n    @keyframes animatewave3\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n    @-webkit-keyframes animatewave4\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n}\n    @keyframes animatewave4\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n}\n/* end Wave */\n\n/* Footer */\n.bgc-footer\n{\n    background-image: linear-gradient(to top,\n    #04009a, #002aad, #0044bc, #005cc9,\n    #0073d4, #0084dd, #0094e3, #00a4e8)!important;\n}\n/* end Footer */\n\n/* Scroll */\n.upscroll\n{\n  position: fixed;\n  bottom: 25px;\n  left: 25px;\n  display:none;\n  background-color: #0073d4;\n  color: white;\n  font-weight: bold;\n  font-size: 20px;\n  padding: 7px;\n  border-radius: 8px;\n  width: 50px;\n  height: 50px;\n  cursor: pointer;\n  transition: 0.5s;\n  z-index: 100000000000000;\n  text-align: center;\n}\n.upscroll:hover\n{\n  background-color: #ff9900;\n}\n.upscroll.showscroll\n{\n  display:block;\n}\n/* end Scroll */\n\n/* Card */\n.text-bad\n{\n  color: red;\n  display: none;\n}\n.z-index-100000\n{\n  z-index: 100000;\n}\n.pointer\n{\n  cursor: pointer;\n}\n.margin-auto\n{\n  margin:auto;\n}\n.clip-path-circle\n{\n  -webkit-clip-path: circle(50.0% at 50% 20%);\n          clip-path: circle(50.0% at 50% 20%);\n  background-color: #0094e3;\n}\n.clip-path-circle:hover\n{\n  transition: 1s;\n  -webkit-clip-path: circle(110.0% at 50% 20%);\n          clip-path: circle(110.0% at 50% 20%);\n}\n.clip-path-add\n{\n  -webkit-clip-path: polygon(0 0, 49% 0, 44% 100%, 0 100%);\n          clip-path: polygon(0 0, 49% 0, 44% 100%, 0 100%);\n  background-color: #0094e3;\n}\n.clip-path-add:hover\n{\n  transition: 1s;\n  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n}\n.clip-path-card\n{\n  -webkit-clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);\n          clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);\n  background-color: #0094e3;\n}\ndiv:hover.clip-path-card\n{\n  transition: 1s;\n  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n}\n.hot-dael-width\n{\n  width: 100px;\n}\n.hot-dael\n{\n  padding-top: 38%;\n  font-size: 20%;\n  height: 110px;\n}\n\n/* end Card */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n:root {\n--bgc-id: #3edbf0;\n--text-id: rgb(0, 0, 0);\n--bor-id: #3edbf0;\n--hover: rgb(255, 0, 150);\n--fontf: 'Times New Roman', serif;\n--text-shadow: 0px 0px 15px #3edbf0;\n\n--textinput: #3edbf0;\n--inputrequired: rgba(255, 0, 0, 0.3);\n--inputborder: 2px solid var(--bor-id);\n--inputborderfo: 2px solid rgb(255, 0, 150);\n\n--buttonbgc: transparent;\n--buttontextc: #000;\n--buttonbgcho: rgb(255, 0, 150);\n--buttontextcho: rgb(0, 0, 0);\n\n--sidebarco: rgb(20, 20, 20);\n--sidebarlistco: rgb(20, 20, 20);\n\n--conpanmar: auto auto auto auto;\n--conpanpad: 1% 3%;\n--conpanwid: 94%;\n--panmar: 3%;\n\n--border: 2px solid var(--bor-id);\n--borbar: 6px solid var(--bor-id);\n\n--bordertab: 1px solid var(--bor-id);\n--trc: rgb(220, 220, 220);\n--trfc: rgb(180, 180, 180);\n--hovertabl: var(--hover);\n--widtabl: 100%;\n--widthtd: 11%;\n\n--widul: 100%;\n--hoverul: var(--hover);\n--borderul: 2px solid var(--bor-id);\n--borbotul: 2px solid var(--bor-id);\n\n--bgc-1: #04009a;\n--bgc-2: #cdfefc;\n--bgc-3: #3edbf0;\n--bgc-4: rgb(255, 0, 150);\n--textc-1: rgb(0, 0, 0);\n--textc-2: rgb(255, 255, 255);\n--textc-3: #3edbf0;\n--textc-4: rgb(255, 0, 150);\n--borc-1: #04009a;\n--borc-2: #cdfefc;\n--borc-3: #3edbf0;\n--borc-4: rgb(255, 0, 150);\n--shadowc: #3edbf0;\n--tagandbadge: #3edbf0;\n}\n/**/\nhtml {\n  box-sizing: border-box;\n}\n* {\n  box-sizing: border-box;\n}\n/* normalize.css */\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  padding: 0;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection {\n  display: block;\n}\nsummary {\n  display: list-item;\n}\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n}\nprogress {\n  vertical-align: baseline;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden],\ntemplate {\n  display: none;\n}\na {\n  background-color: transparent;\n}\na:active,\na:hover {\n  outline-width: 0;\n}\nabbr[title] {\n  border-bottom: none;\n  text-decoration: underline;\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted;\n}\nb,\nstrong {\n  font-weight: bolder;\n}\ndfn {\n  font-style: italic;\n}\nmark {\n  background: rgb(255, 0, 150);\n  color: #000;\n}\nsmall {\n  font-size: 80%;\n}\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsub {\n  bottom: -0.25em;\n}\nsup {\n  top: -0.5em;\n}\nfigure {\n  margin: 1em 40px;\n}\nimg {\n  border-style: none;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\nhr {\n  box-sizing: content-box;\n  height: 0;\n  overflow: visible;\n}\nbutton,\ninput,\nselect,\ntextarea,\noptgroup {\n  font: inherit;\n  margin: 0;\n}\noptgroup {\n  font-weight: bold;\n}\nbutton,\ninput {\n  overflow: visible;\n}\nbutton,\nselect {\n  text-transform: none;\n}\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button;\n}\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted white;\n}\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\nlegend {\n  color: inherit;\n  display: table;\n  max-width: 100%;\n  padding: 0;\n  white-space: normal;\n}\ntextarea {\n  overflow: auto;\n}\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  padding: 0;\n}\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n[type=\"search\"] {\n  -webkit-appearance: textfield;\n  outline-offset: -2px;\n}\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  font: inherit;\n}\n/* End normalize.css */\nhtml,\nbody {\n  font-family: var(--fontf);\n  font-size: 17px;\n  line-height: 1.5;\n}\nhtml {\n  overflow-x: hidden;\n}\n\nh1 {\n  font-size: 36px;\n}\nh2 {\n  font-size: 30px;\n}\nh3 {\n  font-size: 24px;\n}\nh4 {\n  font-size: 20px;\n}\nh5 {\n  font-size: 18px;\n}\nh6 {\n  font-size: 16px;\n}\n\n@font-face {\n  font-family: \"Tangerine\";\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"woff2\");\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\n    U+FEFF, U+FFFD;\n}\n/* latin */\n@font-face {\n  font-family: \"Sofia\";\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"woff2\");\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,\n    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,\n    U+FEFF, U+FFFD;\n}\n.serif {\n  font-family: serif;\n}\n.sans-serif {\n  font-family: sans-serif;\n}\n.times {\n  font-family: \"Times New Roman\", Times, serif;\n}\n.monospace {\n  font-family: monospace;\n}\n.tangerine {\n  font-family: \"Tangerine\", cursive;\n}\n.sofia {\n  font-family: \"Sofia\", cursive;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: var(--fontf);\n  font-weight: 400;\n  margin: 10px 0;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid var(--bor-id);\n  margin: 20px 0;\n}\n\n.image {\n  max-width: 100%;\n  height: auto;\n}\nimg {\n  vertical-align: middle;\n}\na {\n  color: inherit;\n}\n\n.table,\n.table-all {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: var(--widtabl);\n  margin: auto;\n  display: table;\n}\n.table-all {\n  border: var(--bordertab);\n}\n.bordered tr,\n.table-all tr {\n  border-bottom: var(--bordertab);\n}\n.bordered tr:last-child,\n.table-all tr:last-child {\n  border-bottom: none;\n}\n.border-table {\n  border: var(--bordertab) !important;\n}\n.striped tbody tr:nth-child(even) {\n  background-color: var(--trc);\n}\n.table thead tr:first-child {\n  background-color: var(--trfc) !important;\n}\n.table-all thead tr:first-child {\n  background-color: var(--trfc) !important;\n}\n.table-all tbody tr:nth-child(even) {\n  background-color: var(--trc);\n}\n.hovertabl tbody tr:hover {\n  background-color: var(--hovertabl);\n}\n.table-all tbody tr:hover {\n  background-color: var(--hovertabl);\n}\n.centered tr th,\n.centered tr td,\n.table-all tr th,\n.table-all tr td {\n  text-align: center;\n}\n.righted tr th,\n.righted tr td {\n  text-align: right;\n}\n.table td,\n.table th,\n.table-all td,\n.table-all th {\n  padding: 8px 8px;\n  display: table-cell;\n  text-align: left;\n  vertical-align: top;\n  margin: auto;\n  width: var(--widthtd);\n}\n.table th:first-child,\n.table td:first-child,\n.table-all th:first-child,\n.table-all td:first-child {\n  padding-left: 16px;\n}\n.responsive {\n  display: block;\n  overflow-x: auto;\n}\n\n.badge,\n.tag {\n  background-color: var(--tagandbadge) !important;\n  display: inline-block;\n  padding-left: 8px;\n  padding-right: 8px;\n  text-align: center;\n  margin: 0px 10px;\n  cursor: pointer;\n  border: 2px solid black;\n}\n.badge {\n  border-radius: 50%;\n}\n\n.ul {\n  list-style-type: none;\n  padding: 0;\n  margin: 0;\n  overflow: hidden;\n  width: var(--widul);\n}\n.ul li {\n  color: rgb(255, 0, 150);\n  padding: 8px 16px;\n  border-bottom: var(--borbotul);\n}\n.ul li:last-child {\n  border-bottom: none;\n}\n.ul.hoverul li:hover {\n  color: var(--textc-1)!important;\n  background-color: var(--hoverul);\n}\n.borderul {\n  border: var(--borderul) !important;\n}\n::marker {\n  color: red;\n}\n\n.tooltip {\n  position: relative;\n}\n.tooltip .text {\n  display: none;\n}\n.tooltip:hover .text {\n  display: inline-block;\n}\n.text.text-positiontop {\n  position: absolute;\n  left: 0;\n  bottom: 20px;\n}\n.text.text-positionbottom {\n  position: absolute;\n  left: 0;\n  bottom: -20px;\n}\n\n.input {\n  padding: 8px;\n  display: block;\n  border: var(--inputborder);\n  color: #000;\n  width: 100%;\n  outline: none;\n}\n.select {\n  padding: 9px 0;\n  width: 100%;\n  border: var(--inputborder);\n  color: var(--text-id);\n  width: 100%;\n  outline: none;\n}\n.checkbox,\n.radio {\n  width: 24px;\n  height: 24px;\n  position: relative;\n  top: 6px;\n}\n:-ms-input-placeholder {\n  color: var(--textinput);\n}\n::-moz-placeholder {\n  color: var(--textinput);\n}\n::placeholder {\n  color: var(--textinput);\n}\ninput:out-of-range {\n  border: 2px solid red;\n}\n.checked:checked + label {\n  color: var(--textc-4) !important;\n}\ninput:required {\n  background-color: var(--inputrequired);\n}\ninput[type=\"text\"]:-moz-read-only {\n  background-color: var(--inputrequired);\n}\ninput[type=\"text\"]:read-only {\n  background-color: var(--inputrequired);\n}\ninput:disabled {\n  background-color: var(--inputrequired);\n}\n.input-width100:focus {\n  width: 100% !important;\n}\n\n.btn,\n.button {\n  border: none;\n  display: inline-block;\n  padding: 8px 16px;\n  margin: 0px;\n  vertical-align: middle;\n  overflow: hidden;\n  text-decoration: none;\n  color: var(--buttontextc);\n  background-color: var(--buttonbgc);\n  text-align: center;\n  cursor: pointer;\n  white-space: nowrap;\n  outline: 0;\n  font-weight: 700;\n}\n.btn,\n.button {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.disabled,\n.btn:disabled,\n.button:disabled {\n  cursor: not-allowed;\n  opacity: 0.4;\n}\n.disabled *,\n:disabled * {\n  pointer-events: none;\n}\n.btn.disabled:hover,\n.btn:disabled:hover {\n  box-shadow: none;\n}\n.button:hover {\n  color: var(--buttontextcho) !important;\n  background-color: var(--buttonbgcho) !important;\n}\n.btn:hover {\n  box-shadow: 0 6px 10px 0 var(--shadowc), 0 8px 20px 0 var(--shadowc);\n}\n.ripple:active {\n  opacity: 0.4;\n}\n\n.bar {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-content: center;\n}\n.center .bar {\n  display: inline-block;\n  width: auto;\n}\n.bar .bar-item {\n  padding: 8px 16px;\n  width: auto;\n  float: left;\n  border: none;\n  outline: none;\n}\n.bar .button {\n  white-space: normal;\n}\n.bar-block {\n  width: auto;\n}\n.bar-block .bar-item {\n  width: 100%;\n  display: block;\n  padding: 8px 16px;\n  text-align: left;\n  border: none;\n  white-space: normal;\n  float: none;\n  outline: none;\n}\n.bar-block.center .bar-item {\n  text-align: center;\n}\n.block {\n  display: block;\n  width: 100%;\n}\n\n.bar .dropdown-hover,\n.bar .dropdown-click {\n  position: static;\n} /*float:left*/\n.bar-block .dropdown-hover,\n.bar-block .dropdown-click {\n  width: 100%;\n}\n.bar-block .dropdown-hover .dropdown-content,\n.bar-block .dropdown-click .dropdown-content {\n  min-width: 100%;\n}\n.bar-block .dropdown-hover .button,\n.bar-block .dropdown-click .button {\n  width: 100%;\n  text-align: left;\n  padding: 8px 16px;\n}\n\n.sidebar {\n  height: 100%;\n  width: 180px;\n  background-color: var(--sidebarlistco);\n  position: fixed !important;\n  top: 0;\n  z-index: 10000000;\n  overflow: auto;\n}\n.sidebar-right {\n  right: 0 !important;\n  left: none;\n}\n.sidebar-sticky {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 99;\n  background-color: var(--sidebarco);\n}\n.dropdown-click,\n.dropdown-hover {\n  position: relative;\n  display: inline-block;\n  cursor: pointer;\n}\n.dropdown-hover:hover .dropdown-content {\n  display: block;\n}\n.dropdown-hover:first-child,\n.dropdown-click:hover {\n  background-color: var(--buttonbgcho);\n  color: var(--buttontextcho);\n}\n.dropdown-hover:hover > .button:first-child,\n.dropdown-click:hover > .button:first-child {\n  background-color: var(--buttonbgcho);\n  color: var(--buttontextcho);\n}\n.dropdown-content {\n  cursor: auto;\n  color: var(--buttontextcho);\n  background-color: var(--buttonbgc);\n  display: none;\n  position: absolute;\n  min-width: 130px;\n  margin: 0;\n  padding: 0;\n  z-index: 9999;\n}\n.dropdown-hover .button span:after {\n  width: 0;\n  height: 0;\n  border: 5px solid transparent;\n  border-bottom: none;\n  border-top-color: var(--idsitecolor);\n  content: \"\";\n  vertical-align: middle;\n  display: inline-block;\n  margin-left: 5px;\n}\n.dropdown-click .button span:after {\n  width: 0;\n  height: 0;\n  border: 5px solid transparent;\n  border-bottom: none;\n  border-top-color: var(--idsitecolor);\n  content: \"\";\n  vertical-align: middle;\n  display: inline-block;\n  margin-left: 5px;\n}\n\n.container:after,\n.container:before,\n.panel:after,\n.panel:before,\n.row:after,\n.row:before,\n.row-padding:after,\n.row-padding:before,\n.cell-row:before,\n.cell-row:after,\n.clear:after,\n.clear:before,\n.bar:before,\n.bar:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n/* .col,.half,.third,.twothird,.threequarter,.quarter{float:left;width:100%} */\n\n.row,\n.row-padding {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-content: center;\n}\n.col,\n.rest,\n.half,\n.third,\n.twothird,\n.threequarter,\n.quarter {\n  width: 100%;\n}\n.row-padding > .half,\n.row-padding > .third,\n.row-padding > .twothird,\n.row-padding > .threequarter,\n.row-padding > .quarter,\n.row-padding > .col {\n  padding: 0 8px;\n}\n.flex-nowrap {\n  flex-wrap: nowrap;\n}\n.flex-justifycenter {\n  justify-content: center;\n}\n.flex-justifyend {\n  justify-content: flex-end;\n}\n\n.col.s8 {\n  width: 8.33333%;\n}\n.col.s16 {\n  width: 16.66666%;\n}\n.col.s25 {\n  width: 24.99999%;\n}\n.col.s33 {\n  width: 33.33333%;\n}\n.col.s41 {\n  width: 41.66666%;\n}\n.col.s50 {\n  width: 49.99999%;\n}\n.col.s58 {\n  width: 58.33333%;\n}\n.col.s66 {\n  width: 66.66666%;\n}\n.col.s75 {\n  width: 74.99999%;\n}\n.col.s83 {\n  width: 83.33333%;\n}\n.col.s91 {\n  width: 91.66666%;\n}\n.col.s100 {\n  width: 99.99999%;\n}\n@media (max-width: 600px) {\n  .colrest {\n    width: 100% !important;\n  }\n  .hide-small {\n    display: none !important;\n  }\n  .col {\n    text-align: center;\n  }\n  .right-align {\n    text-align: center !important;\n  }\n}\n@media (min-width: 601px) {\n  .col.m8 {\n    width: 8.33333%;\n  }\n  .col.m16 {\n    width: 16.66666%;\n  }\n  .col.m25,\n  .quarter {\n    width: 24.99999%;\n  }\n  .col.m33,\n  .third {\n    width: 33.33333%;\n  }\n  .col.m41 {\n    width: 41.66666%;\n  }\n  .col.m50,\n  .half {\n    width: 49.99999%;\n  }\n  .col.m58 {\n    width: 58.33333%;\n  }\n  .col.m66,\n  .twothird {\n    width: 66.66666%;\n  }\n  .col.m75,\n  .threequarter {\n    width: 74.99999%;\n  }\n  .col.m83 {\n    width: 83.33333%;\n  }\n  .col.m91 {\n    width: 91.66666%;\n  }\n  .col.m100 {\n    width: 99.99999%;\n  }\n  .rest {\n    overflow: hidden;\n    width: auto;\n    flex-grow: 1;\n  }\n}\n@media (max-width: 992px) and (min-width: 601px) {\n  .hide-medium {\n    display: none !important;\n  }\n  .paddingoff {\n    padding: none;\n  }\n}\n@media (min-width: 993px) {\n  .col.l8 {\n    width: 8.33333%;\n  }\n  .col.l16 {\n    width: 16.66666%;\n  }\n  .col.l25 {\n    width: 24.99999%;\n  }\n  .col.l33 {\n    width: 33.33333%;\n  }\n  .col.l41 {\n    width: 41.66666%;\n  }\n  .col.l50 {\n    width: 49.99999%;\n  }\n  .col.l58 {\n    width: 58.33333%;\n  }\n  .col.l66 {\n    width: 66.66666%;\n  }\n  .col.l75 {\n    width: 74.99999%;\n  }\n  .col.l83 {\n    width: 83.33333%;\n  }\n  .col.l91 {\n    width: 91.66666%;\n  }\n  .col.l100 {\n    width: 99.99999%;\n  }\n  .hide-large {\n    display: none !important;\n  }\n}\n\n.container,\n.panel {\n  padding: var(--conpanpad);\n  width: var(--conpanwid);\n  margin: var(--conpanmar);\n}\n.panel {\n  margin: var(--panmar);\n}\n\n.width-10 {\n  width: 10%;\n}\n.width-15 {\n  width: 15%;\n}\n.width-20 {\n  width: 20%;\n}\n.width-25 {\n  width: 25%;\n}\n.width-33 {\n  width: 33.33%;\n}\n.width-50 {\n  width: 50%;\n}\n.width-75 {\n  width: 75%;\n}\n.width-100 {\n  width: 100%;\n}\n.width-fit-content {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.width-auto {\n  width: auto;\n}\n.height-100px {\n  height: 100px;\n}\n.height-200px {\n  height: 200px;\n}\n.height-300px {\n  height: 300px;\n}\n.height-400px {\n  height: 400px;\n}\n.height-500px {\n  height: 500px;\n}\n.height-600px {\n  height: 600px;\n}\n.height-100 {\n  height: 100%;\n}\n.height-auto {\n  height: auto;\n}\n@media (max-width: 600px) {\n  .width-5vw {\n    width: 5vw !important;\n  }\n  .width-10vw {\n    width: 10vw !important;\n  }\n  .width-20vw {\n    width: 20vw !important;\n  }\n  .width-30vw {\n    width: 30vw !important;\n  }\n  .width-50vw {\n    width: 50vw !important;\n  }\n  .width-75vw {\n    width: 75vw !important;\n  }\n  .width-90vw {\n    width: 90vw !important;\n  }\n  .width-100vw {\n    width: 100vw;\n  }\n  .height-100px {\n    height: 50px;\n  }\n  .height-200px {\n    height: 100px;\n  }\n  .height-300px {\n    height: 150px;\n  }\n  .height-400px {\n    height: 200px;\n  }\n  .height-500px {\n    height: 250px;\n  }\n  .height-600px {\n    height: 300px;\n  }\n  .height-100auto {\n    height: auto;\n  }\n}\n\n.cell-row {\n  display: table;\n  width: 100%;\n}\n.cell {\n  display: table-cell;\n}\n.cell-top {\n  vertical-align: top;\n}\n.cell-middle {\n  vertical-align: middle;\n}\n.cell-bottom {\n  vertical-align: bottom;\n}\n\n.content,\n.auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n.content {\n  max-width: 980px;\n}\n.auto {\n  max-width: 1140px;\n}\n\n.modal {\n  z-index: 999;\n  display: none;\n  padding-top: 100px;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgba(0, 0, 0, 0.4);\n}\n.modal-content {\n  margin: auto;\n  background-color: rgba(0, 0, 0, 0.8);\n  position: relative;\n  padding: 0;\n  outline: 0;\n  width: 80%;\n}\n\n@media (max-width: 1205px) {\n  .auto {\n    max-width: 95%;\n  }\n}\n@media (max-width: 600px) {\n  .modal-content {\n    margin: 0 16px;\n    width: auto !important;\n  }\n  .modal {\n    padding-top: 30px;\n  }\n  .dropdown-hover.mobile .dropdown-content,\n  .dropdown-click.mobile .dropdown-content {\n    position: relative;\n  }\n  .mobile {\n    display: block;\n    width: 100% !important;\n  }\n  .bar-item.mobile,\n  .dropdown-hover.mobile,\n  .dropdown-click.mobile {\n    text-align: center;\n  }\n  .dropdown-hover.mobile,\n  .dropdown-hover.mobile .btn,\n  .dropdown-hover.mobile .button,\n  .dropdown-click.mobile,\n  .dropdown-click.mobile .btn,\n  .dropdown-click.mobile .button {\n    width: 100%;\n  }\n}\n@media (max-width: 768px) {\n  .modal-content {\n    width: 500px;\n  }\n  .modal {\n    padding-top: 50px;\n  }\n}\n@media (min-width: 993px) {\n  .modal-content {\n    width: 900px;\n  }\n  .sidebar.collapse {\n    display: block !important;\n  }\n}\n@media (max-width: 992px) {\n  .sidebar.collapse {\n    display: none;\n  }\n  .main {\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n  }\n  .auto {\n    max-width: 100%;\n  }\n}\n\n.hide {\n  display: none !important;\n}\n.show-block,\n.show {\n  display: block !important;\n}\n.show-inline-block {\n  display: inline-block !important;\n}\n\n.display-block {\n  display: block;\n}\n.display-inline {\n  display: inline;\n}\n.display-inlineblock {\n  display: inline-block;\n}\n.display-fixed {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 3;\n  overflow: auto;\n}\n.display-position {\n  position: absolute;\n}\n.display-container {\n  position: relative;\n}\n.display-container:hover .display-hover {\n  display: block;\n}\n.display-container:hover span.display-hover {\n  display: inline-block;\n}\n.display-hover {\n  display: none;\n}\n.display-topleft {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.display-topright {\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n.display-bottomleft {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n}\n.display-bottomright {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n}\n.display-middle {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  -ms-transform: translate(-50%, -50%);\n}\n.display-left {\n  position: absolute;\n  top: 50%;\n  left: 0%;\n  transform: translate(0%, -50%);\n  -ms-transform: translate(-0%, -50%);\n}\n.display-right {\n  position: absolute;\n  top: 50%;\n  right: 0%;\n  transform: translate(0%, -50%);\n  -ms-transform: translate(0%, -50%);\n}\n.display-topmiddle {\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translate(-50%, 0%);\n  -ms-transform: translate(-50%, 0%);\n}\n.display-bottommiddle {\n  position: absolute;\n  left: 50%;\n  bottom: 0;\n  transform: translate(-50%, 0%);\n  -ms-transform: translate(-50%, 0%);\n}\n\n@media (max-width: 600px) {\n  .display-right-mobile {\n    position: relative;\n    top: auto;\n    transform: none;\n  }\n}\n\n.circle {\n  border-radius: 50%;\n}\n.round-small {\n  border-radius: 2px;\n}\n.round,\n.round-medium {\n  border-radius: 4px;\n}\n.round-large {\n  border-radius: 8px;\n}\n.round-xlarge {\n  border-radius: 16px;\n}\n.round-xxlarge {\n  border-radius: 32px;\n}\n\n.code,\n.codespan {\n  font-family: Consolas, \"courier new\";\n  font-size: 16px;\n}\n.code {\n  width: auto;\n  background-color: #fff;\n  padding: 8px 12px;\n  border-left: 4px solid #4caf50;\n  word-wrap: break-word;\n}\n.codespan {\n  color: crimson;\n  background-color: #f1f1f1;\n  padding-left: 4px;\n  padding-right: 4px;\n  font-size: 110%;\n}\n\n.card {\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc);\n}\n.card-2 {\n  box-shadow: 0 2px 5px 0 var(--shadowc), 0 2px 10px 0 var(--shadowc),\n    0 2px 15px 0 var(--shadowc);\n}\n.card-4,\n.hover-shadow:hover {\n  box-shadow: 0 4px 10px 0 var(--shadowc), 0 4px 20px 0 var(--shadowc),\n    0 2px 30px 0 var(--shadowc);\n}\n.hover-none:hover {\n  background-color: transparent !important;\n  box-shadow: none !important;\n}\n.transparent {\n  background-color: transparent !important;\n}\n\n.animate-top {\n  position: relative;\n  -webkit-animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animatetop 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animatetop {\n  from {\n    top: -1000px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatetop {\n  from {\n    top: -1000px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n.animate-left {\n  position: relative;\n  -webkit-animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animateleft 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animateleft {\n  from {\n    left: -1000px;\n    opacity: 0;\n  }\n  to {\n    left: 0;\n    opacity: 1;\n  }\n}\n@keyframes animateleft {\n  from {\n    left: -1000px;\n    opacity: 0;\n  }\n  to {\n    left: 0;\n    opacity: 1;\n  }\n}\n.animate-right {\n  position: relative;\n  -webkit-animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animateright 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animateright {\n  from {\n    right: -1000px;\n    opacity: 0;\n  }\n  to {\n    right: 0;\n    opacity: 1;\n  }\n}\n@keyframes animateright {\n  from {\n    right: -1000px;\n    opacity: 0;\n  }\n  to {\n    right: 0;\n    opacity: 1;\n  }\n}\n.animate-bottom {\n  position: relative;\n  -webkit-animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n          animation: animatebottom 1s cubic-bezier(0.01, 0.01, 0, 0.98);\n}\n@-webkit-keyframes animatebottom {\n  from {\n    bottom: -1000px;\n    opacity: 0;\n  }\n  to {\n    bottom: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatebottom {\n  from {\n    bottom: -1000px;\n    opacity: 0;\n  }\n  to {\n    bottom: 0;\n    opacity: 1;\n  }\n}\n.animate-zoom {\n  position: relative;\n  -webkit-animation: animatezoom 1s;\n          animation: animatezoom 1s;\n}\n@-webkit-keyframes animatezoom {\n  from {\n    transform: scale(0);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n@keyframes animatezoom {\n  from {\n    transform: scale(0);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n.animate-spin {\n  -webkit-animation: spin 4s infinite linear;\n          animation: spin 4s infinite linear;\n  transform-origin: center center;\n}\n@-webkit-keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n.animate-fading {\n  position: relative;\n  -webkit-animation: fading 5s infinite;\n          animation: fading 5s infinite;\n}\n@-webkit-keyframes fading {\n  0% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes fading {\n  0% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.animate-opacity {\n  position: relative;\n  -webkit-animation: opac 2s;\n          animation: opac 2s;\n}\n@-webkit-keyframes opac {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes opac {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n\n.opacity,\n.hover-opacity:hover {\n  opacity: 0.6;\n}\n.opacity-off,\n.hover-opacity-off:hover {\n  opacity: 1;\n}\n.opacity-max {\n  opacity: 0.25;\n}\n.opacity-min {\n  opacity: 0.75;\n}\n.grayscale-max,\n.hover-grayscale:hover {\n  filter: grayscale(100%);\n}\n.grayscale {\n  filter: grayscale(75%);\n}\n.grayscale-min {\n  filter: grayscale(50%);\n}\n.sepia-max,\n.hover-sepia:hover {\n  filter: sepia(100%);\n}\n.sepia {\n  filter: sepia(75%);\n}\n.sepia-min {\n  filter: sepia(50%);\n}\n.blur-max,\n.hover-blur:hover {\n  filter: blur(10px);\n}\n.blur {\n  filter: blur(6px);\n}\n.blur-min {\n  filter: blur(2px);\n}\n.saturate-max,\n.hover-saturate:hover {\n  filter: saturate(9);\n}\n.saturate {\n  filter: saturate(6);\n}\n.saturate-min {\n  filter: saturate(3);\n}\n.contrast-max,\n.hover-contrast:hover {\n  filter: contrast(200%);\n}\n.contrast {\n  filter: contrast(180%);\n}\n.contrast-min {\n  filter: contrast(150%);\n}\n.drop-shadow-max,\n.hover-drop-shadow:hover {\n  filter: drop-shadow(0 0 30px crimson);\n}\n.drop-shadow {\n  filter: drop-shadow(0 0 20px crimson);\n}\n.drop-shadow-min {\n  filter: drop-shadow(0 0 10px crimson);\n}\n\n.tiny {\n  font-size: 10px !important;\n}\n.small {\n  font-size: 12px !important;\n}\n.medium {\n  font-size: 15px !important;\n}\n.large {\n  font-size: 18px !important;\n}\n.xlarge {\n  font-size: 24px !important;\n}\n.xxlarge {\n  font-size: 36px !important;\n}\n.xxxlarge {\n  font-size: 48px !important;\n}\n.jumbo {\n  font-size: 64px !important;\n}\n\n.outline-0 {\n  outline: none !important;\n}\n.border-0 {\n  border: none !important;\n}\n.border {\n  border: var(--border) !important;\n}\n.hover-border:hover {\n  border: var(--border) !important;\n}\n.focus-border:focus {\n  border: var(--inputborderfo) !important;\n}\n.border-top {\n  border-top: var(--border) !important;\n}\n.border-bottom {\n  border-bottom: var(--border) !important;\n}\n.border-left {\n  border-left: var(--border) !important;\n}\n.border-right {\n  border-right: var(--border) !important;\n}\n.topbar {\n  border-top: var(--borbar) !important;\n}\n.bottombar {\n  border-bottom: var(--borbar) !important;\n}\n.leftbar {\n  border-left: var(--borbar) !important;\n}\n.rightbar {\n  border-right: var(--borbar) !important;\n}\n\n.stretch {\n  margin-left: -16px;\n  margin-right: -16px;\n}\n.section,\n.code {\n  margin-top: 16px !important;\n  margin-bottom: 16px !important;\n}\n.margin-0 {\n  margin: 0 !important;\n}\n.margin {\n  margin: 16px !important;\n}\n.margin-top {\n  margin-top: 16px !important;\n}\n.margin-bottom {\n  margin-bottom: 16px !important;\n}\n.margin-left {\n  margin-left: 16px !important;\n}\n.margin-right {\n  margin-right: 16px !important;\n}\n\n.padding-0 {\n  padding: 0 !important;\n}\n.padding-left-0 {\n  padding-left: 0 !important;\n}\n.padding-right-0 {\n  padding-right: 0 !important;\n}\n.padding-small {\n  padding: 4px 8px !important;\n}\n.padding {\n  padding: 8px 16px !important;\n}\n.padding-large {\n  padding: 12px 24px !important;\n}\n.padding-16 {\n  padding-top: 16px !important;\n  padding-bottom: 16px !important;\n}\n.padding-24 {\n  padding-top: 24px !important;\n  padding-bottom: 24px !important;\n}\n.padding-32 {\n  padding-top: 32px !important;\n  padding-bottom: 32px !important;\n}\n.padding-48 {\n  padding-top: 48px !important;\n  padding-bottom: 48px !important;\n}\n.padding-64 {\n  padding-top: 64px !important;\n  padding-bottom: 64px !important;\n}\n.padding-top-64 {\n  padding-top: 64px !important;\n}\n.padding-top-48 {\n  padding-top: 48px !important;\n}\n.padding-top-32 {\n  padding-top: 32px !important;\n}\n.padding-top-24 {\n  padding-top: 24px !important;\n}\n\n.overlay {\n  position: fixed;\n  display: none;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 2;\n}\n.top,\n.bottom {\n  position: fixed;\n  width: 100%;\n  z-index: 1;\n}\n.top {\n  top: 0;\n}\n.bottom {\n  bottom: 0;\n}\n.left {\n  float: left !important;\n}\n.right {\n  float: right !important;\n}\n.left-align {\n  text-align: left;\n}\n.right-align {\n  text-align: right;\n}\n.justify {\n  text-align: justify !important;\n}\n.center {\n  text-align: center !important;\n}\n.wide {\n  letter-spacing: 4px;\n}\n.wideword {\n  word-spacing: 8px;\n}\n.text-shadow {\n  text-shadow: var(--text-shadow);\n}\n.text-line-through {\n  text-decoration: line-through;\n  color: red !important;\n}\n.text-decoration-none {\n  text-decoration: none;\n}\n\n::-moz-selection {\n  color: rgb(255, 0, 150);\n  background: aqua;\n}\n\n::selection {\n  color: rgb(255, 0, 150);\n  background: aqua;\n}\n:-webkit-full-screen {\n  background-color: aqua;\n}\n:-ms-fullscreen {\n  background-color: aqua;\n}\n:fullscreen {\n  background-color: aqua;\n}\n/* Colors */\n.bgc-1,\n.hover-bgc-1:hover {\n  background-color: var(--bgc-1) !important;\n  transition: 0.5s;\n}\n.bgc-2,\n.hover-bgc-2:hover {\n  background-color: var(--bgc-2) !important;\n  transition: 0.5s;\n}\n.bgc-3,\n.hover-bgc-3:hover {\n  background-color: var(--bgc-3) !important;\n  transition: 0.5s;\n}\n.bgc-4,\n.hover-bgc-4:hover {\n  background-color: var(--bgc-4) !important;\n  transition: 0.5s;\n}\n.textc-1,\n.hover-textc-1:hover {\n  color: var(--textc-1) !important;\n  transition: 0.5s;\n}\n.textc-2,\n.hover-textc-2:hover {\n  color: var(--textc-2) !important;\n  transition: 0.5s;\n}\n.textc-3,\n.hover-textc-3:hover {\n  color: var(--textc-3) !important;\n  transition: 0.5s;\n}\n.textc-4,\n.hover-textc-4:hover {\n  color: var(--textc-4) !important;\n  transition: 0.5s;\n}\n.borderc-1,\n.hover-borderc-1:hover {\n  border-color: var(--borc-1) !important;\n  transition: 0.5s;\n}\n.borderc-2,\n.hover-borderc-2:hover {\n  border-color: var(--borc-2) !important;\n  transition: 0.5s;\n}\n.borderc-3,\n.hover-borderc-3:hover {\n  border-color: var(--borc-3) !important;\n  transition: 0.5s;\n}\n.borderc-4,\n.hover-borderc-4:hover {\n  border-color: var(--borc-4) !important;\n  transition: 0.5s;\n}\n\n/**/\n/**/\n\n\n.clip-path-polygon\n{-webkit-clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);clip-path: polygon(50% 100%, 100% 70%, 100% 0, 0 0, 0 70%);}\n.bgc-header\n{\n  background-image: linear-gradient(to bottom,\n  #04009a, #002aad, #0044bc, #005cc9,\n  #0073d4, #0084dd, #0094e3, #00a4e8,\n  #00b2ed, #00c0ef, #19cef0, #3edbf0)!important;\n  background-position: center center;\n  margin-bottom: 50px;\n}\n\n.bgcimg-header\n{\n  width: 25vw;\n  height: 25vw;\n  min-width: 150px;\n  min-height: 150px;\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\n}\n\n.img-header\n{\n  width: 25vw;\n  height: 25vw;\n  min-width: 150px;\n  min-height: 150px;\n}\n\n.imguser\n{\n  width: 100%;\n  height: 100%;\n  min-width: 50px;\n  min-height: 50px;\n  margin: 20px auto 0px;\n  border-radius: 30% 70% 70% 30% / 70% 70% 30% 30%;\n  background-image: linear-gradient(135deg, rgb(0, 140, 255), rgb(255, 0, 150));\n}\n\n\n/* Bobbles */\n\n/* background anmite */\n\n.bobbles\n{\n    margin: 0px;\n    padding: 0px;\n    /* width: 100vw;\n    height: 100vh; */\n    position: absolute;\n    bottom: 0vh;\n}\n.bobbles li\n{\n    list-style-type: none;\n    margin: 0px;\n    padding: 0px;\n    position: fixed;\n    bottom: -20vh;\n    width: 2vw;\n    height: 2vw;\n    background-color: #3490de;\n    -webkit-animation-name: amator;\n            animation-name: amator;\n    -webkit-animation-duration: 25s;\n            animation-duration: 25s;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite;\n    -webkit-animation-timing-function: linear;\n            animation-timing-function: linear;\n    z-index: -1;\n}\n.bobbles li:nth-child(1)\n{\n    left: 25vw;\n    width: 3vw;\n    height: 3vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n}\n.bobbles li:nth-child(2)\n{\n    left: 10vw;\n    width: 8vw;\n    height: 8vw;\n    -webkit-animation-delay: 2s;\n            animation-delay: 2s;\n    -webkit-animation-duration: 12s;\n            animation-duration: 12s;\n}\n.bobbles li:nth-child(3)\n{\n    left: 70vw;\n    width: 3vw;\n    height: 3vw;\n    -webkit-animation-delay: 4s;\n            animation-delay: 4s;\n}\n.bobbles li:nth-child(4)\n{\n    left: 40vw;\n    width: 6vw;\n    height: 6vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n}\n.bobbles li:nth-child(5)\n{\n    left: 65vw;\n    width: 6vw;\n    height: 6vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n}\n.bobbles li:nth-child(6)\n{\n    left: 75vw;\n    width: 8vw;\n    height: 8vw;\n    -webkit-animation-delay: 3s;\n            animation-delay: 3s;\n    -webkit-animation-duration: 18s;\n            animation-duration: 18s;\n}\n.bobbles li:nth-child(7)\n{\n    left: 35vw;\n    width: 9vw;\n    height: 9vw;\n    -webkit-animation-delay: 5s;\n            animation-delay: 5s;\n}\n.bobbles li:nth-child(8)\n{\n    left: 50vw;\n    width: 3vw;\n    height: 3vw;\n    -webkit-animation-delay: 15s;\n            animation-delay: 15s;\n    -webkit-animation-duration: 45s;\n            animation-duration: 45s;\n}\n.bobbles li:nth-child(9)\n{\n    left: 20vw;\n    width: 5vw;\n    height: 5vw;\n    -webkit-animation-delay: 2s;\n            animation-delay: 2s;\n    -webkit-animation-duration: 35s;\n            animation-duration: 35s;\n}\n.bobbles li:nth-child(10)\n{\n    left: 80vw;\n    width: 10vw;\n    height: 10vw;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n    -webkit-animation-duration: 11s;\n            animation-duration: 11s;\n}\n@-webkit-keyframes amator\n{\n    0%\n    {\n        transform: translateY(0vh) rotate(0deg);\n        opacity: 1;\n        border-radius: 0%;\n    }\n    50%\n    {\n        border-radius: 40%;\n    }\n    100%\n    {\n        transform: translateY(-120vh) rotate(720deg);\n        opacity: 0;\n        border-radius: 50%;\n    }\n}\n@keyframes amator\n{\n    0%\n    {\n        transform: translateY(0vh) rotate(0deg);\n        opacity: 1;\n        border-radius: 0%;\n    }\n    50%\n    {\n        border-radius: 40%;\n    }\n    100%\n    {\n        transform: translateY(-120vh) rotate(720deg);\n        opacity: 0;\n        border-radius: 50%;\n    }\n}\n/* end Bobbles  */\n\n/* Wave */\n.wave-container\n{\n    position: relative;\n    width: 100%;\n    /* overflow: hidden; */\n}\n\n.wave-container .wave\n{\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n    height: 155px;\n    background-image:url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n    background-position: bottom bottom ;\n    background-size: 1000px 300px;\n    }\n.wave-container .wave.wave1\n{\n    -webkit-animation: animatewave 30s linear infinite;\n            animation: animatewave 30s linear infinite;\n    z-index: 1000;\n    -webkit-animation-delay: 0s;\n            animation-delay: 0s;\n    bottom: 0;\n    opacity: 1;\n}\n.wave-container .wave.wave2\n{\n    -webkit-animation: animatewave2 20s linear infinite;\n            animation: animatewave2 20s linear infinite;\n    z-index: 999;\n    -webkit-animation-delay: -5s;\n            animation-delay: -5s;\n    bottom: 10px;\n    opacity: 0.7;\n}\n.wave-container .wave.wave3\n{\n    -webkit-animation: animatewave3 15s linear infinite;\n            animation: animatewave3 15s linear infinite;\n    z-index: 998;\n    -webkit-animation-delay: -10s;\n            animation-delay: -10s;\n    bottom: 15px;\n    opacity: 0.4;\n}\n.wave-container .wave.wave4\n{\n    -webkit-animation: animatewave4 10s linear infinite;\n            animation: animatewave4 10s linear infinite;\n    z-index: 997;\n    -webkit-animation-delay: -5s;\n            animation-delay: -5s;\n    bottom: 20px;\n    opacity: 0.2;\n}\n@-webkit-keyframes animatewave\n{\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n@keyframes animatewave\n{\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n    @-webkit-keyframes animatewave2\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n    }\n    @keyframes animatewave2\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n    }\n    @-webkit-keyframes animatewave3\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n    @keyframes animatewave3\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: 1000px;\n    }\n    }\n    @-webkit-keyframes animatewave4\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n}\n    @keyframes animatewave4\n    {\n    0%\n    {\n        background-position-x: 0;\n    }\n    100%\n    {\n        background-position-x: -1000px;\n    }\n}\n/* end Wave */\n\n/* Footer */\n.bgc-footer\n{\n    background-image: linear-gradient(to top,\n    #04009a, #002aad, #0044bc, #005cc9,\n    #0073d4, #0084dd, #0094e3, #00a4e8)!important;\n}\n/* end Footer */\n\n/* Scroll */\n.upscroll\n{\n  position: fixed;\n  bottom: 25px;\n  left: 25px;\n  display:none;\n  background-color: #0073d4;\n  color: white;\n  font-weight: bold;\n  font-size: 20px;\n  padding: 7px;\n  border-radius: 8px;\n  width: 50px;\n  height: 50px;\n  cursor: pointer;\n  transition: 0.5s;\n  z-index: 100000000000000;\n  text-align: center;\n}\n.upscroll:hover\n{\n  background-color: rgb(255, 0, 150);\n}\n.upscroll.showscroll\n{\n  display:block;\n}\n/* end Scroll */\n\n/* Card */\n.text-bad\n{\n  color: red;\n  display: none;\n}\n.z-index-100000\n{\n  z-index: 100000;\n}\n.pointer\n{\n  cursor: pointer;\n}\n.margin-auto\n{\n  margin:auto;\n}\n.clip-path-circle\n{\n  -webkit-clip-path: circle(50.0% at 50% 20%);\n          clip-path: circle(50.0% at 50% 20%);\n  background-color: #0094e3;\n}\n.clip-path-circle:hover\n{\n  transition: 1s;\n  -webkit-clip-path: circle(110.0% at 50% 20%);\n          clip-path: circle(110.0% at 50% 20%);\n}\n.clip-path-add\n{\n  -webkit-clip-path: polygon(0 0, 49% 0, 44% 100%, 0 100%);\n          clip-path: polygon(0 0, 49% 0, 44% 100%, 0 100%);\n  background-color: #0094e3;\n}\n.clip-path-add:hover\n{\n  transition: 1s;\n  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n}\n.clip-path-card\n{\n  -webkit-clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);\n          clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);\n  background-color: #0094e3;\n}\ndiv:hover.clip-path-card\n{\n  transition: 1s;\n  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n}\n.hot-dael-width\n{\n  width: 100px;\n}\n.hot-dael\n{\n  padding-top: 38%;\n  font-size: 20%;\n  height: 110px;\n}\n\n/* end Card */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

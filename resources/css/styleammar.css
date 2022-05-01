@@ -3,18 +3,18 @@
 --bgc-id: #3edbf0;
 --text-id: rgb(0, 0, 0);
 --bor-id: #3edbf0;
---hover: #ff9900;
+--hover: rgb(255, 0, 150);
 --fontf: 'Times New Roman', serif;
 --text-shadow: 0px 0px 15px #3edbf0;
 
 --textinput: #3edbf0;
 --inputrequired: rgba(255, 0, 0, 0.3);
 --inputborder: 2px solid var(--bor-id);
---inputborderfo: 2px solid #ff9900;
+--inputborderfo: 2px solid rgb(255, 0, 150);
 
 --buttonbgc: transparent;
 --buttontextc: #000;
---buttonbgcho: #ff9900;
+--buttonbgcho: rgb(255, 0, 150);
 --buttontextcho: rgb(0, 0, 0);
 
 --sidebarco: rgb(20, 20, 20);
@@ -43,15 +43,15 @@
 --bgc-1: #04009a;
 --bgc-2: #cdfefc;
 --bgc-3: #3edbf0;
---bgc-4: #ff9900;
+--bgc-4: rgb(255, 0, 150);
 --textc-1: rgb(0, 0, 0);
 --textc-2: rgb(255, 255, 255);
 --textc-3: #3edbf0;
---textc-4: #ff9900;
+--textc-4: rgb(255, 0, 150);
 --borc-1: #04009a;
 --borc-2: #cdfefc;
 --borc-3: #3edbf0;
---borc-4: #ff9900;
+--borc-4: rgb(255, 0, 150);
 --shadowc: #3edbf0;
 --tagandbadge: #3edbf0;
 }
@@ -124,7 +124,7 @@ dfn {
   font-style: italic;
 }
 mark {
-  background: #ff0;
+  background: rgb(255, 0, 150);
   color: #000;
 }
 small {
@@ -426,7 +426,7 @@ a {
   width: var(--widul);
 }
 .ul li {
-  color: #ff9900;
+  color: rgb(255, 0, 150);
   padding: 8px 16px;
   border-bottom: var(--borbotul);
 }
@@ -1687,8 +1687,8 @@ input:disabled {
 }
 
 ::selection {
-  color: red;
-  background: yellow;
+  color: rgb(255, 0, 150);
+  background: aqua;
 }
 :-webkit-full-screen {
   background-color: aqua;
@@ -2060,7 +2060,7 @@ input:disabled {
 }
 .upscroll:hover
 {
-  background-color: #ff9900;
+  background-color: rgb(255, 0, 150);
 }
 .upscroll.showscroll
 {

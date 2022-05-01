@@ -126,7 +126,7 @@ class productsController extends BaseController
         {
             $image_name=$products->product_image;
         }
-<<<<<<< HEAD
+
        /// dd(request->all());
       //  $products->save();   not update stay old
       $products->update([
@@ -144,10 +144,9 @@ class productsController extends BaseController
         'status' =>$request->status,
 
       ]);
-=======
         // dd(request->all());
         $products->save();
->>>>>>> 50706b59f2f4ffaa3442ee2629cd75d9d3514a66
+
         return $this->sendResponse($products, 'product update');
     }
      ##################################################################

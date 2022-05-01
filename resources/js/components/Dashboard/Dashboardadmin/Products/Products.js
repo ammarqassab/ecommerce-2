@@ -6,6 +6,8 @@ import { deleteProducts } from '../../../Store/ProductsSlice';
 
 export default function Products() {
 
+    const brand = useSelector( (state) => state.brand.data);
+    const category = useSelector( (state) => state.category.data);
     const products = useSelector( (state) => state.products.data);
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
@@ -81,8 +83,20 @@ export default function Products() {
                             <td>{iteme.title}</td>
                             <td>{iteme.summary}</td>
                             {/* <td>{iteme.description}</td> */}
-                            <td>{iteme.brand_id}</td>
-                            <td>{iteme.category_id}</td>
+                            <td>{
+                                brand ?
+                                brand.map((itemeb, index) =>
+                                iteme.brand_id == itemeb.id ?<span key={index}>{itemeb.title}</span> : ""
+                                )
+                            : iteme.brand_id
+                            }</td>
+                            <td>{
+                                category ?
+                                category.map((itemec, index) =>
+                                iteme.category_id == itemec.id ?<span key={index}>{itemec.title}</span> : ""
+                                )
+                            : iteme.category_id
+                            }</td>
                             <td>{iteme.disscount}</td>
                             <td>{iteme.price}</td>
                             <td>{iteme.size}</td>
