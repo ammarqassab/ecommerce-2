@@ -27,15 +27,18 @@ body {
 --loadercolorboks: #fff;
 }
 .loader {
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--loadercolorbgc);
-  position: absolute;
-  z-index: 100000000000000000000000000;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--loadercolorbgc);
+    z-index: 100000000000000000000000000;
 }
 .hidden {
   /* animation: fadeout 2s;

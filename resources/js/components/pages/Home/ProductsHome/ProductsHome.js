@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Slider from "react-slick";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function Card(props) {
 
@@ -58,7 +60,12 @@ function Card(props) {
 
                         <div className='margin' >
                             <div className='display-container clip-path-circle'>
-                                <img src={'../upload/product_images/' + iteme.product_image} alt={iteme.title} className='width-100 height-300px' />
+                                <LazyLoadImage
+                                src={'../upload/product_images/' + iteme.product_image}
+                                alt={iteme.title}
+                                width={"100%"}
+                                height={'300px'}
+                                effect={'blur'} />
                             </div>
 
                             <div className='row-padding center card hover-shadow ' >
@@ -102,10 +109,11 @@ export default function ProductsHome() {
                 category.map((iteme, index) =>
                 (iteme.status == "active" ?
                 <div key={index} className="margin">
-
-                    <div className="center" >
-                        <div className="bar margin-top display-container" >
-                            <div className="bar-item xlarge textc-4 bottombar borderc-4">{iteme.title} || Discount % = {iteme.disscount}</div>
+                    <br/>
+                    <div className=' margin bgc-1 round-large' >
+                        <div className='row-padding' >
+                            <div className='col l66 xxlarge textc-4 padding' >{iteme.title}</div>
+                            {iteme.disscount == 0 ? null : <div className='col l33 xxlarge textc-3 padding' >Discount = {iteme.disscount} %</div>}
                         </div>
                     </div>
 

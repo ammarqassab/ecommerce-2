@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Slider from "react-slick";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export function CardCategory(props) {
 
@@ -13,7 +15,12 @@ export function CardCategory(props) {
     return (
         <div className='margin'>
             <div className='display-container clip-path-circle'>
-                <img src={`../upload/category_images/${img}`} alt={title} className='width-100 height-300px' />
+                <LazyLoadImage
+                src={`../upload/category_images/${img}`}
+                alt={title}
+                width={"100%"}
+                height={'300px'}
+                effect={'blur'} />
             </div>
 
             <div className='row-padding card hover-shadow bgc-2' >

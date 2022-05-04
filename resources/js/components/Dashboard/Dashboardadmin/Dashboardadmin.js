@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams  } from 'react-router-dom';
+import { NavLink, useParams, useNavigate  } from 'react-router-dom';
 import { logoutuser } from '../../Api/FormApi';
 import { logoutUser } from '../../Store/AuthSlice';
 import Brand from './Brands/Brand';
@@ -34,6 +34,7 @@ export default function Dashboardadmin() {
     const category = useSelector( (state) => state.category.data);
     const products = useSelector( (state) => state.products.data);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     let brandlen = 0;
     for (let i in brand) { brandlen ++ };
@@ -64,7 +65,7 @@ export default function Dashboardadmin() {
         .then( (responsee) => {
             dispatch(logoutUser());
             localStorage.clear();
-            window.location.assign("http://127.0.0.1:8000");
+            navigate("/");
         })
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));
     }

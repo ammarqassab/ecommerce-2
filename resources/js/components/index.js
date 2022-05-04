@@ -6,7 +6,6 @@ import "../../css/styleammar.css";
 import "../../css/all.min.css";
 import App from './App';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Dashboard from './Dashboard/Dashboard';
 import { Provider, useDispatch } from 'react-redux';
 import store from './Store/Store';
 import { addDataUser } from './Store/AuthSlice';
@@ -16,6 +15,9 @@ import { addCategory} from './Store/CategorySlice';
 import { allCategoryApi } from './Api/DashboardAdminApi/CategoryApi';
 import { allProductsApi } from './Api/DashboardAdminApi/ProductsApi';
 import { addProducts } from './Store/ProductsSlice';
+import Loading from './pages/Loading/Loading';
+
+const Dashboard = React.lazy( () => import('./Dashboard/Dashboard') )
 
 function Index() {
 
@@ -62,8 +64,8 @@ function Index() {
         <BrowserRouter>
             <Routes>
                 <Route path='*' element={<App/>} />
-                <Route path='/dashboard' element={<Dashboard/>}/>
-                <Route path='/dashboard/:id' element={<Dashboard/>}/>
+                <Route path='/dashboard' element={<React.Suspense fallback={<Loading/>}><Dashboard/></React.Suspense>}/>
+                <Route path='/dashboard/:id' element={<React.Suspense fallback={<Loading/>}><Dashboard/></React.Suspense>}/>
             </Routes>
         </BrowserRouter>
     );

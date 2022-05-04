@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams  } from 'react-router-dom';
+import { NavLink, useParams, useNavigate  } from 'react-router-dom';
 import { logoutuser } from '../../Api/FormApi';
 import { logoutUser } from '../../Store/AuthSlice';
 import Edituser from './Edituser/Edituser';
@@ -19,6 +19,8 @@ export default function Dashboarduser() {
 
     const auth = useSelector( (state) => state.auth);
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const [taggle, settaggle] = React.useState(true);
 
@@ -42,7 +44,7 @@ export default function Dashboarduser() {
         .then( (responsee) => {
             dispatch(logoutUser());
             localStorage.clear();
-            window.location.assign("http://127.0.0.1:8000");
+            navigate("/");
         })
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));
     }

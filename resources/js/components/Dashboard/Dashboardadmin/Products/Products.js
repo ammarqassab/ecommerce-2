@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteProductsApi } from '../../../Api/DashboardAdminApi/ProductsApi';
 import AddProducts from './AddProducts';
 import { deleteProducts } from '../../../Store/ProductsSlice';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Products() {
 
@@ -102,7 +104,14 @@ export default function Products() {
                             <td>{iteme.size}</td>
                             <td>{iteme.condition}</td>
                             <td>{iteme.quantity}</td>
-                            <td><img src={'../upload/product_images/' + iteme.product_image} style={{width: "50px",height: "50px"}}  /></td>
+                            <td>
+                                <LazyLoadImage
+                                src={'../upload/product_images/' + iteme.product_image}
+                                alt={iteme.title}
+                                width={"50px"}
+                                height={'50px'}
+                                effect={'blur'} />
+                            </td>
                             <td>{iteme.status}</td>
                             <td><span className="badge"><span className="fas fa-edit textc-1" onClick={() => handleeditToggle(iteme.id, index)}></span></span><span className="badge"><span className="fas fa-trash-alt textc-1" onClick={() => deleteproduct(iteme.id, index)}></span></span></td>
                         </tr>

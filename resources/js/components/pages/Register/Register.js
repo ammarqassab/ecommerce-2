@@ -1,5 +1,6 @@
 import React from 'react';
 import { registeruser } from '../../Api/FormApi';
+import {useNavigate} from "react-router-dom";
 
 function Form(props) {
 
@@ -18,6 +19,8 @@ function Form(props) {
 
 export default function Register () {
 
+    const navigate = useNavigate();
+
     const [firstname,setfirstname] = React.useState("");
     const [lastname,setlastname] = React.useState("");
     const [username,setusername] = React.useState("");
@@ -35,7 +38,7 @@ export default function Register () {
             registeruser({firstname:firstname, lastname:lastname, username:username, email:email, phone:phone, address:address, city:city, password:password, c_password:confirmPassword})
             .then( (responsee) => {
                 if(responsee.data.message === "register successfully") {
-                    window.location.assign("http://127.0.0.1:8000/login");
+                    navigate("/login");
                 }
 
             })

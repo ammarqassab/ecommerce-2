@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import {useNavigate} from "react-router-dom"
 import { loginuser } from '../../Api/FormApi';
 import { addDataUser } from '../../Store/AuthSlice';
 
@@ -9,6 +10,8 @@ export default function Login () {
     const [password,setpassword] = React.useState("");
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     function login(e) {
         e.preventDefault();
@@ -30,7 +33,7 @@ export default function Login () {
                 localStorage.setItem("message", responsee.data.message);
 
                 dispatch(addDataUser(responsee.data.data));
-                window.location.assign("http://127.0.0.1:8000");
+                navigate("/");
             }
 
         })

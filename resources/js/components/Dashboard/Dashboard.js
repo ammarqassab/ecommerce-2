@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import {Navigate} from "react-router-dom"
 // import Bobbles from '../Footer/Bobbles/Bobbles';
 import Upscroll from '../Header/Upscroll/Upscroll';
 import Dashboardadmin from './Dashboardadmin/Dashboardadmin';
@@ -10,7 +11,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            {auth.token && auth.role =="admin" ? <Dashboardadmin/> : auth.token && auth.role =="user" ? <Dashboarduser/> : <h1>Not Found</h1>}
+            {auth.token && auth.role =="admin" ? <Dashboardadmin/> : auth.token && auth.role =="user" ? <Dashboarduser/> : <Navigate to="/"/>}
 
             <Upscroll/>
 
