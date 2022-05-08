@@ -22,9 +22,6 @@ class CreateCartsTable extends Migration
             $table->string('quantity');
             $table->string('price');
             $table->timestamps();
-
-
-            $table->timestamps();
         });
     }
 
