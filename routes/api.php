@@ -29,6 +29,11 @@ Route::middleware('auth:sanctum')->group(function()
     Route::post('change_password',[ProfileController::class,'change_password']);
     Route::post('update_profile',[ProfileController::class,'update_profile']);
 
+    Route::post('addcart/{id}',[CartController::class,'add_cart']);  // id product
+    Route::post('editcard/{id}',[CartController::class,'update_cart']);  // id cart
+    Route::get('allcart',[CartController::class,'all_cart']);
+    Route::delete('deletecart/{id}',[CartController::class,'destroy']);   //id cart
+
 });
 
 Route::get('allbrand',[BrandController::class,'index']);
