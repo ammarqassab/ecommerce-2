@@ -55,11 +55,6 @@ class productsController extends BaseController
             $request->product_image->move(public_path('/upload/product_images'),$image_name);
             $input['product_image']=$image_name;
         }
-
-        $user = Auth::user();
-        $input['user_id'] = Auth::id();
-
-
         $products = Product::create([
             'title' => $request->title,
             'price' =>  $request->price,
@@ -67,7 +62,6 @@ class productsController extends BaseController
             'category_id' => $request->category_id,
             'summary' => $request->summary,
             'description' => $request->description,
-
             'product_image' => $image_name,
             'disscount' =>  $request->disscount,
             'size' => $request->size,
