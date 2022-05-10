@@ -57,7 +57,7 @@ class CategoryController extends BaseController
 
 
         ]);
-        return $this->sendResponse( $category, 'category added successfully');
+        return $this->sendResponse($category, 'category added successfully');
     }
     ##################################################################
       /* update Category  */

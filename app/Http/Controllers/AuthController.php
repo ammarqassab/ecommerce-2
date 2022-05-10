@@ -106,7 +106,8 @@ class AuthController extends BaseController
         }
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
 
         auth()->user()->tokens()->delete();
 
@@ -115,5 +116,17 @@ class AuthController extends BaseController
 
         return $this->sendResponse('Logout','USER logout Successfully!');
         
+    }
+    public function showAllUser()
+    {
+        $user = User::get(['username','firstname','lastname','email','phone','address','city','profile_image']);
+        return $this->sendResponse($user , 'All Users');
+    }
+    public function deleteUser($id)
+    {
+        $user=User::where('id',$id)->first();
+        $user->delete();
+        return $this->sendResponse($user, 'user deleted');
+
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Cart;
 use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -56,21 +56,34 @@ class CartController extends BaseController
     {
         if(Auth::id())
         {
+            $errorMessage = [];
             $user=Auth::user();  
             $product=product::find($id);
-            $cart=new Cart;
-            $cart->user_id=$user->id;
-            $cart->product_id=$product->id;
-            if($product->disscount)
+            if ($product  == null) 
             {
-                $cart->price=$product->disscount*$request->quantity;
+                return $this->sendError('the product does not exist', $errorMessage);
+            }
+            //return  $product; 
+            //$cart=new Cart;
+            //$cart->user_id=$user->id;
+           // $cart->product_id=$product->id;
+         /*   if($product->disscount)
+            {
+                $cartprice=($request->quantity*$product->price*$product->disscount)/(100);
             }
             else{
-                $cart->price=$product->price*$request->quantity;
-            }
-            $cart->quantity=$request->quantity;
+                $cartprice=$request->quantity*$product->price;
+            } */
+           // $cart->quantity=$request->quantity;
            
-            $cart->save();
+            $cart = Cart::create([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'price' => $product->price,
+                'quantity'=>$request->quantity,
+    
+    
+            ]);
             return $this->sendResponse($cart,'Cart added ');
 
         }
@@ -89,8 +102,8 @@ class CartController extends BaseController
         if(Auth::user())
         {
             $user_id=Auth::user()->id;
-            $carts=Cart::Where('user_id',$user_id);
-            return $this->sendResponse($carts,'Cart user ');
+            $carts=Cart::Where('user_id',$user_id)->get(); // without get  :  data=[];
+            return $this->sendResponse($carts,'Cart user');
         }
     }
 
@@ -105,6 +118,7 @@ class CartController extends BaseController
             $errorMessage = [];
             $cart = Cart::find($id);
             $input = $request->all();
+            $user_id=Auth::user()->id;
             if ($cart == null) {
                 return $this->sendError('the cart does not exist', $errorMessage);
             }
@@ -121,22 +135,29 @@ class CartController extends BaseController
     
             }
     
-            if ($request->product_id != null) {
+         /*   if ($request->product_id != null) {
                 $cart->product_id = $input['product_id'];
             }
             if ($request->quantity != null) {
                 $cart->quantity = $input['quantity'];
             }
-            $product=product::find($cart->product_id);
-            if($product->disscount)
+            */
+            $product=product::find($request->product_id);
+            /*if($product->disscount)
             {
                 $cart->price=$product->disscount*$request->quantity;
             }
             else{
                 $cart->price=$product->price*$request->quantity;
-            }
+            }*/
            
-            $cart->save();
+            $cart->update([
+                'user_id' => $user_id,
+                'product_id' =>$request->product_id,
+                'price' => $product->price,
+                'quantity'=>$request->quantity,
+        
+              ]);
             return $this->sendResponse($cart, 'cart update');
         }
 
@@ -154,10 +175,10 @@ class CartController extends BaseController
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request,$id)
     {
-        $id=$request->id;
         $cart=Cart::where('id',$id)->first();
         $cart->delete();
+        return $this->sendResponse($cart, 'cart deleted');
     }
 }

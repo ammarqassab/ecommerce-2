@@ -6,6 +6,7 @@ use  App\Http\Controllers\AuthController;
 use  App\Http\Controllers\ProfileController;
 use  App\Http\Controllers\BrandController;
 use  App\Http\Controllers\CategoryController;
+use  App\Http\Controllers\CartController;
 use  App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,9 @@ Route::middleware('auth:sanctum')->group(function()
     Route::post('update_profile',[ProfileController::class,'update_profile']);
 
     Route::post('addcart/{id}',[CartController::class,'add_cart']);  // id product
-    Route::post('editcard/{id}',[CartController::class,'update_cart']);  // id cart
+    Route::post('editcart/{id}',[CartController::class,'update_cart']);  // id cart
     Route::get('allcart',[CartController::class,'all_cart']);
-    Route::delete('deletecart/{id}',[CartController::class,'destroy']);   //id cart
+    Route::post('deletecart/{id}',[CartController::class,'destroy']);   //id cart
 
 });
 
@@ -59,6 +60,12 @@ Route::group([
     Route::post('addproduct',[ProductsController::class,'store']);
     Route::post('editproduct/{id}',[ProductsController::class,'update']);
     Route::delete('deleteproduct/{id}',[ProductsController::class,'destroy']);
+
+    Route::get('alluser',[AuthController::class,'showAllUser']);
+    Route::post('deleteuser/{id}',[AuthController::class,'deleteUser']);
+
+   
+    
 });
 
 
