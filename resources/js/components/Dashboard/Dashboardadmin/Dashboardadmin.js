@@ -1,13 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams, useNavigate  } from 'react-router-dom';
+import { allUsersApi } from '../../Api/DashboardAdminApi/UsersApi';
 import { logoutuser } from '../../Api/FormApi';
 import { logoutUser } from '../../Store/AuthSlice';
+import { addusers } from '../../Store/UsersSlice';
 import Brand from './Brands/Brand';
 import Category from './Category/Category';
 import ChartLine from './ChartLine/ChartLine';
 import Products from './Products/Products';
 import Siderbar from './Siderbar/Siderbar';
+import Users from './Users/Users';
 
 function MyNavLink (props) {
     return (
@@ -33,6 +36,7 @@ export default function Dashboardadmin() {
     const brand = useSelector( (state) => state.brand.data);
     const category = useSelector( (state) => state.category.data);
     const products = useSelector( (state) => state.products.data);
+    const users = useSelector( (state) => state.users.data);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -42,11 +46,20 @@ export default function Dashboardadmin() {
     for (let i in category) { categorylen ++ };
     let productslen = 0;
     for (let i in products) { productslen ++ };
+    let userslen = 0;
+    for (let i in users) { userslen ++ };
 
     const [taggle, settaggle] = React.useState(true);
 
     React.useEffect(() => {
         document.getElementById("dashboard").style.marginLeft = "180px";
+
+        allUsersApi()
+            .then( (responsee) => {
+                dispatch(addusers(responsee.data.data));
+            })
+            .catch( () => alert("حدث خطأ في تحميل المشتركين"));
+
     }, []);
 
     const functaggle = () => {
@@ -91,18 +104,18 @@ export default function Dashboardadmin() {
                         <Counter name={'brand'} number={brandlen}/>
                         <Counter name={'Category'} number={categorylen}/>
                         <Counter name={'Products'} number={productslen}/>
-                        <Counter name={'Users'} number={0}/>
+                        <Counter name={'Users'} number={userslen}/>
                     </div>
                 </div>
 
-                {params.id === 'chartline' ? <ChartLine /> : ''}
-                {params.id === 'brands' ? <Brand /> : ''}
-                {params.id === 'category' ? <Category/> : ''}
-                {params.id === 'products' ? <Products/> : ''}
-                {params.id === 'users' ? <h1>Users</h1> : ''}
+                {params.id === 'chartline' ? <ChartLine /> : null}
+                {params.id === 'brands' ? <Brand /> : null}
+                {params.id === 'category' ? <Category/> : null}
+                {params.id === 'products' ? <Products/> : null}
+                {params.id === 'users' ? <Users/> : null}
             </div>
 
-            {taggle ? <Siderbar/> : ""}
+            {taggle ? <Siderbar/> : null}
         </div>
     );
 }

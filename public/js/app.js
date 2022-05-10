@@ -4729,25 +4729,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _AuthSlice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthSlice */ "./resources/js/components/Store/AuthSlice.js");
 /* harmony import */ var _BrandSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BrandSlice */ "./resources/js/components/Store/BrandSlice.js");
 /* harmony import */ var _CategorySlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategorySlice */ "./resources/js/components/Store/CategorySlice.js");
 /* harmony import */ var _ProductsSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductsSlice */ "./resources/js/components/Store/ProductsSlice.js");
+/* harmony import */ var _UsersSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./UsersSlice */ "./resources/js/components/Store/UsersSlice.js");
 
 
 
 
 
-var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.configureStore)({
+
+var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_5__.configureStore)({
   reducer: {
     auth: _AuthSlice__WEBPACK_IMPORTED_MODULE_0__.authSlice.reducer,
     brand: _BrandSlice__WEBPACK_IMPORTED_MODULE_1__.brandSlice.reducer,
     category: _CategorySlice__WEBPACK_IMPORTED_MODULE_2__.categorySlice.reducer,
-    products: _ProductsSlice__WEBPACK_IMPORTED_MODULE_3__.productsSlice.reducer
+    products: _ProductsSlice__WEBPACK_IMPORTED_MODULE_3__.productsSlice.reducer,
+    users: _UsersSlice__WEBPACK_IMPORTED_MODULE_4__.usersSlice.reducer
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
+
+/***/ }),
+
+/***/ "./resources/js/components/Store/UsersSlice.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Store/UsersSlice.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addusers": () => (/* binding */ addusers),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "deleteusers": () => (/* binding */ deleteusers),
+/* harmony export */   "usersSlice": () => (/* binding */ usersSlice)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+
+var usersSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
+  name: "users",
+  initialState: {
+    data: null
+  },
+  reducers: {
+    addusers: function addusers(state, action) {
+      state.data = action.payload;
+    },
+    deleteusers: function deleteusers(state, action) {
+      state.data.splice(action.payload, 1);
+    }
+  }
+});
+var _usersSlice$actions = usersSlice.actions,
+    addusers = _usersSlice$actions.addusers,
+    deleteusers = _usersSlice$actions.deleteusers;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (usersSlice.reducer);
 
 /***/ }),
 
