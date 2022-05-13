@@ -9,6 +9,7 @@ import Loading from './pages/Loading/Loading';
 
 const CategorySider = React.lazy( () => import('./pages/CategorySider/CategorySider'));
 const AboutUs = React.lazy( () => import('./pages/AboutUs/AboutUs'));
+const YourCart = React.lazy( () => import('./pages/YourCart/YourCart'));
 const Footer = React.lazy( () => import('./Footer/Footer'));
 
 export default function App() {
@@ -22,7 +23,7 @@ export default function App() {
                 <Route path="/contactUs" element={<h1>contact Us</h1>} />
                 <Route path="/aboutUs" element={<React.Suspense fallback={<Loading/>}><AboutUs /></React.Suspense>} />
                 <Route path="/search" element={<h1>search</h1>} />
-                <Route path="/yourCart" element={<h1>yourCart</h1>} />
+                <Route path="/yourCart" element={<React.Suspense fallback={<Loading/>}><YourCart /></React.Suspense>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Routes>

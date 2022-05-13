@@ -1,8 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Slider from "react-slick";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { addCartApi } from '../../../Api/CartApi';
+import { updataCart } from '../../../Store/CartSlice';
 
 function Card(props) {
 
@@ -46,9 +48,19 @@ function Card(props) {
 
     const products = useSelector( (state) => state.products.data);
     const id = props.id;
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
     const numDiscount = (price, disscount) => {
         return disscount <= 100 ? price - (price/100) * disscount : price;
+    };
+
+    const addcart = (id) => {
+        addCartApi(auth.token, id, {quantity:1})
+        .then((responsee) => {
+            dispatch(updataCart(responsee.data.data));
+        })
+        .catch(() => alert("حدث خطأ في إضافة الكرت"));
     };
 
     return (
@@ -83,7 +95,7 @@ function Card(props) {
                                         <div className='col s100 left-align'>{iteme.description}</div>
                                     </div>
                                 </div>
-                                <button className='col s100 padding-small clip-path-add large textc-2 border-0 pointer' >ADD To Card</button>
+                                <button className='col s100 padding-small clip-path-add large textc-2 border-0 pointer' onClick={() => addcart(iteme.id)} >ADD To Card</button>
                             </div>
                         </div>
 

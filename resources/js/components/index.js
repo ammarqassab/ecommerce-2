@@ -6,7 +6,7 @@ import "../../css/styleammar.css";
 import "../../css/all.min.css";
 import App from './App';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './Store/Store';
 import { addDataUser } from './Store/AuthSlice';
 import { allBrandApi } from './Api/DashboardAdminApi/BrandApi';
@@ -16,6 +16,8 @@ import { allCategoryApi } from './Api/DashboardAdminApi/CategoryApi';
 import { allProductsApi } from './Api/DashboardAdminApi/ProductsApi';
 import { addProducts } from './Store/ProductsSlice';
 import Loading from './pages/Loading/Loading';
+import { allCartApi } from './Api/CartApi';
+import { addCart } from './Store/CartSlice';
 
 const Dashboard = React.lazy( () => import('./Dashboard/Dashboard') )
 
@@ -39,6 +41,12 @@ function Index() {
             const message = localStorage.getItem("message");
 
             dispatch(addDataUser({firstname, lastname, username, email, phone, profile_image, address, city, token, role, message}));
+
+            allCartApi(token)
+            .then( (responsee) => {
+                dispatch(addCart(responsee.data.data));
+            })
+            .catch( () => alert("حدث خطأ في تحميل الكروت"));
         }
 
         allBrandApi()

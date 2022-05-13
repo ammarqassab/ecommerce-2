@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import {useNavigate} from "react-router-dom"
+import { allCartApi } from '../../Api/CartApi';
 import { loginuser } from '../../Api/FormApi';
 import { addDataUser } from '../../Store/AuthSlice';
+import { addCart } from '../../Store/CartSlice';
 
 export default function Login () {
 
@@ -33,6 +35,13 @@ export default function Login () {
                 localStorage.setItem("message", responsee.data.message);
 
                 dispatch(addDataUser(responsee.data.data));
+
+                allCartApi(responsee.data.data.token)
+                .then( (responsee) => {
+                    dispatch(addCart(responsee.data.data));
+                })
+                .catch( () => alert("حدث خطأ في تحميل الكروت"));
+                
                 navigate("/");
             }
 
