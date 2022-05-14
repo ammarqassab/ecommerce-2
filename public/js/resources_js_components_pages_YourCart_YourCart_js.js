@@ -48,7 +48,7 @@ function PanleCart() {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "width-33 card-2 hover-shadow round margin-auto",
+    className: "width-33 width-90vw card-2 hover-shadow round margin-auto",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: " row-padding",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -58,11 +58,11 @@ function PanleCart() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: " row-padding",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-              className: " col s75 xlarge bold",
+              className: " col s66 xlarge bold",
               children: "Cart Subtotal"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-              className: " col s25 xlarge bold textc-5",
-              children: youPay()
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: " col s33 xlarge bold textc-5",
+              children: ["$ ", youPay()]
             })]
           })
         })
@@ -73,11 +73,11 @@ function PanleCart() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: " row-padding",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-              className: " col s75 xlarge bold",
+              className: " col s66 xlarge bold",
               children: "You Pay"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-              className: " col s25 xlarge bold textc-5",
-              children: youPay()
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: " col s33 xlarge bold textc-5",
+              children: ["$ ", youPay()]
             })]
           })
         })
@@ -221,8 +221,8 @@ function TableCart() {
                     },
                     children: "+"
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                  children: itemep.disscount <= 100 ? (itemep.price - itemep.price / 100 * itemep.disscount) * Number(itemec.quantity) : itemep.price * Number(itemec.quantity)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+                  children: ["$ ", itemep.disscount <= 100 ? (itemep.price - itemep.price / 100 * itemep.disscount) * Number(itemec.quantity) : itemep.price * Number(itemec.quantity)]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
                     className: "badge hover-bgc-5",

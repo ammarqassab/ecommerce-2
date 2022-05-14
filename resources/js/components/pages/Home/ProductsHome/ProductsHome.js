@@ -5,6 +5,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { addCartApi } from '../../../Api/CartApi';
 import { updataCart } from '../../../Store/CartSlice';
+import { Link } from 'react-router-dom';
 
 function Card(props) {
 
@@ -84,18 +85,18 @@ function Card(props) {
                                 <div className='col s100' >
                                     <div className='row-padding' >
                                         <div className='col s50'><span className='fas fa-heart large textc-3 hover-textc-4' ></span></div>
-                                        <div className='col s50'><span className='fas fa-cart-arrow-down large textc-3 hover-textc-4' ></span></div>
+                                        <div className='col s50'><Link to="/yourCart" className='fas fa-cart-arrow-down large textc-3 hover-textc-4' ></Link></div>
                                     </div>
                                 </div>
                                 <div className='col s100' >
                                     <div className='row-padding' >
                                         <div className='col s100 left-align' >{iteme.title}</div>
-                                        <div className='col s100 large' >{numDiscount(iteme.price, iteme.disscount)} $ || <span className='text-line-through'> {iteme.price} $</span></div>
+                                        <div className='col s100 large' >$ {numDiscount(iteme.price, iteme.disscount)} || <span className='text-line-through'> $ {iteme.price}</span></div>
                                         <div className='col s100 left-align'>{iteme.summary}</div>
                                         <div className='col s100 left-align'>{iteme.description}</div>
                                     </div>
                                 </div>
-                                <button className='col s100 padding-small clip-path-add large textc-2 border-0 pointer' onClick={() => addcart(iteme.id)} >ADD To Card</button>
+                                <button className='col s100 padding-small clip-path-add large textc-2 border-0 pointer hover-textc-1' onClick={() => addcart(iteme.id)} >ADD To Card</button>
                             </div>
                         </div>
 

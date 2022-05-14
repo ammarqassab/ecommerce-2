@@ -1091,6 +1091,7 @@ function Dashboardadmin() {
     (0,_Api_FormApi__WEBPACK_IMPORTED_MODULE_3__.logoutuser)(auth.token).then(function (responsee) {
       dispatch((0,_Store_AuthSlice__WEBPACK_IMPORTED_MODULE_4__.logoutUser)());
       localStorage.clear();
+      location.assign("http://127.0.0.1:8000");
       navigate("/");
     })["catch"](function () {
       return alert("حدث خطأ في تسجيل الخروج");
@@ -2122,6 +2123,7 @@ function Dashboarduser() {
     (0,_Api_FormApi__WEBPACK_IMPORTED_MODULE_2__.logoutuser)(auth.token).then(function (responsee) {
       dispatch((0,_Store_AuthSlice__WEBPACK_IMPORTED_MODULE_3__.logoutUser)());
       localStorage.clear();
+      location.assign("http://127.0.0.1:8000");
       navigate("/");
     })["catch"](function () {
       return alert("حدث خطأ في تسجيل الخروج");

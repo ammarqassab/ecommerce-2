@@ -26,14 +26,16 @@ function CardAbout(props) {
 export default function AboutUs() {
     return (
         <div className=' bgc-1'>
+            <br/><br/><br/>
             <div className='center' >
-                <div className=' row-padding' >
+                <div className=' row-padding margin' >
                     <CardAbout name={"FREE SHIPING"} des={'Orders over $100'} icon={"fas fa-fire"} />
                     <CardAbout name={'FREE RETURN'} des={'Within 30 days returns'} icon={"fas fa-sync-alt"} />
                     <CardAbout name={'SUCURE PAYMENT'} des={'100% secure payment'} icon={"fas fa-lock"} />
                     <CardAbout name={'BEST PEICE'} des={'Guaranteed price'} icon={"fas fa-bolt"} />
                 </div>
             </div>
+            <br/><br/><br/>
         </div>
     );
 }

@@ -44,6 +44,7 @@ export default function Dashboarduser() {
         .then( (responsee) => {
             dispatch(logoutUser());
             localStorage.clear();
+            location.assign("http://127.0.0.1:8000");
             navigate("/");
         })
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));

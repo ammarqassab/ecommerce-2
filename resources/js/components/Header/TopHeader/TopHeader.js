@@ -6,12 +6,13 @@ import { logoutUser } from '../../Store/AuthSlice';
 
 function MyNavLink (props) {
     return (
-        <NavLink className="col m25 text-decoration-none hover-textc-4 center padding-large"  style={({ isActive }) => {return {color: isActive ? "rgb(255, 0, 150)" : "#3edbf0"};}} {...props}>{props.children}</NavLink>
+        <NavLink className="col m25 text-decoration-none hover-textc-4 center padding-large display-container"  style={({ isActive }) => {return {color: isActive ? "rgb(255, 0, 150)" : "#3edbf0"};}} {...props}>{props.children}</NavLink>
     );
 }
 export default function TopHeader() {
 
     const auth = useSelector( (state) => state.auth);
+    const cart = useSelector( state => state.cart.data);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -22,10 +23,14 @@ export default function TopHeader() {
         .then( (responsee) => {
             dispatch(logoutUser());
             localStorage.clear();
+            location.assign("http://127.0.0.1:8000");
             navigate("/");
         })
         .catch( () => alert("حدث خطأ في تسجيل الخروج"));
     }
+
+    let cartlen = 0;
+    for (let i in cart) {cartlen++};
 
 
     return (
@@ -35,7 +40,7 @@ export default function TopHeader() {
                 <div className="col m66">
                     <div className="row margin">
                         <MyNavLink to={"/search"} ><span className="fas fa-search textc-3"></span> Search</MyNavLink>
-                        <MyNavLink to={"/yourCart"} ><span className="fas fa-cart-arrow-down textc-3"></span> Your Cart</MyNavLink>
+                        <MyNavLink to={"/yourCart"} ><span className="fas fa-cart-arrow-down textc-3"></span> Your Cart<span className=' badge textc-1 border-0 large bgc-4' style={{position:"absolute",top:"0px",marginLeft:"0px",fontWeight:"bold"}} >{cartlen}</span></MyNavLink>
                         {auth.token ?
                             <>
                             <MyNavLink to={"/dashboard"} ><span className="fas fa-cogs textc-3"></span> Dashboard</MyNavLink>

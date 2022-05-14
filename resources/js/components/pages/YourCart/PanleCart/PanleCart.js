@@ -24,14 +24,14 @@ export default function PanleCart() {
     };
 
     return (
-        <div className='width-33 card-2 hover-shadow round margin-auto' >
+        <div className='width-33 width-90vw card-2 hover-shadow round margin-auto' >
             <div className=' row-padding' >
                 <div className='col s100' >
                     <div className=' margin-auto width-85' >
                         <div className=' row-padding' >
-                            <div className=' col s75 xlarge bold' >Cart Subtotal</div>
-                            <div className=' col s25 xlarge bold textc-5' >
-                                {youPay()}
+                            <div className=' col s66 xlarge bold' >Cart Subtotal</div>
+                            <div className=' col s33 xlarge bold textc-5' >
+                                $ {youPay()}
                             </div>
                         </div>
                     </div>
@@ -39,9 +39,9 @@ export default function PanleCart() {
                 <div className='col s100' >
                     <div className=' margin-auto width-85' >
                         <div className=' row-padding' >
-                            <div className=' col s75 xlarge bold' >You Pay</div>
-                            <div className=' col s25 xlarge bold textc-5' >
-                                {youPay()}
+                            <div className=' col s66 xlarge bold' >You Pay</div>
+                            <div className=' col s33 xlarge bold textc-5' >
+                                $ {youPay()}
                             </div>
                         </div>
                     </div>
