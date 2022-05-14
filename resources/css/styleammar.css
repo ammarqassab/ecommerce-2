@@ -939,6 +939,9 @@ input:disabled {
 .width-75 {
   width: 75%;
 }
+.width-85 {
+    width: 85%;
+  }
 .width-100 {
   width: 100%;
 }
@@ -1575,6 +1578,9 @@ input:disabled {
 .margin-right {
   margin-right: 16px !important;
 }
+.margin-auto {
+    margin: 16px auto !important;
+  }
 
 .padding-0 {
   padding: 0 !important;
@@ -1720,6 +1726,11 @@ input:disabled {
   background-color: var(--bgc-4) !important;
   transition: 0.5s;
 }
+.bgc-5,
+.hover-bgc-5:hover {
+  background-color: red !important;
+  transition: 0.5s;
+}
 .textc-1,
 .hover-textc-1:hover {
   color: var(--textc-1) !important;
@@ -1740,6 +1751,11 @@ input:disabled {
   color: var(--textc-4) !important;
   transition: 0.5s;
 }
+.textc-5,
+.hover-textc-5:hover {
+  color: red !important;
+  transition: 0.5s;
+}
 .borderc-1,
 .hover-borderc-1:hover {
   border-color: var(--borc-1) !important;
@@ -1758,6 +1774,11 @@ input:disabled {
 .borderc-4,
 .hover-borderc-4:hover {
   border-color: var(--borc-4) !important;
+  transition: 0.5s;
+}
+.borderc-5,
+.hover-borderc-5:hover {
+  border-color: red !important;
   transition: 0.5s;
 }
 
@@ -2081,10 +2102,6 @@ input:disabled {
 .pointer
 {
   cursor: pointer;
-}
-.margin-auto
-{
-  margin:auto;
 }
 .clip-path-circle
 {

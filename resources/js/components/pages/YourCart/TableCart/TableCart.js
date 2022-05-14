@@ -60,7 +60,7 @@ export default function TableCart() {
                                 <td>{itemep.disscount <= 100 ? itemep.price - (itemep.price/100) * itemep.disscount : itemep.price}</td>
                                 <td><span className="badge large"  onClick={() => editcart(itemec.id, itemec.product_id, indexc, Number(itemec.quantity) - 1)}>-</span> {itemec.quantity} <span className="badge large"  onClick={() => editcart(itemec.id, itemec.product_id, indexc, Number(itemec.quantity) + 1)}>+</span></td>
                                 <td>{itemep.disscount <= 100 ? (itemep.price - (itemep.price/100) * itemep.disscount) * Number(itemec.quantity) : itemep.price * Number(itemec.quantity)}</td>
-                                <td><span className="badge"><span className="fas fa-trash-alt textc-1" onClick={() => deletecart(itemec.id, indexc)}></span></span></td>
+                                <td><span className="badge hover-bgc-5"><span className="fas fa-trash-alt textc-1" onClick={() => deletecart(itemec.id, indexc)}></span></span></td>
                             </tr>
                         : null)
                         )
