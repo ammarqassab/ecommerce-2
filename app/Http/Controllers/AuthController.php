@@ -119,7 +119,7 @@ class AuthController extends BaseController
     }
     public function showAllUser()
     {
-        $user = User::get(['username','firstname','lastname','email','phone','address','city','profile_image']);
+        $user = User::get(['id','username','firstname','lastname','email','phone','address','city','profile_image']);
         return $this->sendResponse($user , 'All Users');
     }
     public function deleteUser($id)

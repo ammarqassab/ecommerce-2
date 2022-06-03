@@ -53,6 +53,7 @@ Route::post('addproduct',[ProductsController::class,'store']);
 Route::get('allbrand',[BrandController::class,'index']);
 Route::get('allcategory',[CategoryController::class,'index']);
 Route::get('allproduct',[ProductsController::class,'index']);
+Route::get('alluser',[AuthController::class,'showAllUser']);
 Route::group([
     'prefix'=>'dashboard',
     'middleware'=>['auth:sanctum','privateAdmin'],
