@@ -64,6 +64,7 @@ class productsController extends BaseController
             'description' => $request->description,
             'product_image' => $image_name,
             'disscount' =>  $request->disscount,
+            'price'=>$request->price,
             'size' => $request->size,
             'condition' => $request->condition,
             'quantity' => $request->quantity,

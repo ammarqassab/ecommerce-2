@@ -8,6 +8,7 @@ use  App\Http\Controllers\BrandController;
 use  App\Http\Controllers\CategoryController;
 use  App\Http\Controllers\CartController;
 use  App\Http\Controllers\ProductsController;
+use  App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,8 +35,20 @@ Route::middleware('auth:sanctum')->group(function()
     Route::post('editcart/{id}',[CartController::class,'update_cart']);  // id cart
     Route::get('allcart',[CartController::class,'all_cart']);
     Route::post('deletecart/{id}',[CartController::class,'destroy']);   //id cart
-
+    
+    //sentMessage
+    Route::post('sentMessage',[ChatController::class,'sentMessage']);
+    //ShowConvID
+    Route::post('allMssageConvID/{id}',[ChatController::class,'allMssageConvID']);
+    //markAsRead
+    Route::post('markAsRead/{id}',[ChatController::class,'markAsRead']);
+     //showAllConv 
+   Route::get('shoWAllConv',[ChatController::class,'shoWAllConv']);
 });
+
+Route::post('addbrand',[BrandController::class,'store']);
+Route::post('addcategory',[CategoryController::class,'store']);
+Route::post('addproduct',[ProductsController::class,'store']);
 
 Route::get('allbrand',[BrandController::class,'index']);
 Route::get('allcategory',[CategoryController::class,'index']);
@@ -46,24 +59,19 @@ Route::group([
 ],function()
 {
     //Brands
-
-    Route::post('addbrand',[BrandController::class,'store']);
     Route::post('editbrand/{id}',[BrandController::class,'update']);
     Route::delete('deletebrand/{id}',[BrandController::class,'destroy']);
     //Categories
-
-    Route::post('addcategory',[CategoryController::class,'store']);
     Route::post('editcategory/{id}',[CategoryController::class,'update']);
     Route::delete('deletecategory/{id}',[CategoryController::class,'destroy']);
     //Products  //note : put intro xxx-w
-   
-    Route::post('addproduct',[ProductsController::class,'store']);
     Route::post('editproduct/{id}',[ProductsController::class,'update']);
     Route::delete('deleteproduct/{id}',[ProductsController::class,'destroy']);
 
     Route::get('alluser',[AuthController::class,'showAllUser']);
     Route::post('deleteuser/{id}',[AuthController::class,'deleteUser']);
 
+  
    
     
 });
