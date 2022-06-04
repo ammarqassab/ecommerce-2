@@ -20,12 +20,6 @@ class ChatController extends BaseController
     public function sentMessage(Request $request)
     {
         $user = Auth::user(); //sender
-        if ($user->role_as==0)
-        {
-            $user_id=1;
-        }
-       else 
-       {
         $request->validate([
             'conversation_id' => [
                 Rule::requiredIf(function() use ($request) {
@@ -42,10 +36,6 @@ class ChatController extends BaseController
                 'exists:users,id',
             ],
         ]);
-    }
-
-        
-
         $conversation_id = $request->post('conversation_id');
         $user_id = $request->post('user_id');  //Receive 
 
@@ -67,6 +57,7 @@ class ChatController extends BaseController
                  $builder->join('participants as participants2','participants2.conversation_id', '=', 'participants.conversation_id')
                          ->where('participants.user_id', '=', $user_id)
                          ->where('participants2.user_id', '=', $user->id);
+                         
              })->first();
                
 
@@ -114,14 +105,23 @@ class ChatController extends BaseController
                 WHERE conversation_id = ?
                 AND user_id <> ? 
             ', [$message->id, $conversation->id, $user->id]);
-
+               
             $conversation->update([
                 'last_message_id' => $message->id,
             ]);
 
             DB::commit();
 
-            $message->load('user');
+            //$message->load('user');
+            $message->load(['user'=>function($query)
+        {
+            $query->select(['id','username','profile_image','role_as']);
+        }]);
+        $message->load(['recipients'=>function($query)
+        {
+            $query->select(['profile_image']);
+        }]);
+            
 
           //  event(new MessageCreated($message));
 
@@ -140,7 +140,10 @@ class ChatController extends BaseController
     {
         $user = Auth::user();
         $conversation= $user->conversations()->with([
-            'lastMessage', 'participants' => function($builder) use ($user) {$builder->where('id', '<>', $user->id);},
+            'lastMessage', 'participants' => function($builder) use ($user) {
+                $builder->where('id', '<>', $user->id);
+                $builder->select(['id','username','profile_image','role_as']);
+            },
             ])->withCount([
                 'recipients as new_messages' => function($builder) use ($user) {
                     $builder->where('recipients.user_id', '=', $user->id)
@@ -162,11 +165,18 @@ class ChatController extends BaseController
         $conversation = $user->conversations()
             ->with(['participants' => function($builder) use ($user) {
             $builder->where('id', '<>', $user->id);
+            $builder->select(['id','username','profile_image','role_as']);
         }])
         ->findOrFail($ConversationID);
          
-        $messages = $conversation->messages()
-            ->with('user')
+        $messages = $conversation->messages()->with(['recipients'=>function($query)
+        {
+            $query->select(['user_id','read_at']);
+        }])
+            ->with(['user'=>function($query)
+            {
+                $query->select(['id','username','profile_image','role_as']);
+            }])
             ->where(function($query) use ($user) {
                 $query 
                     ->where(function($query) use ($user) {
@@ -194,7 +204,7 @@ class ChatController extends BaseController
      {
         $Conv=Conversation::where('user_id','=',$id)->first();
         $ConversationID=$Conv->id; 
-      Recipient::where('user_id', '=', Auth::id())
+        Recipient::where('user_id', '=', Auth::id())
              ->whereNull('read_at')
              ->whereRaw('message_id IN (
                  SELECT id FROM messages WHERE conversation_id = ?
@@ -202,9 +212,10 @@ class ChatController extends BaseController
              ->update([
                  'read_at' => Carbon::now(),
              ]);
-         return [
-             'message' => 'Messages marked as read',
-         ];
+             return [
+                 'message'=>'all messages read'
+             ];
+         
      }
     
 
