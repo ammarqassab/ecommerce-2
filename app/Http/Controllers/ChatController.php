@@ -154,12 +154,16 @@ class ChatController extends BaseController
     //get messages for conversationID
     public function allMssageConvID($id)
     {
-        $user = Auth::user();
+        $user=Auth::user();
+        $Conv=Conversation::where('user_id','=',$id)->first();
+        $ConversationID=$Conv->id; //error : Property [id] does not exist on the Eloquent builder instance  solve : first  = not get
+
+
         $conversation = $user->conversations()
             ->with(['participants' => function($builder) use ($user) {
             $builder->where('id', '<>', $user->id);
         }])
-        ->findOrFail($id);
+        ->findOrFail($ConversationID);
          
         $messages = $conversation->messages()
             ->with('user')
@@ -188,11 +192,13 @@ class ChatController extends BaseController
      //read at in table  Recipient
      public function markAsRead($id)
      {
+        $Conv=Conversation::where('user_id','=',$id)->first();
+        $ConversationID=$Conv->id; 
       Recipient::where('user_id', '=', Auth::id())
              ->whereNull('read_at')
              ->whereRaw('message_id IN (
                  SELECT id FROM messages WHERE conversation_id = ?
-             )', [$id])
+             )', [$ConversationID])
              ->update([
                  'read_at' => Carbon::now(),
              ]);
