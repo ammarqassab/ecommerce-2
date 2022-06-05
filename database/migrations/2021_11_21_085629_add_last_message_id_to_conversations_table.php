@@ -20,7 +20,6 @@ class AddLastMessageIdToConversationsTable extends Migration
                 ->nullOnDelete();
         });
     }
-
     /**
      * Reverse the migrations.
      *

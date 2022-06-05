@@ -46,10 +46,11 @@ Route::middleware('auth:sanctum')->group(function()
    Route::get('shoWAllConv',[ChatController::class,'shoWAllConv']);
 });
 
-Route::post('addbrand',[BrandController::class,'store']);
+
 Route::post('addcategory',[CategoryController::class,'store']);
 Route::post('addproduct',[ProductsController::class,'store']);
 
+Route::post('addbrand',[BrandController::class,'store']);
 Route::get('allbrand',[BrandController::class,'index']);
 Route::get('allcategory',[CategoryController::class,'index']);
 Route::get('allproduct',[ProductsController::class,'index']);
@@ -59,6 +60,7 @@ Route::group([
     'middleware'=>['auth:sanctum','privateAdmin'],
 ],function()
 {
+    
     //Brands
     Route::post('editbrand/{id}',[BrandController::class,'update']);
     Route::delete('deletebrand/{id}',[BrandController::class,'destroy']);
@@ -71,12 +73,8 @@ Route::group([
 
     Route::get('alluser',[AuthController::class,'showAllUser']);
     Route::post('deleteuser/{id}',[AuthController::class,'deleteUser']);
-
-  
-   
     
 });
-
 
 Route::middleware(['auth:sanctum' , 'CheckAdmin'])->group(function()
 {

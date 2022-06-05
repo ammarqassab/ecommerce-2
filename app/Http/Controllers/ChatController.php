@@ -131,6 +131,7 @@ class ChatController extends BaseController
             throw $e;
         }
        // return $message;
+       
        return $this->sendResponse($message, 'done send message Successfully!');
     }
 
@@ -140,7 +141,8 @@ class ChatController extends BaseController
     {
         $user = Auth::user();
         $conversation= $user->conversations()->with([
-            'lastMessage', 'participants' => function($builder) use ($user) {
+            'lastMessage', 'participants' => function($builder) use ($user)
+             {
                 $builder->where('id', '<>', $user->id);
                 $builder->select(['id','username','profile_image','role_as']);
             },
@@ -191,7 +193,7 @@ class ChatController extends BaseController
                     )', [$user->id]);
             })
             ->latest()
-            ->paginate();
+            ->get();
 
         return [
             'conversation' => $conversation,
