@@ -30,12 +30,16 @@ Route::middleware('auth:sanctum')->group(function()
     Route::post('logout',[AuthController::class,'logout']);
     Route::post('change_password',[ProfileController::class,'change_password']);
     Route::post('update_profile',[ProfileController::class,'update_profile']);
-
+    
     Route::post('addcart/{id}',[CartController::class,'add_cart']);  // id product
     Route::post('editcart/{id}',[CartController::class,'update_cart']);  // id cart
     Route::get('allcart',[CartController::class,'all_cart']);
     Route::post('deletecart/{id}',[CartController::class,'destroy']);   //id cart
-    
+
+    //browse site
+    Route::get('allbrand',[BrandController::class,'index']);
+    Route::get('allproduct',[ProductsController::class,'index']);
+    Route::get('allcategory',[CategoryController::class,'index']);
     //sentMessage
     Route::post('sentMessage',[ChatController::class,'sentMessage']);
     //ShowConvID
@@ -47,27 +51,25 @@ Route::middleware('auth:sanctum')->group(function()
 });
 
 
-Route::post('addcategory',[CategoryController::class,'store']);
-Route::post('addproduct',[ProductsController::class,'store']);
 
-Route::post('addbrand',[BrandController::class,'store']);
-Route::get('allbrand',[BrandController::class,'index']);
-Route::get('allcategory',[CategoryController::class,'index']);
-Route::get('allproduct',[ProductsController::class,'index']);
-Route::get('alluser',[AuthController::class,'showAllUser']);
 Route::group([
     'prefix'=>'dashboard',
     'middleware'=>['auth:sanctum','privateAdmin'],
 ],function()
 {
-    
     //Brands
+    Route::post('addbrand',[BrandController::class,'store']);
+    Route::get('allbrand',[BrandController::class,'index']);
     Route::post('editbrand/{id}',[BrandController::class,'update']);
     Route::delete('deletebrand/{id}',[BrandController::class,'destroy']);
     //Categories
+    Route::get('allcategory',[CategoryController::class,'index']);
+    Route::post('addcategory',[CategoryController::class,'store']);
     Route::post('editcategory/{id}',[CategoryController::class,'update']);
     Route::delete('deletecategory/{id}',[CategoryController::class,'destroy']);
     //Products  //note : put intro xxx-w
+    Route::get('allproduct',[ProductsController::class,'index']);
+    Route::post('addproduct',[ProductsController::class,'store']);
     Route::post('editproduct/{id}',[ProductsController::class,'update']);
     Route::delete('deleteproduct/{id}',[ProductsController::class,'destroy']);
 

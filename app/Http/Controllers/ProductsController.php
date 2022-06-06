@@ -57,7 +57,6 @@ class productsController extends BaseController
         }
         $products = Product::create([
             'title' => $request->title,
-            'price' =>  $request->price,
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
             'summary' => $request->summary,
