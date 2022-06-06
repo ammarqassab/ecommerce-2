@@ -72,7 +72,7 @@ class CategoryController extends BaseController
         $validator = Validator::make($request->all(), [
             'title' =>'required',
             'summary' => 'required',
-            'category_image' => 'required|file|mimes:jpeg,bmp,png,pdf,doc,docx',
+            'category_image' => 'file|mimes:jpeg,bmp,png,pdf,doc,docx',
             'status' =>'required',
              'disscount'=>'required',
         ]);

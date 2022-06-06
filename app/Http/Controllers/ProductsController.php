@@ -90,7 +90,7 @@ class productsController extends BaseController
              'summary' => 'required',
            'description' =>'required',
            'brand_id' =>'required',
-           'product_image' => 'required|file|mimes:jpeg,bmp,png,pdf,doc,docx',
+           'product_image' => 'file|mimes:jpeg,bmp,png,pdf,doc,docx',
            'disscount' =>'required',
            'size' =>'required',
         'condition' =>'required',

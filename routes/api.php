@@ -46,8 +46,7 @@ Route::middleware('auth:sanctum')->group(function()
     Route::post('allMssageConvID/{id}',[ChatController::class,'allMssageConvID']);
     //markAsRead
     Route::post('markAsRead/{id}',[ChatController::class,'markAsRead']);
-     //showAllConv 
-   Route::get('shoWAllConv',[ChatController::class,'shoWAllConv']);
+
 });
 
 
@@ -75,6 +74,8 @@ Route::group([
 
     Route::get('alluser',[AuthController::class,'showAllUser']);
     Route::post('deleteuser/{id}',[AuthController::class,'deleteUser']);
+        //showAllConv 
+        Route::get('shoWAllConv',[ChatController::class,'shoWAllConv']);
     
 });
 
