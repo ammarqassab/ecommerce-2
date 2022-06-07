@@ -49,6 +49,7 @@ function Card(props) {
 
     const products = useSelector( (state) => state.products.data);
     const id = props.id;
+    const condition = props.condition;
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
@@ -68,11 +69,12 @@ function Card(props) {
 
         <Slider {...settings}>
                 {products ? products.map((iteme, index) =>
-                    id == iteme.category_id && iteme.status == "active" ?
+                    id == iteme.category_id && iteme.status == "active" && ( iteme.condition == condition || condition == '') ?
                     <div key={index}>
 
                         <div className='margin' >
                             <div className='display-container clip-path-circle'>
+                                <div className=' display-topright badge bgc-1 border-0 bold textc-4 round' style={{marginTop:"10px"}} >{iteme.condition}</div>
                                 <LazyLoadImage
                                 src={'../upload/product_images/' + iteme.product_image}
                                 alt={iteme.title}
@@ -84,7 +86,7 @@ function Card(props) {
                             <div className='row-padding center card hover-shadow ' >
                                 <div className='col s100' >
                                     <div className='row-padding' >
-                                        <div className='col s50'><span className='fas fa-heart large textc-3 hover-textc-4' ></span></div>
+                                        <div className='col s50'><Link to={`/viewProduct/${index}`} className='large bold textc-3 hover-textc-4 text-decoration-none'>View</Link></div>
                                         <div className='col s50'><Link to="/yourCart" className='fas fa-cart-arrow-down large textc-3 hover-textc-4' ></Link></div>
                                     </div>
                                 </div>
@@ -110,17 +112,22 @@ function Card(props) {
 }
 
 
-export default function ProductsHome() {
+export default function ProductsHome(props) {
 
     const brand = useSelector( (state) => state.brand.data);
     const category = useSelector( (state) => state.category.data);
-
+    const condition = props.condition;
 
     return (
         <>
+            <div className="center" >
+                <div className="bar margin-top display-container" >
+                    <div className="bar-item xlarge textc-4 bottombar borderc-4">{condition} Products</div>
+                </div>
+            </div>
             {category ?
                 category.map((iteme, index) =>
-                (iteme.status == "active" ?
+                (iteme.status == "active"?
                 <div key={index} className="margin">
                     <br/>
                     <div className=' margin bgc-1 round-large' >
@@ -130,7 +137,7 @@ export default function ProductsHome() {
                         </div>
                     </div>
 
-                    <Card id={iteme.id} />
+                    <Card id={iteme.id} condition={condition}/>
 
                 </div>
                 : null)

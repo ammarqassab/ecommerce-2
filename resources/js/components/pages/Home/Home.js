@@ -1,5 +1,6 @@
 import React from 'react';
-import CategoryHome from './Category/CategoryHome';
+import CategoryHome from './CategoryHome/CategoryHome';
+import Notifications from './Notifications/Notifications';
 import ProductsHome from './ProductsHome/ProductsHome';
 
 export default function Home() {
@@ -14,8 +15,10 @@ export default function Home() {
                 </div>
                 <br/><br/><br/>
             </div>
+            <Notifications/>
             <CategoryHome/>
-            <ProductsHome/>
+            <ProductsHome condition={""}/>
+            <ProductsHome condition={"Hot"}/>
         </>
     );
 }

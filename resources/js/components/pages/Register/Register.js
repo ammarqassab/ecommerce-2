@@ -52,7 +52,7 @@ export default function Register () {
 
     return (
         <form>
-            <div className="container width-75vw">
+            <div className="container width-75vw height-con">
                 <div className="margin padding card-2 hover-shadow transparent" >
                     <div className="center" >
                         <div className="bar margin display-container" >

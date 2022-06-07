@@ -413,6 +413,10 @@ a {
   margin: 0px 10px;
   cursor: pointer;
   border: 2px solid black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 .badge {
   border-radius: 50%;
@@ -465,11 +469,12 @@ a {
 }
 
 .input {
-  padding: 8px;
+  padding: 8px 16px;
   display: block;
   border: var(--inputborder);
   color: #000;
   width: 100%;
+  height: 45px;
   outline: none;
 }
 .select {
@@ -759,6 +764,12 @@ input:disabled {
 .flex-justifyend {
   justify-content: flex-end;
 }
+.flex-direction-reverse {
+  flex-direction: column-reverse;
+}
+.rtl{
+    direction: rtl !important;
+}
 
 .col.s8 {
   width: 8.33333%;
@@ -936,6 +947,9 @@ input:disabled {
 .width-50 {
   width: 50%;
 }
+.width-60 {
+    width: 60%;
+  }
 .width-75 {
   width: 75%;
 }
@@ -1691,7 +1705,19 @@ input:disabled {
 .text-decoration-none {
   text-decoration: none;
 }
-
+.bold{
+    font-weight: bold;
+}
+.text-overflow{
+    text-overflow: clip;
+    white-space: nowrap;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.text-overflow2{
+    word-wrap: break-word;
+    overflow: hidden;
+}
 ::selection {
   color: rgb(255, 0, 150);
   background: aqua;
@@ -2060,6 +2086,25 @@ input:disabled {
 /* end Footer */
 
 /* Scroll */
+.upscroll2
+{
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display:block;
+  background-color: #0073d4;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 7px;
+  border-radius: 8px;
+  width: 56px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.5s;
+  z-index: 10000;
+  text-align: center;
+}
 .upscroll
 {
   position: fixed;
@@ -2252,3 +2297,40 @@ div:hover.clip-path-card
     }
 }
 /* end loading */
+/* chat */
+.height-con{
+    min-height: calc(100vh - 155px);
+}
+.height-con2{
+    height: calc(100vh - 155px);
+}
+.s-right{
+    border: solid 12px var(--borc-4);
+    border-right: solid 12px transparent;
+    border-top: solid 12px var(--borc-4);
+    border-left: solid 12px transparent;
+    border-bottom: solid 12px transparent;
+    margin-right: -12px;
+    width: 0px;
+    height: 0px;
+}
+.s-left{
+    border: solid 12px var(--borc-3);
+    border-right: solid 12px transparent;
+    border-top: solid 12px var(--borc-3);
+    border-left: solid 12px transparent;
+    border-bottom: solid 12px transparent;
+    margin-left: -12px;
+    width: 0px;
+    height: 0px;
+}
+.round-right{
+    border-radius: 16px 0 16px 16px;
+}
+.round-left{
+    border-radius: 0 16px 16px 16px;
+}
+.m-w{
+    max-width: 80%;
+}
+/* end chat */

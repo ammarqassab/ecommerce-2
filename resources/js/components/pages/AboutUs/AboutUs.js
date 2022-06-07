@@ -9,7 +9,7 @@ function CardAbout(props) {
     return (
         <div className='col m50 l25' >
             <div className='margin' >
-                <div className=' row-padding'>
+                <div className=' row-padding  border borderc-4 round-large height-100px'>
                     <div className=' col s33 xxlarge textc-4' >
                         <span className={icon} ></span>
                     </div>
@@ -25,9 +25,9 @@ function CardAbout(props) {
 
 export default function AboutUs() {
     return (
-        <div className=' bgc-1'>
+        <div className=' bgc-1 height-con'>
             <br/><br/><br/>
-            <div className='center' >
+            <div className='center animate-top' >
                 <div className=' row-padding margin' >
                     <CardAbout name={"FREE SHIPING"} des={'Orders over $100'} icon={"fas fa-fire"} />
                     <CardAbout name={'FREE RETURN'} des={'Within 30 days returns'} icon={"fas fa-sync-alt"} />

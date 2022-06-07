@@ -32,6 +32,7 @@ export default function Login () {
                 localStorage.setItem("city", responsee.data.data.city);
                 localStorage.setItem("token", responsee.data.data.token);
                 localStorage.setItem("role", responsee.data.data.role);
+                localStorage.setItem("id", responsee.data.data.id);
                 localStorage.setItem("message", responsee.data.message);
 
                 dispatch(addDataUser(responsee.data.data));
@@ -41,8 +42,9 @@ export default function Login () {
                     dispatch(addCart(responsee.data.data));
                 })
                 .catch( () => alert("حدث خطأ في تحميل الكروت"));
-                
-                navigate("/");
+
+                // navigate("/");
+                location.assign("http://127.0.0.1:8000");
             }
 
         })
@@ -52,7 +54,7 @@ export default function Login () {
 
     return (
         <form>
-            <div className="container width-75vw">
+            <div className="container width-75vw height-con">
                 <div className="margin padding card-2 hover-shadow transparent" >
                     <div className="center" >
                         <div className="bar margin display-container" >

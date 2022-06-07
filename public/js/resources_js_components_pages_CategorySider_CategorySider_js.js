@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Home_Category_CategoryHome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Home/Category/CategoryHome */ "./resources/js/components/pages/Home/Category/CategoryHome.js");
+/* harmony import */ var _Home_CategoryHome_CategoryHome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Home/CategoryHome/CategoryHome */ "./resources/js/components/pages/Home/CategoryHome/CategoryHome.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -25,7 +25,7 @@ function CategorySider() {
     return state.category.data;
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "bgc-header",
+    className: "bgc-header height-con",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "center",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -66,7 +66,7 @@ function CategorySider() {
             children: category ? category.map(function (iteme, index) {
               return iteme.status == "active" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "col m50 l33",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Home_Category_CategoryHome__WEBPACK_IMPORTED_MODULE_2__.CardCategory, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Home_CategoryHome_CategoryHome__WEBPACK_IMPORTED_MODULE_2__.CardCategory, {
                   num: index + 1,
                   title: iteme.title,
                   summary: iteme.summary,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { CardCategory } from '../Home/Category/CategoryHome';
+import { CardCategory } from '../Home/CategoryHome/CategoryHome';
 
 export default function CategorySider() {
 
     const category = useSelector( (state) => state.category.data);
 
     return (
-        <div className='bgc-header'>
+        <div className='bgc-header height-con'>
             <div className="center" >
                 <div className="bar margin-top display-container" >
                     <div className="bar-item xlarge textc-4 bottombar borderc-4">Category</div>

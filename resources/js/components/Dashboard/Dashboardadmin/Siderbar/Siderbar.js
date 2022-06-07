@@ -21,6 +21,7 @@ export default function Siderbar() {
             <MyNavLink to="/dashboard/category"><span className="fas fa-network-wired textc-3 hover-textc-1"></span> Category</MyNavLink>
             <MyNavLink to="/dashboard/products"><span className="fas fa-cart-plus textc-3 hover-textc-1"></span> Products</MyNavLink>
             <MyNavLink to="/dashboard/users"><span className="fas fa-user-friends textc-3 hover-textc-1"></span> Users</MyNavLink>
+            <MyNavLink to="/dashboard/chatAdmin"><span className="fab fa-telegram-plane textc-3 hover-textc-1"></span> Chat User</MyNavLink>
             </div>
         </div>
     );

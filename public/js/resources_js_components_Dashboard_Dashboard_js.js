@@ -928,6 +928,201 @@ function ChartLine() {
 
 /***/ }),
 
+/***/ "./resources/js/components/Dashboard/Dashboardadmin/ChatAdmin/ChatAdmin.js":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Dashboard/Dashboardadmin/ChatAdmin/ChatAdmin.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChatAdmin)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _pages_ContactUs_Chat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../pages/ContactUs/Chat */ "./resources/js/components/pages/ContactUs/Chat.js");
+/* harmony import */ var _ListChatAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListChatAdmin */ "./resources/js/components/Dashboard/Dashboardadmin/ChatAdmin/ListChatAdmin.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+function ChatAdmin() {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      userId = _React$useState2[0],
+      steuserId = _React$useState2[1];
+
+  function handleid(id) {
+    steuserId(id);
+  }
+
+  ;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: " animate-top",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "transparent display-container padding bgc-1 textc-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+        children: "Chat"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: " display-right button round-large border borderc-3 margin-right textc-2",
+        onClick: function onClick() {
+          return steuserId(null);
+        },
+        style: {
+          paddingBottom: '12px'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: " textc-2 xlarge",
+          children: "x"
+        }), " Close Chat"]
+      })]
+    }), userId != null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_pages_ContactUs_Chat__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      userId: userId
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ListChatAdmin__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      handleid: handleid
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Dashboard/Dashboardadmin/ChatAdmin/ListChatAdmin.js":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Dashboard/Dashboardadmin/ChatAdmin/ListChatAdmin.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ListChatAdmin)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-lazy-load-image-component */ "./node_modules/react-lazy-load-image-component/build/index.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_lazy_load_image_component_src_effects_blur_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-lazy-load-image-component/src/effects/blur.css */ "./node_modules/react-lazy-load-image-component/src/effects/blur.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+function Chats(_ref) {
+  var iteme = _ref.iteme;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: " row border round-large center",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: " col s100 display-container",
+      style: {
+        height: '68px'
+      },
+      children: [iteme.new_messages != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        className: " display-topmiddle",
+        style: {
+          width: '30px',
+          height: '30px',
+          zIndex: "9999",
+          top: '-3%',
+          left: '57%'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+          className: " badge bgc-5 small bold",
+          style: {
+            width: '30px',
+            height: '30px',
+            paddingTop: '4px'
+          },
+          children: [" ", iteme.new_messages]
+        })
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: " border borderc-1 circle display-middle",
+        style: {
+          width: '64px',
+          height: '64px'
+        },
+        children: iteme.profile_image != null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__.LazyLoadImage, {
+          src: '../upload/profile_images/' + iteme.participants[0].profile_image,
+          alt: iteme.participants[0].username,
+          width: "60px",
+          height: '60px',
+          effect: 'blur',
+          style: {
+            borderRadius: '50%'
+          }
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__.LazyLoadImage, {
+          src: '../img/dashuser.png',
+          alt: iteme.participants[0].username,
+          width: "60px",
+          height: '60px',
+          effect: 'blur',
+          style: {
+            borderRadius: '50%'
+          }
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: " col s100 padding bold text-overflow",
+      children: iteme.participants[0].username
+    }), iteme.last_message.type == 'text' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: " col s100 small left-align margin-left margin-right margin-bottom text-overflow",
+      children: iteme.last_message.body
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: " col s100 small left-align margin-left margin-right margin-bottom text-overflow",
+      children: "image"
+    })]
+  });
+}
+
+function ListChatAdmin(_ref2) {
+  var handleid = _ref2.handleid;
+  var chatAdmin = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.chatAdmin.data;
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "margin",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "bar margin-top display-container",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "bar-item xlarge textc-4 bottombar borderc-4",
+          children: "List Chat"
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: " row-padding",
+      children: chatAdmin ? chatAdmin.map(function (iteme, index) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "col m50 l25 padding pointer",
+          onClick: function onClick() {
+            return handleid(iteme.user_id);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Chats, {
+            iteme: iteme
+          })
+        }, index);
+      }) : null
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js":
 /*!****************************************************************************!*\
   !*** ./resources/js/components/Dashboard/Dashboardadmin/Dashboardadmin.js ***!
@@ -940,8 +1135,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var _Api_DashboardAdminApi_UsersApi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Api/DashboardAdminApi/UsersApi */ "./resources/js/components/Api/DashboardAdminApi/UsersApi.js");
 /* harmony import */ var _Api_FormApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Api/FormApi */ "./resources/js/components/Api/FormApi.js");
 /* harmony import */ var _Store_AuthSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Store/AuthSlice */ "./resources/js/components/Store/AuthSlice.js");
@@ -949,10 +1144,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Brands_Brand__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Brands/Brand */ "./resources/js/components/Dashboard/Dashboardadmin/Brands/Brand.js");
 /* harmony import */ var _Category_Category__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Category/Category */ "./resources/js/components/Dashboard/Dashboardadmin/Category/Category.js");
 /* harmony import */ var _ChartLine_ChartLine__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ChartLine/ChartLine */ "./resources/js/components/Dashboard/Dashboardadmin/ChartLine/ChartLine.js");
-/* harmony import */ var _Products_Products__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Products/Products */ "./resources/js/components/Dashboard/Dashboardadmin/Products/Products.js");
-/* harmony import */ var _Siderbar_Siderbar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Siderbar/Siderbar */ "./resources/js/components/Dashboard/Dashboardadmin/Siderbar/Siderbar.js");
-/* harmony import */ var _Users_Users__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Users/Users */ "./resources/js/components/Dashboard/Dashboardadmin/Users/Users.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ChatAdmin_ChatAdmin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ChatAdmin/ChatAdmin */ "./resources/js/components/Dashboard/Dashboardadmin/ChatAdmin/ChatAdmin.js");
+/* harmony import */ var _Products_Products__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Products/Products */ "./resources/js/components/Dashboard/Dashboardadmin/Products/Products.js");
+/* harmony import */ var _Siderbar_Siderbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Siderbar/Siderbar */ "./resources/js/components/Dashboard/Dashboardadmin/Siderbar/Siderbar.js");
+/* harmony import */ var _Users_Users__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Users/Users */ "./resources/js/components/Dashboard/Dashboardadmin/Users/Users.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -987,8 +1183,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 function MyNavLink(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.NavLink, _objectSpread(_objectSpread({
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.NavLink, _objectSpread(_objectSpread({
     className: "bar-item button textc-1 margin round-xlarge",
     style: function style(_ref) {
       var isActive = _ref.isActive;
@@ -1004,11 +1201,11 @@ function MyNavLink(props) {
 function Counter(props) {
   var name = props.name;
   var number = props.number;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
     className: " col s100 m50 l25",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: "display-container border borderc-3 round-large height-100px margin",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "xlarge display-middle",
         children: [name, " ", number]
       })
@@ -1033,7 +1230,7 @@ function Dashboardadmin() {
     return state.users.data;
   });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useNavigate)();
   var brandlen = 0;
 
   for (var i in brand) {
@@ -1098,59 +1295,59 @@ function Dashboardadmin() {
     });
   }
 
-  var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useParams)();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+  var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useParams)();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
       id: "dashboard",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: " center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "sidebar-sticky bgc-1",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
             className: "bar textc-2 transparent",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
               className: "bar-item button textc-1 margin round-xlarge bgc-3",
               onClick: functaggle,
               children: "\u2630"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(MyNavLink, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(MyNavLink, {
               to: "/",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
                 className: "fas fa-home textc-1"
               }), " Home"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(MyNavLink, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(MyNavLink, {
               to: "/dashboard",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
                 className: "fas fa-user-cog textc-1"
               }), " ", auth.username]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
               className: "bar-item button textc-1 margin round-xlarge bgc-3",
               onClick: logout,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
                 className: "fas fa-sign-out-alt textc- "
               }), " Logout"]
             })]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), params.id === 'chatAdmin' ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "transparent",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: " row-padding",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Counter, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Counter, {
             name: 'brand',
             number: brandlen
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Counter, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Counter, {
             name: 'Category',
             number: categorylen
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Counter, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Counter, {
             name: 'Products',
             number: productslen
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Counter, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Counter, {
             name: 'Users',
             number: userslen
           })]
         })
-      }), params.id === 'chartline' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_ChartLine_ChartLine__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : null, params.id === 'brands' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Brands_Brand__WEBPACK_IMPORTED_MODULE_6__["default"], {}) : null, params.id === 'category' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Category_Category__WEBPACK_IMPORTED_MODULE_7__["default"], {}) : null, params.id === 'products' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Products_Products__WEBPACK_IMPORTED_MODULE_9__["default"], {}) : null, params.id === 'users' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Users_Users__WEBPACK_IMPORTED_MODULE_11__["default"], {}) : null]
-    }), taggle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Siderbar_Siderbar__WEBPACK_IMPORTED_MODULE_10__["default"], {}) : null]
+      }), params.id === 'chartline' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ChartLine_ChartLine__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : null, params.id === 'brands' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Brands_Brand__WEBPACK_IMPORTED_MODULE_6__["default"], {}) : null, params.id === 'category' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Category_Category__WEBPACK_IMPORTED_MODULE_7__["default"], {}) : null, params.id === 'products' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Products_Products__WEBPACK_IMPORTED_MODULE_10__["default"], {}) : null, params.id === 'users' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Users_Users__WEBPACK_IMPORTED_MODULE_12__["default"], {}) : null, params.id === 'chatAdmin' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ChatAdmin_ChatAdmin__WEBPACK_IMPORTED_MODULE_9__["default"], {}) : null]
+    }), taggle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Siderbar_Siderbar__WEBPACK_IMPORTED_MODULE_11__["default"], {}) : null]
   });
 }
 
@@ -1902,6 +2099,11 @@ function Siderbar() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
           className: "fas fa-user-friends textc-3 hover-textc-1"
         }), " Users"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(MyNavLink, {
+        to: "/dashboard/chatAdmin",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "fab fa-telegram-plane textc-3 hover-textc-1"
+        }), " Chat User"]
       })]
     })
   });
@@ -2604,6 +2806,367 @@ function Siderbaruser() {
           className: "fas fa-cogs textc-3 hover-textc-1"
         }), " Reviews"]
       })]
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ContactUs/BodyChat.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/pages/ContactUs/BodyChat.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ BodyChat)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _SentChat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SentChat */ "./resources/js/components/pages/ContactUs/SentChat.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-lazy-load-image-component */ "./node_modules/react-lazy-load-image-component/build/index.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_lazy_load_image_component_src_effects_blur_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-lazy-load-image-component/src/effects/blur.css */ "./node_modules/react-lazy-load-image-component/src/effects/blur.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+function BodyChat(_ref) {
+  var userId = _ref.userId,
+      scroll = _ref.scroll;
+  var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.auth;
+  });
+  var chatUser = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.chatUser.data;
+  });
+
+  function time(text) {
+    var time = new Date(text);
+    return " ".concat(time.getHours(), ":").concat(time.getMinutes());
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: " height-con2 padding",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      style: {
+        overflowY: 'auto',
+        height: '85%'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: " row flex-direction-reverse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "col s100",
+          ref: scroll
+        }), chatUser ? chatUser.map(function (iteme, index) {
+          return iteme.type == 'text' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "col s100 padding ".concat(iteme.user_id == auth.id ? ' rtl' : ''),
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: " display-container margin padding width-fit-content m-w large textc-1 bold text-overflow2 ".concat(iteme.user_id == auth.id ? ' bgc-4 round-right' : ' bgc-3 round-left'),
+              children: [iteme.user_id == auth.id && iteme.recipients[0].read_at != null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: " fas fa-check textc-1 small"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: " fas fa-check textc-1 small"
+                })]
+              }) : iteme.user_id == auth.id && iteme.recipients[0].read_at == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: " fas fa-check textc-1 small"
+              }) : null, iteme.body, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                className: "small",
+                children: [" ", time(iteme.created_at), " "]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "".concat(iteme.user_id == auth.id ? ' display-topright s-right' : ' display-topleft s-left')
+              })]
+            })
+          }, index) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "col s100  ".concat(iteme.user_id == auth.id ? ' rtl' : ''),
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: " display-container margin width-fit-content m-w border ".concat(iteme.user_id == auth.id ? ' borderc-4' : ' borderc-3'),
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_3__.LazyLoadImage, {
+                src: '../storage/' + iteme.body.file_path,
+                alt: iteme.body.file_name,
+                width: "250px",
+                height: '250px',
+                effect: 'blur'
+              })
+            })
+          }, index);
+        }) : null]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SentChat__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      userId: userId,
+      scroll: scroll
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ContactUs/Chat.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/pages/ContactUs/Chat.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Chat)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var _Api_ChatUserApi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Api/ChatUserApi */ "./resources/js/components/Api/ChatUserApi.js");
+/* harmony import */ var _Store_ChatUserSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Store/ChatUserSlice */ "./resources/js/components/Store/ChatUserSlice.js");
+/* harmony import */ var _BodyChat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BodyChat */ "./resources/js/components/pages/ContactUs/BodyChat.js");
+/* harmony import */ var _ListChat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ListChat */ "./resources/js/components/pages/ContactUs/ListChat.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+
+
+function Chat(_ref) {
+  var userId = _ref.userId;
+  var scroll = react__WEBPACK_IMPORTED_MODULE_0__.useRef();
+  var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.auth;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+    if (auth.token && auth.role == "user" || auth.token && auth.role == "admin") {
+      (0,_Api_ChatUserApi__WEBPACK_IMPORTED_MODULE_2__.markAsReadApi)(auth.token, userId).then(function (responsee) {})["catch"](function () {
+        return alert("حدث خطأ في إرسال طلب قراءة المحادثة");
+      });
+      scroll.current.scrollIntoView();
+      window.scrollTo({
+        top: 0
+      });
+    }
+
+    if (auth.token && auth.role == "admin") {
+      (0,_Api_ChatUserApi__WEBPACK_IMPORTED_MODULE_2__.allMessageApi)(auth.token, userId).then(function (responsee) {
+        dispatch((0,_Store_ChatUserSlice__WEBPACK_IMPORTED_MODULE_3__.addChatUser)(responsee.data.messages));
+        scroll.current.scrollIntoView();
+        window.scrollTo({
+          top: 0
+        });
+      })["catch"](function () {
+        return alert("حدث خطأ في الحصول على المحادثة");
+      });
+    }
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: auth.token && auth.role == "user" || auth.token && auth.role == "admin" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: " bgc-1 height-con textc-2 animate-top",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: " row",
+        children: [auth.role == "user" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: " col l25 hide-medium hide-small",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ListChat__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: " col ".concat(auth.role == "user" ? ' l75' : ' s100'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_BodyChat__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            userId: userId,
+            scroll: scroll
+          })
+        })]
+      })
+    }) : userId == '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Navigate, {
+      to: "/login"
+    }) : null
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ContactUs/ListChat.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/pages/ContactUs/ListChat.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ListChat)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function ListChat() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "rightbar height-con2",
+      style: {
+        overflowY: 'auto'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: " border borderc-3 round-xxlarge margin-auto padding hover-bgc-4 hover-borderc-4 width-75",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+          src: "../img/dashuser.png",
+          alt: "",
+          className: "border borderc-1 circle display-inline",
+          style: {
+            width: "40px",
+            height: "40px"
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: " button hover-none textc-3 display-inline",
+          children: "Admin"
+        })]
+      })
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ContactUs/SentChat.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/pages/ContactUs/SentChat.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SentChat)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Api_ChatUserApi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Api/ChatUserApi */ "./resources/js/components/Api/ChatUserApi.js");
+/* harmony import */ var _Store_ChatUserSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Store/ChatUserSlice */ "./resources/js/components/Store/ChatUserSlice.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+function SentChat(_ref) {
+  var _this = this;
+
+  var userId = _ref.userId,
+      scroll = _ref.scroll;
+  var auth = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.auth;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(''),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      text = _React$useState2[0],
+      settext = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      image = _React$useState4[0],
+      setimage = _React$useState4[1];
+
+  var handlefile = function handlefile(e) {
+    e.preventDefault();
+    setimage(e.target.files[0]);
+  };
+
+  var submit = function submit(e) {
+    e.preventDefault();
+    var userid2 = userId;
+
+    if (auth.role == "user") {
+      userid2 = 1;
+    }
+
+    var formData = new FormData();
+
+    if (image != null) {
+      formData.append("user_id", userid2);
+      formData.append("attachment", image);
+      formData.append("body", _this);
+    }
+
+    if (text != '') {
+      formData.append("message", text);
+      formData.append("user_id", userid2);
+    }
+
+    (0,_Api_ChatUserApi__WEBPACK_IMPORTED_MODULE_2__.sentMessageApi)(auth.token, formData).then(function (responsee) {
+      dispatch((0,_Store_ChatUserSlice__WEBPACK_IMPORTED_MODULE_3__.updataChatUser)(responsee.data.data));
+      settext('');
+      setimage(null);
+      scroll.current.scrollIntoView();
+      window.scrollTo({
+        top: 0
+      });
+    })["catch"](function () {
+      return alert("حدث خطأ في إرسال الرسالة");
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
+      style: {
+        height: '15%'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: " row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col s100",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            type: "submit",
+            className: "button round-large border hover-borderc-4 textc-2 margin display-inline",
+            onClick: function onClick(e) {
+              return submit(e);
+            },
+            children: "Send"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "file",
+            multiple: true,
+            accept: "image/*",
+            className: "input round focus-border display-inline",
+            style: {
+              width: '102px',
+              height: '44px',
+              padding: '4px'
+            },
+            onChange: function onChange(e) {
+              return handlefile(e);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            className: "input width-50 transparent round focus-border textc-2 margin display-inline",
+            placeholder: "Message ...",
+            value: text,
+            onChange: function onChange(e) {
+              return settext(e.target.value);
+            }
+          })]
+        })
+      })
     })
   });
 }

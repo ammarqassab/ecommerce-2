@@ -15,7 +15,7 @@ export default function Siderbar() {
                 <div className="bar textc-2 transparent" >
                     <MyNavLink to={"/"} >Home</MyNavLink>
                     <MyNavLink to={"/category"}>Category</MyNavLink>
-                    <MyNavLink to={"/blog"}>Blog</MyNavLink>
+                    {/* <MyNavLink to={"/blog"}>Blog</MyNavLink> */}
                     <MyNavLink to={"/contactUs"}>Contact Us</MyNavLink>
                     <MyNavLink to={"/aboutUs"}>About Us</MyNavLink>
                 </div>

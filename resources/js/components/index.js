@@ -18,6 +18,9 @@ import { addProducts } from './Store/ProductsSlice';
 import Loading from './pages/Loading/Loading';
 import { allCartApi } from './Api/CartApi';
 import { addCart } from './Store/CartSlice';
+import { allMessageApi, shoWAllConvApi } from './Api/ChatUserApi';
+import { addChatUser } from './Store/ChatUserSlice';
+import { addChatAdmin } from './Store/ChatAdminSlice';
 
 const Dashboard = React.lazy( () => import('./Dashboard/Dashboard') )
 
@@ -38,15 +41,37 @@ function Index() {
             const city = localStorage.getItem("city");
             const token = localStorage.getItem("token");
             const role = localStorage.getItem("role");
+            const id = localStorage.getItem("id");
             const message = localStorage.getItem("message");
 
-            dispatch(addDataUser({firstname, lastname, username, email, phone, profile_image, address, city, token, role, message}));
+            dispatch(addDataUser({firstname, lastname, username, email, phone, profile_image, address, city, token, role, id, message}));
 
             allCartApi(token)
             .then( (responsee) => {
                 dispatch(addCart(responsee.data.data));
             })
             .catch( () => alert("حدث خطأ في تحميل الكروت"));
+
+            if(token && role =="user") {
+
+                allMessageApi(token, id)
+                .then((responsee) =>{
+                    dispatch(addChatUser(responsee.data.messages));
+
+                })
+                .catch( () => alert("حدث خطأ في الحصول على المحادثة"));
+            }
+
+            if(token && role =="admin") {
+
+                shoWAllConvApi(token)
+                .then((responsee) =>{
+                    dispatch(addChatAdmin(responsee.data.data));
+
+                })
+                .catch( () => alert("حدث خطأ في الحصول على المحادثات الأدمن"));
+            }
+
         }
 
         allBrandApi()

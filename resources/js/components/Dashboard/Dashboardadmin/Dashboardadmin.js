@@ -8,6 +8,7 @@ import { addusers } from '../../Store/UsersSlice';
 import Brand from './Brands/Brand';
 import Category from './Category/Category';
 import ChartLine from './ChartLine/ChartLine';
+import ChatAdmin from './ChatAdmin/ChatAdmin';
 import Products from './Products/Products';
 import Siderbar from './Siderbar/Siderbar';
 import Users from './Users/Users';
@@ -100,6 +101,8 @@ export default function Dashboardadmin() {
                     </div>
                 </div>
 
+                {params.id === 'chatAdmin' ? null
+                :
                 <div className='transparent' >
                     <div className=' row-padding'>
                         <Counter name={'brand'} number={brandlen}/>
@@ -108,12 +111,14 @@ export default function Dashboardadmin() {
                         <Counter name={'Users'} number={userslen}/>
                     </div>
                 </div>
+                }
 
                 {params.id === 'chartline' ? <ChartLine /> : null}
                 {params.id === 'brands' ? <Brand /> : null}
                 {params.id === 'category' ? <Category/> : null}
                 {params.id === 'products' ? <Products/> : null}
                 {params.id === 'users' ? <Users/> : null}
+                {params.id === 'chatAdmin' ? <ChatAdmin/> : null}
             </div>
 
             {taggle ? <Siderbar/> : null}
