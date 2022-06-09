@@ -1524,7 +1524,32 @@ input:disabled {
 .jumbo {
   font-size: 64px !important;
 }
-
+@media (max-width: 400px) {
+    .tiny {
+    font-size: 7px !important;
+    }
+    .small {
+    font-size: 9px !important;
+    }
+    .medium {
+    font-size: 10px !important;
+    }
+    .large {
+    font-size: 12px !important;
+    }
+    .xlarge {
+    font-size: 16px !important;
+    }
+    .xxlarge {
+    font-size: 24px !important;
+    }
+    .xxxlarge {
+    font-size: 32px !important;
+    }
+    .jumbo {
+    font-size: 42px !important;
+    }
+}
 .outline-0 {
   outline: none !important;
 }
